@@ -1,0 +1,32 @@
+backup() {
+  mv $1 $1.old
+}
+
+source_config_wpath(){
+  echo "export DOTFILES=$PWD\nsource $PWD/$1" > ~/$2
+}
+source_config() {
+  echo "source $PWD/$1" > ~/$2
+}
+
+echo "Installing packages"
+sudo apt-get install tmux -y
+
+echo "Backing up old config files"
+backup ~/.vimrc
+backup ~/.tmux.conf
+backup ~/.zshrc
+
+echo "Setting up new config files"
+source_config vim/.vimrc .vimrc
+source_config tmux/.tmux.conf .tmux.conf
+source_config_wpath zsh/zshrc_manager.sh .zshrc
+
+echo "Cloning repos"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
+
+echo "Installing vim plugins"
+vim +PluginInstall +qall
+
+
