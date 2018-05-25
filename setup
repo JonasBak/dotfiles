@@ -9,8 +9,7 @@ source_config() {
   echo "source $PWD/$1" > ~/$2
 }
 
-echo "Installing packages"
-sudo apt-get install tmux -y
+source $PWD/setup_scripts/install_packages
 
 echo "Backing up old config files"
 backup ~/.vimrc
@@ -22,11 +21,8 @@ source_config vim/.vimrc .vimrc
 source_config tmux/.tmux.conf .tmux.conf
 source_config_wpath zsh/zshrc_manager.sh .zshrc
 
-echo "Cloning repos"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
+source $PWD/setup_scripts/clone_repos
 
-echo "Installing vim plugins"
-vim +PluginInstall +qall
+source $PWD/vim/install_plugins
 
-
+source $PWD/setup_scripts/conf_terminal

@@ -65,6 +65,9 @@ noremap <C-t> :tabnew<CR>
 noremap <C-s> :w<CR>
 inoremap <C-s> <esc>:w<CR>a
 
+" Go to end of line
+inoremap <C-e> <C-o>A
+
 " No arrow keys for navigation
 noremap <Up> <NOP>
 noremap <Down> <NOP>

@@ -13,15 +13,19 @@ set_prompt() {
 	PS1+="%{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%}"
 
 	# Status Code
-	PS1+='%(?.., %{$fg[red]%}%?%{$reset_color%})'
+	#PS1+='%(?.., %{$fg[red]%}%?%{$reset_color%})'
 
+	PS1+="%{$fg[white]%}]: %{$reset_color%}% "
 	# Git
 	if git rev-parse --is-inside-work-tree 2> /dev/null | grep -q 'true' ; then
-		PS1+=', '
-		PS1+="%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)%{$reset_color%}"
+    RIGHT="%{$fg[white]%}[%{$reset_color%}"
+		#PS1+=', '
+		RIGHT+="%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)%{$reset_color%}"
 		if [ $(git status --short | wc -l) -gt 0 ]; then 
-			PS1+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
+			RIGHT+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
 		fi
+	  RIGHT+="%{$fg[white]%}]%{$reset_color%}% "
+    RPROMPT=$RIGHT
 	fi
 
 
@@ -45,7 +49,6 @@ set_prompt() {
 	#	PS1+="%{$fg_bold[red]%}SUDO%{$reset_color%}"
 	#fi
 
-	PS1+="%{$fg[white]%}]: %{$reset_color%}% "
 }
 
 precmd_functions+=set_prompt

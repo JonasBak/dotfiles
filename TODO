@@ -3,7 +3,7 @@ fikse farger
 fikse egen prompt
 keybindings
 
-
+Install scriptet burde lage filer for lokale scripts, som skal ligge i .gitignore
 
 Man må installere zsh og sette det som default shell manuelt
 Man må installere vim manuelt
