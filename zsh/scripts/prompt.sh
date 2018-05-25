@@ -24,7 +24,7 @@ set_prompt() {
 		if [ $(git status --short | wc -l) -gt 0 ]; then 
 			RIGHT+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
 		fi
-	  RIGHT+="%{$fg[white]%}]%{$reset_color%}% "
+	  RIGHT+="%{$fg[white]%}]%{$reset_color%}%"
     RPROMPT=$RIGHT
 	fi
 

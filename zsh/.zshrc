@@ -62,4 +62,7 @@ if [[ "${terminfo[kcud1]}" != "" ]]; then
 	bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
 
-source $DOTFILES/zsh/prompt.sh
+source $DOTFILES/zsh/scripts/prompt.sh
+source $DOTFILES/zsh/scripts/fixls.zsh
+source $DOTFILES/zsh/scripts/bindings.sh
+

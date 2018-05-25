@@ -20,6 +20,7 @@ Plugin 'scrooloose/nerdtree'                "document tree
 Plugin 'Xuyuanp/nerdtree-git-plugin'        "git flags
 Plugin 'joshdick/onedark.vim'               "onedark style
 Plugin 'sheerun/vim-polyglot'               "Language pack
+Plugin 'valloric/youcompleteme'             "completion
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -137,3 +138,14 @@ if (empty($TMUX))
     endif
 endif
 colorscheme onedark
+
+
+" YCM
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
