@@ -14,6 +14,7 @@ dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/visible-name "
 # Set transparent background
 dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/use-theme-transparency false
 dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/use-transparent-background true
+dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/background-transparency-percent 5
 
 
 # Set text and background color
