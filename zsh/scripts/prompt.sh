@@ -24,16 +24,30 @@ set_prompt() {
 
     RIGHT="%{$fg[white]%}[%{$reset_color%}"
 		#PS1+=', '
-		RIGHT+="%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)%{$reset_color%}"
+    branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+		RIGHT+="%{$fg[blue]%}$branch%{$reset_color%}"
+    
+    ahead=$(git rev-list --count origin/$branch...$branch)
+    
+    if [ $ahead -ne 0 ]; then
+      RIGHT+="%{$fg[blue]%}%{$reset_color%}"
+    fi
+
+    diff=""
 		if [ $added -ne "+0" ]; then 
-			 RIGHT+="%{$fg[green]%}+$added%{$reset_color%}"
+			 diff+="%{$fg[green]%}+$added%{$reset_color%}"
 		fi
     if [ $modified -ne "+0" ]; then 
-			 RIGHT+="%{$fg[blue]%}+$modified%{$reset_color%}"
+			 diff+="%{$fg[blue]%}+$modified%{$reset_color%}"
 		fi
     if [ $untracked -ne "+0" ]; then 
-			 RIGHT+="%{$fg[yellow]%}+$untracked%{$reset_color%}"
+			 diff+="%{$fg[yellow]%}+$untracked%{$reset_color%}"
 		fi
+
+    if [ -n $diff ]; then
+      RIGHT+="|$diff"
+    fi
+
 	  RIGHT+="%{$fg[white]%}]%{$reset_color%}%"
     RPROMPT=$RIGHT
   else

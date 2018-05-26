@@ -23,6 +23,7 @@ Plugin 'sheerun/vim-polyglot'               "Language pack
 Plugin 'valloric/youcompleteme'             "completion
 Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -42,6 +43,8 @@ filetype plugin indent on    " required
 set rtp+=~/.fzf 
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+set updatetime=500
 
 " General settings
 syntax on
