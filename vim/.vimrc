@@ -21,6 +21,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'        "git flags
 Plugin 'joshdick/onedark.vim'               "onedark style
 Plugin 'sheerun/vim-polyglot'               "Language pack
 Plugin 'valloric/youcompleteme'             "completion
+Plugin 'junegunn/fzf.vim'
+Plugin 'mileszs/ack.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -36,6 +38,10 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 
 " END VUNDLE CONFIG
+
+set rtp+=~/.fzf 
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " General settings
 syntax on

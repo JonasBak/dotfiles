@@ -18,11 +18,21 @@ set_prompt() {
 	PS1+="%{$fg[white]%}]: %{$reset_color%}% "
 	# Git
 	if git rev-parse --is-inside-work-tree 2> /dev/null | grep -q 'true' ; then
+    modified=$(git status -s | grep "^.\(M\|D\)" -c)
+    added=$(git status -s | grep "^\(A\|M\|D\|R\|C\)" -c)
+    untracked=$(git status -s | grep "^??" -c)
+
     RIGHT="%{$fg[white]%}[%{$reset_color%}"
 		#PS1+=', '
 		RIGHT+="%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)%{$reset_color%}"
-		if [ $(git status --short | wc -l) -gt 0 ]; then 
-			RIGHT+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
+		if [ $added -ne "+0" ]; then 
+			 RIGHT+="%{$fg[green]%}+$added%{$reset_color%}"
+		fi
+    if [ $modified -ne "+0" ]; then 
+			 RIGHT+="%{$fg[blue]%}+$modified%{$reset_color%}"
+		fi
+    if [ $untracked -ne "+0" ]; then 
+			 RIGHT+="%{$fg[yellow]%}+$untracked%{$reset_color%}"
 		fi
 	  RIGHT+="%{$fg[white]%}]%{$reset_color%}%"
     RPROMPT=$RIGHT
