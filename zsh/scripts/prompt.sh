@@ -26,6 +26,8 @@ set_prompt() {
 		fi
 	  RIGHT+="%{$fg[white]%}]%{$reset_color%}%"
     RPROMPT=$RIGHT
+  else
+    RPROMPT=""
 	fi
 
 

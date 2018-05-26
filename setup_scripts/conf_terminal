@@ -20,7 +20,14 @@ dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/background-tra
 # Set text and background color
 dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/use-theme-colors false
 dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/foreground-color "'rgb(255,255,255)'"
-dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/background-color "'rgb(3,3,3)'"
+dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/background-color "'rgb(26,26,26)'"
 
 # Set color palette
 dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/palette "['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(30,144,255)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(229,229,229)', 'rgb(76,76,76)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(70,130,180)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']"
+
+# Set background image
+dconf write /org/gnome/desktop/background/picture-options "'zoom'"
+# TODO get path from variable
+dconf write /org/gnome/desktop/background/picture-uri "'file:///home/jonasbak/dotfiles/div/background1.jpg'"
+
+
