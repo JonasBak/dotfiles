@@ -9,7 +9,7 @@ backup() {
 }
 
 source_config_wpath(){
-  echo ". $DOTFILES/var.sh\nsource $DOTFILES/$1" > ~/$2
+  echo ". $DOTFILES/.var\nsource $DOTFILES/$1" > ~/$2
 }
 source_config() {
   echo ". $DOTFILES/$1" > ~/$2
@@ -17,7 +17,7 @@ source_config() {
 
 
 # Setup var file
-echo "export DOTFILES=$PWD" > $PWD/var.sh
+echo "export DOTFILES=$PWD" > $PWD/.var
 export DOTFILES=$PWD
 
 # Install required packages

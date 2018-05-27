@@ -6,4 +6,4 @@ if command -v tmux>/dev/null; then
 fi
 export OMZ=~/.oh-my-zsh
 export ZAS=~/.zsh-autosuggestions
-source $DOTFILES/zsh/.zshrc
+source $DOTFILES/zsh/zshrc
