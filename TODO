@@ -10,3 +10,5 @@ Lage dot update som tar git pull og installerer nye ting(vim)
 Lag lokal mappe for repos for å slippe å legge de i ~/, legg i .gitignore
 
 Bestemme om jeg skal bruke source eller . , bestemme hva som skal ha .sh, om noen
+
+Lag oppdateringsscript for alle mapper
