@@ -44,7 +44,7 @@ set_prompt() {
 			 diff+="%{$fg[yellow]%}+$untracked%{$reset_color%}"
 		fi
 
-    if [ -n $diff ]; then
+    if [ -n "$diff" ]; then
       RIGHT+="|$diff"
     fi
 
