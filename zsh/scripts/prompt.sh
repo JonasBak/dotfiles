@@ -30,7 +30,7 @@ set_prompt() {
     ahead=$(git rev-list --count origin/$branch...$branch)
     
     if [ $ahead -ne 0 ]; then
-      RIGHT+="%{$fg[blue]%}+$ahead%{$reset_color%}"
+      RIGHT+="%{$fg[blue]%} d$ahead%{$reset_color%}"
     fi
 
     diff=""
