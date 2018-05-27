@@ -1,8 +1,0 @@
-echo "Installing packages"
-# TODO check if installed first, this file is mostly kept for reference
-sudo apt-get install tmux -y
-sudo apt-get install vim -y
-sudo apt-get install zsh -y
-# To set default shell chsh -s $(which zsh)
-
-source ./install_ycm

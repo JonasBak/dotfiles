@@ -1,0 +1,19 @@
+#!/bin/bash
+backup ~/.vimrc
+source_config vim/.vimrc .vimrc
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Install ag
+sudo apt-get install silversearcher-ag
+
+# Install YCM
+#sudo apt-get install build-essential cmake
+#sudo apt-get install python-dev python3-dev
+
+cd ~/.vim/bundle/youcompleteme
+./install.py
+cd $PWD
+
+# Install plugins
+vim +PluginInstall +qall

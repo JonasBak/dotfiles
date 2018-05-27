@@ -1,0 +1,33 @@
+install() {
+  # TODO if based on os
+  # TODO check if installed first
+  sudo apt-get install $1 -y
+}
+
+backup() {
+  mv $1 $1.old
+}
+
+source_config_wpath(){
+  echo ". $DOTFILES/var.sh\nsource $DOTFILES/$1" > ~/$2
+}
+source_config() {
+  echo ". $DOTFILES/$1" > ~/$2
+}
+
+
+# Setup var file
+echo "export DOTFILES=$PWD" > $PWD/var.sh
+export DOTFILES=$PWD
+
+# Install required packages
+. $DOTFILES/setup_scripts/req_packages
+
+# Run all install scripts
+# Burde kanskje gjøres i rekkefølge dersom det er deps mellom mapper
+for script in `find $DOTFILES -maxdepth 2 -name install_\*`
+do
+  . $script
+done
+
+# TODO run os based conf (conf_terminal)

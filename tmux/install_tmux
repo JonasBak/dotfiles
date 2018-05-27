@@ -1,0 +1,3 @@
+#!/bin/bash
+backup ~/.tmux.conf
+source_config tmux/.tmux.conf tmux.conf

@@ -1,7 +1,0 @@
-# Reqs, should test if installed
-#sudo apt-get install build-essential cmake
-#sudo apt-get install python-dev python3-dev
-
-cd ~/.vim/bundle/youcompleteme
-./install.py
-cd $PWD

@@ -1,6 +1,7 @@
 dot(){
   if [[ "$1" = "edit" ]]; then
-    vim $DOTFILES
+    cd $DOTFILES
+    vim .
   else
     cd $DOTFILES
   fi
