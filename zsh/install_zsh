@@ -1,9 +1,16 @@
 #!/bin/bash
 backup ~/.zshrc
-source_config_wpath zsh/zshrc_manager.sh .zsh
+source_config_wpath zsh/zshrc_manager.sh .zshrc
 
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
+echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> ~/.zshrc
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
+
+if [ -d ~/.fzf ]
+then 
+  echo "Fzf is already installed"
+else
+  clone "--depth 1 https://github.com/junegunn/fzf.git" ~/.fzf
+  ~/.fzf/install
+fi

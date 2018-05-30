@@ -1,18 +1,38 @@
 install() {
   # TODO if based on os
-  # TODO check if installed first
-  sudo apt-get install $1 -y
+  if ! [ -x "$(command -v $1)" ]; then
+    echo Installing $1
+    sudo apt-get install $1 -y
+  else
+    echo $1 is already installed
+  fi
+
 }
 
 backup() {
-  mv $1 $1.old
+  if [ -f "$1.old" ]
+  then
+    echo $1 already backed up
+  else 
+    echo Backing up $1
+    mv $1 $1.old
+  fi
 }
 
 source_config_wpath(){
-  echo ". $DOTFILES/.var\nsource $DOTFILES/$1" > ~/$2
+  echo "source $DOTFILES/.var\nsource $DOTFILES/$1\n" > ~/$2
 }
 source_config() {
-  echo ". $DOTFILES/$1" > ~/$2
+  echo "source $DOTFILES/$1\n" > ~/$2
+}
+
+clone() {
+  if [ -d $2 ] 
+  then
+    echo $1 already cloned
+  else
+    git clone $1 $2
+  fi
 }
 
 
@@ -21,12 +41,13 @@ echo "export DOTFILES=$PWD" > $PWD/.var
 export DOTFILES=$PWD
 
 # Install required packages
-. $DOTFILES/setup_scripts/req_packages
+source $DOTFILES/setup_scripts/req_packages
 
 # Run all install scripts
 # Burde kanskje gjøres i rekkefølge dersom det er deps mellom mapper
 for script in `find $DOTFILES -maxdepth 2 -name install_\*`
 do
+  echo Running $script
   . $script
 done
 
