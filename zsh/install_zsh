@@ -6,6 +6,7 @@ echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> ~/.zshrc
 
 clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
+clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting
 
 if [ -d ~/.fzf ]
 then 

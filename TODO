@@ -1,14 +1,9 @@
-keybindings
-
 Install scriptet burde lage filer for lokale scripts, som skal ligge i .gitignore
 
-Bedre installasjonsscript, bedre mappestruktur, feks kjør alle install* scripts i undermapper, krever litt omstokking
-
-Todo binding
-
-Lage dot update som tar git pull og installerer nye ting(vim)
 Lag lokal mappe for repos for å slippe å legge de i ~/, legg i .gitignore
 
 Bestemme om jeg skal bruke source eller . , bestemme hva som skal ha .sh, om noen
 
-Lag oppdateringsscript for alle mapper
+Test om ag er installert i install_vim
+
+Test om ycm allerede er bygget i install_vim

@@ -6,6 +6,7 @@ fi
 OMZ=~/.oh-my-zsh
 #Should probably be in .var 
 ZAS=~/.zsh-autosuggestions
+ZAH=~/.zsh-syntax-highlighting
 
 # Vars
 	HISTFILE=~/.zsh_history
@@ -22,6 +23,7 @@ source $OMZ/lib/history.zsh
 source $OMZ/lib/key-bindings.zsh
 source $OMZ/lib/completion.zsh
 source $ZAS/zsh-autosuggestions.zsh
+source $ZAH/zsh-syntax-highlighting.zsh
 
 # Fix for arrow-key searching
 # start typing + [Up-Arrow] - fuzzy find history forward
