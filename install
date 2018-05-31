@@ -41,7 +41,7 @@ echo "export DOTFILES=$PWD" > $PWD/.var
 export DOTFILES=$PWD
 
 # Install required packages
-source $DOTFILES/setup_scripts/req_packages
+. $DOTFILES/setup_scripts/req_packages
 
 # Run all install scripts
 # Burde kanskje gjøres i rekkefølge dersom det er deps mellom mapper

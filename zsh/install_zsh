@@ -1,6 +1,6 @@
 #!/bin/bash
 backup ~/.zshrc
-source_config_wpath zsh/zshrc_manager.sh .zshrc
+source_config_wpath zsh/zshrc .zshrc
 
 echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> ~/.zshrc
 
