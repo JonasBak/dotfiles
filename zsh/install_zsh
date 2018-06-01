@@ -4,9 +4,17 @@ source_config_wpath zsh/zshrc .zshrc
 
 echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> ~/.zshrc
 
-clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
-clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting
+OMZ=$DOTFILES/local/git/oh-my-zsh
+ZAS=$DOTFILES/local/git/zsh-autosuggestions
+ZAH=$DOTFILES/local/git/zsh-syntax-highlighting
+
+echo "OMZ=$OMZ" >> $DOTFILES/.var
+echo "ZAS=$ZAS" >> $DOTFILES/.var
+echo "ZAH=$ZAH" >> $DOTFILES/.var
+
+clone https://github.com/robbyrussell/oh-my-zsh.git $OMZ
+clone https://github.com/zsh-users/zsh-autosuggestions.git $ZAS
+clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZAH
 
 if [ ! -d $DOTFILES/local/zsh ]
 then 

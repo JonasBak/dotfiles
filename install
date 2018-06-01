@@ -40,7 +40,11 @@ clone() {
 echo "export DOTFILES=$PWD" > $PWD/.var
 export DOTFILES=$PWD
 
-mkdir $PWD/local
+if [ ! -d $PWD/local ]
+then
+  mkdir $PWD/local
+  mkdir $PWD/local/git
+fi
 
 # Install required packages
 . $DOTFILES/setup_scripts/req_packages

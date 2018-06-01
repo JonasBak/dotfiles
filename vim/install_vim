@@ -5,7 +5,10 @@ source_config vim/vimrc .vimrc
 clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install ag
-install silversearcher-ag
+if ! [ -x "$(command -v ag)" ]; then
+  install silversearcher-ag
+fi
+
 
 # Install plugins
 vim +PluginInstall +qall

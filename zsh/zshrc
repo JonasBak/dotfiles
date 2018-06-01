@@ -3,11 +3,6 @@ if command -v tmux>/dev/null; then
   else 
     echo "tmux not installed. Run ./install to configure dependencies"
 fi
-OMZ=~/.oh-my-zsh
-#Should probably be in .var 
-ZAS=~/.zsh-autosuggestions
-ZAH=~/.zsh-syntax-highlighting
-
 # Vars
 HISTFILE=~/.zsh_history
 SAVEHIST=1000 
