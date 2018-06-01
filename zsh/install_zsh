@@ -8,6 +8,12 @@ clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
 clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting
 
+if [ ! -d $DOTFILES/local/zsh ]
+then 
+  mkdir $DOTFILES/local/zsh
+  echo '# Put your "this computer only" keybindings here' > $DOTFILES/local/zsh/bindings.sh
+fi
+
 if [ -d ~/.fzf ]
 then 
   echo "Fzf is already installed"

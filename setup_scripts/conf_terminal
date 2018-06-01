@@ -28,6 +28,6 @@ dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/palette "['rgb
 # Set background image
 dconf write /org/gnome/desktop/background/picture-options "'zoom'"
 # TODO get path from variable
-dconf write /org/gnome/desktop/background/picture-uri "'file:///home/jonasbak/dotfiles/div/background1.jpg'"
+dconf write /org/gnome/desktop/background/picture-uri "'file://$DOTFILES/div/background1.jpg'"
 
 
