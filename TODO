@@ -1,9 +1,3 @@
-Install scriptet burde lage filer for lokale scripts, som skal ligge i .gitignore
-
-Lag lokal mappe for repos for å slippe å legge de i ~/, legg i .gitignore
-
 Bestemme om jeg skal bruke source eller . , bestemme hva som skal ha .sh, om noen
-
-Test om ag er installert i install_vim
 
 Test om ycm allerede er bygget i install_vim

@@ -8,9 +8,9 @@ OMZ=$DOTFILES/local/git/oh-my-zsh
 ZAS=$DOTFILES/local/git/zsh-autosuggestions
 ZAH=$DOTFILES/local/git/zsh-syntax-highlighting
 
-echo "OMZ=$OMZ" >> $DOTFILES/.var
-echo "ZAS=$ZAS" >> $DOTFILES/.var
-echo "ZAH=$ZAH" >> $DOTFILES/.var
+echo "OMZ=$OMZ" >> $DOTFILES/local/.var
+echo "ZAS=$ZAS" >> $DOTFILES/local/.var
+echo "ZAH=$ZAH" >> $DOTFILES/local/.var
 
 clone https://github.com/robbyrussell/oh-my-zsh.git $OMZ
 clone https://github.com/zsh-users/zsh-autosuggestions.git $ZAS

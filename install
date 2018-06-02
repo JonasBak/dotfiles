@@ -20,10 +20,11 @@ backup() {
 }
 
 source_config_wpath(){
-  echo "source $DOTFILES/.var\nsource $DOTFILES/$1\n" > ~/$2
+  echo "source $DOTFILES/local/.var" > ~/$2
+  echo "source $DOTFILES/$1" >> ~/$2
 }
 source_config() {
-  echo "source $DOTFILES/$1\n" > ~/$2
+  echo "source $DOTFILES/$1" > ~/$2
 }
 
 clone() {
@@ -35,16 +36,15 @@ clone() {
   fi
 }
 
-
-# Setup var file
-echo "export DOTFILES=$PWD" > $PWD/.var
-export DOTFILES=$PWD
-
 if [ ! -d $PWD/local ]
 then
   mkdir $PWD/local
   mkdir $PWD/local/git
 fi
+
+# Setup var file
+echo "export DOTFILES=$PWD" > $PWD/local/.var
+export DOTFILES=$PWD
 
 # Install required packages
 . $DOTFILES/setup_scripts/req_packages
