@@ -24,6 +24,7 @@ Plugin 'valloric/youcompleteme'             "completion
 Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'prettier/vim-prettier'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -72,8 +73,8 @@ noremap <C-h> :tabprevious<CR>
 noremap <C-t> :tabnew<CR>
 
 " Ctrl S to save
-noremap <C-s> :w<CR>
-inoremap <C-s> <esc>:w<CR>a
+noremap <C-s> :Prettier<CR>:w<CR>
+inoremap <C-s> <esc>:Prettier<CR>:w<CR>a
 
 " Go to end of line
 inoremap <C-e> <C-o>A

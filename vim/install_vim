@@ -20,5 +20,9 @@ vim +PluginInstall +qall
 # TODO se om ycm er installert
 cd ~/.vim/bundle/youcompleteme
 ./install.py
+
+cd ~/.vim/bundle/vim-prettier
+npm install
+
 cd $DOTFILES
 

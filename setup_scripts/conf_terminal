@@ -30,4 +30,6 @@ dconf write /org/gnome/desktop/background/picture-options "'zoom'"
 # TODO get path from variable
 dconf write /org/gnome/desktop/background/picture-uri "'file://$DOTFILES/div/background1.jpg'"
 
+# Bind Capslock to escape
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
