@@ -15,3 +15,5 @@ dot(){
 alias dot="dot"
 
 alias c="~/code"
+
+alias copy="xsel -ib"
