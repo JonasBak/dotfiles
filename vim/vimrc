@@ -24,7 +24,8 @@ Plugin 'valloric/youcompleteme'             "completion
 Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'prettier/vim-prettier'
+"Plugin 'prettier/vim-prettier'
+Plugin 'w0rp/ale'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -73,8 +74,8 @@ noremap <C-h> :tabprevious<CR>
 noremap <C-t> :tabnew<CR>
 
 " Ctrl S to save
-noremap <C-s> :Prettier<CR>:w<CR>
-inoremap <C-s> <esc>:Prettier<CR>:w<CR>a
+"noremap <C-s> :Prettier<CR>:w<CR>
+"inoremap <C-s> <esc>:Prettier<CR>:w<CR>a
 
 " Go to end of line
 inoremap <C-e> <C-o>A
@@ -171,3 +172,33 @@ function! Tab_Or_Complete()
   endif
 endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+
+hi ALEErrorSign ctermfg=1
+hi ALEwarningSign ctermfg=3
+
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config=1
+let g:ale_cpp_clang_options = '-std=c++14'
+let g:ale_fixers = {
+            \   'javascript': ['prettier'],
+            \   'css': ['prettier'],
+            \   'c': ['clang-format'],
+            \   'python': ['yapf', 'isort'],
+            \   'java': ['google_java_format'],
+            \   'rust': ['rustfmt'],
+            \   'c++': ['clang-format'],
+            \   'sh': ['shfmt']
+            \}
+
+let g:ale_linters = {
+            \ 'go': ['gometalinter', 'gofmt'],
+            \ 'cpp': [ 'clang', 'clangtidy', 'cppcheck', 'cpplint', 'gcc' ],
+            \ 'rust': ['rustfmt', 'rustc'],
+            \ 'javascript': ['eslint', 'flow','prettier'],
+            \ 'css': ['stylelint', 'prettier'],
+            \ 'python': ['pycodestyle', 'flake8'],
+            \ 'graphql': ['prettier', 'eslint'],
+            \}
