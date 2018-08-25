@@ -1,46 +1,19 @@
-" BEGIN VUNDLE CONFIG
+call plug#begin('~/.vim/plugged')
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+Plug 'ctrlpvim/ctrlp.vim'                 "Fuzzyfinder
+Plug 'itchyny/lightline.vim'              "Statusline
+Plug 'itchyny/vim-gitbranch'              "Git branch in lightline
+Plug 'scrooloose/nerdtree'                "document tree
+Plug 'Xuyuanp/nerdtree-git-plugin'        "git flags
+Plug 'romainl/apprentice'
+Plug 'sheerun/vim-polyglot'               "Language pack
+Plug 'valloric/youcompleteme', {'do': './install.py'}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'w0rp/ale'
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'ctrlpvim/ctrlp.vim'                 "Fuzzyfinder
-
-Plugin 'itchyny/lightline.vim'              "Statusline
-Plugin 'itchyny/vim-gitbranch'              "Git branch in lightline
-Plugin 'scrooloose/nerdtree'                "document tree
-Plugin 'Xuyuanp/nerdtree-git-plugin'        "git flags
-Plugin 'joshdick/onedark.vim'               "onedark style
-Plugin 'sheerun/vim-polyglot'               "Language pack
-Plugin 'valloric/youcompleteme'             "completion
-Plugin 'junegunn/fzf.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'airblade/vim-gitgutter'
-"Plugin 'prettier/vim-prettier'
-Plugin 'w0rp/ale'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-
-" END VUNDLE CONFIG
+call plug#end()
 
 set rtp+=~/.fzf 
 
@@ -72,10 +45,6 @@ set smarttab
 noremap <C-l> :tabnext<CR>
 noremap <C-h> :tabprevious<CR>
 noremap <C-t> :tabnew<CR>
-
-" Ctrl S to save
-"noremap <C-s> :Prettier<CR>:w<CR>
-"inoremap <C-s> <esc>:Prettier<CR>:w<CR>a
 
 " Go to end of line
 inoremap <C-e> <C-o>A
@@ -160,8 +129,8 @@ if (empty($TMUX))
         set termguicolors
     endif
 endif
-colorscheme onedark
 
+silent! colorscheme apprentice
 
 " YCM
 function! Tab_Or_Complete()
