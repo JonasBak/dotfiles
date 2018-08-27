@@ -1,7 +1,0 @@
-cd $OMZ
-git pull
-
-cd $ZAS
-git pull
-
-cd $DOTFILES

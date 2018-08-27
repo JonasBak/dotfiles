@@ -1,8 +1,0 @@
-cd $DOTFILES
-git pull
-
-for script in `find $DOTFILES -maxdepth 2 -name update_\*`
-do
-  . $script
-done
-

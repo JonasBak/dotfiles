@@ -1,7 +1,7 @@
 if command -v tmux>/dev/null; then
     [ -z $TMUX ] && exec tmux
   else 
-    echo "tmux not installed. Run ./install to configure dependencies"
+    echo "tmux not installed, run make tmux in $DOTFILES to install"
 fi
 # Vars
 HISTFILE=~/.zsh_history
@@ -37,4 +37,3 @@ fi
 source $DOTFILES/zsh/scripts/prompt.sh
 source $DOTFILES/zsh/scripts/fixls.zsh
 source $DOTFILES/zsh/scripts/bindings.sh
-source $DOTFILES/local/zsh/bindings.sh

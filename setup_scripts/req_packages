@@ -1,9 +1,0 @@
-#!/bin/bash
-echo "Installing packages"
-install zsh
-install tmux
-install vim
-install xsel
-
-chsh -s $(which zsh)
-
