@@ -1,11 +1,5 @@
 define install_if_needed
-  @if ! [ -x $(command -v $1) ]; \
-	then \
-    echo Installing $1; \
-    sudo dnf install $1 -y; \
-  else \
-    echo $1 is already installed; \
-  fi
+	@type $1 >/dev/null 2>&1 || sudo dnf install $1
 endef
 
 define backup_config
