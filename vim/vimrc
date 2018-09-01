@@ -1,18 +1,28 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'ctrlpvim/ctrlp.vim'                 "Fuzzyfinder
-Plug 'itchyny/lightline.vim'              "Statusline
-Plug 'itchyny/vim-gitbranch'              "Git branch in lightline
-Plug 'scrooloose/nerdtree'                "document tree
-Plug 'Xuyuanp/nerdtree-git-plugin'        "git flags
-Plug 'romainl/apprentice'
-Plug 'sheerun/vim-polyglot'               "Language pack
-Plug 'ervandew/supertab'
-Plug 'haya14busa/incsearch.vim'
+" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'haya14busa/incsearch.vim'
+
+" Completion
+Plug 'ervandew/supertab'
+
+" Linting
 Plug 'w0rp/ale'
+
+" Navigation
+Plug 'scrooloose/nerdtree'
+
+" Git
+Plug 'itchyny/vim-gitbranch'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+
+" Visual
+Plug 'itchyny/lightline.vim'
+Plug 'romainl/apprentice'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -46,9 +56,6 @@ set smarttab
 noremap <C-l> :tabnext<CR>
 noremap <C-h> :tabprevious<CR>
 noremap <C-t> :tabnew<CR>
-
-" Go to end of line
-inoremap <C-e> <C-o>A
 
 " No arrow keys for navigation
 noremap <Up> <NOP>
@@ -84,12 +91,12 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 noremap <C-c> :!echo <C-r><C-w>\| xsel -ib<cr><cr>
 vnoremap <C-c> :w !xsel -ib<cr><cr>
+
 " Plugin config
 
-" CTRLP .ignore files/folders
-" let g:ctrlp_max_files = 0
-" noremap <M-p> :CtrlPBuffer<CR>
-set wildignore+=*/venv/*,*/target/*,*/node_modules/*
+nnoremap <C-p> :GFiles<cr>
+nnoremap <C-p><C-p> :Ag<cr>
+nnoremap <C-p><C-p><C-p> :Ag <C-r><C-w><cr>
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -137,15 +144,6 @@ endif
 
 silent! colorscheme apprentice
 
-" YCM
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
-inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
 hi ALEErrorSign ctermfg=1
 hi ALEwarningSign ctermfg=3
