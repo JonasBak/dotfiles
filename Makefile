@@ -34,6 +34,7 @@ zsh: setup_local
 	@echo "Installing and setting up zsh"
 	@$(call install_if_needed,zsh)
 	@echo "Setting default shell to zsh"
+	@$(call install_if_needed,util-linux-user)
 	@chsh -s $(shell which zsh)
 	@echo "Backing up old zshrc and installing new"
 	@$(call backup_config,~/.zshrc)
@@ -63,7 +64,7 @@ vim: setup_local
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	@echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> $(PWD)/local/var
-	@$(call install_if_needed,silversearcher-ag)
+	@$(call install_if_needed,the_silver_searcher)
 	@vim +PlugInstall +qall
 	@echo "Finished!"
 
