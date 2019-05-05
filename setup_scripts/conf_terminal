@@ -1,14 +1,14 @@
 # TODO make backup of settings / clone old default before changing
 
-default_config=$(dconf read /org/gnome/terminal/legacy/profiles:/default)
+# default_config=$(dconf read /org/gnome/terminal/legacy/profiles:/default)
 
 # Remove surrounding quotes
-default_config="${default_config%'}"
-default_config="${default_config#'}"
+# default_config="${default_config%'}"
+# default_config="${default_config#'}"
 
 
 # Rename profile to "dotconf"
-dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/visible-name "'dotconf'"
+# dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/visible-name "'dotconf'"
 
 
 # Set transparent background
@@ -26,15 +26,15 @@ dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/visible-name "
 #dconf write /org/gnome/terminal/legacy/profiles:/:$default_config/palette "['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(30,144,255)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(229,229,229)', 'rgb(76,76,76)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(70,130,180)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']"
 
 # Set background image
-dconf write /org/gnome/desktop/background/picture-options "'zoom'"
+# dconf write /org/gnome/desktop/background/picture-options "'zoom'"
 # TODO get path from variable
-dconf write /org/gnome/desktop/background/picture-uri "'file://$DOTFILES/div/background1.jpg'"
+# dconf write /org/gnome/desktop/background/picture-uri "'file://$DOTFILES/div/background1.jpg'"
 
 # Bind Capslock to escape
 # dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
-setxkbmap -option caps:escape
+# setxkbmap -option caps:escape
 
 curl https://raw.githubusercontent.com/arcticicestudio/nord-gnome-terminal/develop/src/nord.sh -o nord.sh
-
+chmod +x ./nord.sh
 ./nord.sh -p dotconf
 rm ./nord.sh

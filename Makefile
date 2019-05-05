@@ -43,13 +43,11 @@ zsh: setup_local
 	@sed -i '1isource $(PWD)/local/zsh' ~/.zshrc
 	@echo "source $(PWD)/local/var" > $(PWD)/local/zsh
 	@echo "Cloning and setting up dependencies"
-	@$(eval OMZ := $(PWD)/local/git/oh-my-zsh)
-	@$(eval ZAS := $(PWD)/local/git/zsh-autosuggestions)
-	@$(eval ZAH := $(PWD)/local/git/zsh-syntax-highlighting)
-	@echo "OMZ=$(OMZ)" >> $(PWD)/local/zsh
-	@echo "ZAS=$(ZAS)" >> $(PWD)/local/zsh
-	@echo "ZAH=$(ZAH)" >> $(PWD)/local/zsh
-	@$(call git_clone, https://github.com/robbyrussell/oh-my-zsh.git, $(OMZ))
+	@$(eval ZSH := $(PWD)/local/git/oh-my-zsh)
+	@$(eval ZAS := $(ZSH)/custom/plugins)
+	@$(eval ZAH := $(ZSH)/custom/plugins)
+	@echo "export ZSH=$(ZSH)" >> $(PWD)/local/var
+	@$(call git_clone, https://github.com/robbyrussell/oh-my-zsh.git, $(ZSH))
 	@$(call git_clone, https://github.com/zsh-users/zsh-autosuggestions.git, $(ZAS))
 	@$(call git_clone, https://github.com/zsh-users/zsh-syntax-highlighting.git, $(ZAH))
 	@echo "Finished!"
@@ -63,7 +61,7 @@ vim: setup_local
 	@echo "Installing plugins"
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	@echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> $(PWD)/local/var
+	@echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> $(PWD)/local/zsh
 	@$(call install_if_needed,the_silver_searcher)
 	@vim +PlugInstall +qall
 	@echo "Finished!"
