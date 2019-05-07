@@ -1,7 +1,13 @@
 dot(){
-  cd $DOTFILES
   if [[ "$1" = "edit" || "$1" = "e" ]]; then
+    cd $DOTFILES
     vim
+  elif [[ "$1" = "add" ]] then
+    echo export $2 >> $DOTFILES/local/var
+    source $DOTFILES/local/var
+    echo Added $2 to environment
+  else
+    cd $DOTFILES
   fi
 }
 
