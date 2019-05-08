@@ -145,7 +145,7 @@ if (empty($TMUX))
 endif
 
 silent! colorscheme apprentice
-
+hi VertSplit ctermbg=234 ctermfg=234
 
 hi ALEErrorSign ctermfg=1
 hi ALEwarningSign ctermfg=3

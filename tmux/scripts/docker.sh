@@ -1,2 +1,2 @@
 #!/bin/bash
-echo Docker: $(docker ps | wc -l | awk '{print $1-1}')
+echo 🐋: $(docker ps -q | wc -l)
