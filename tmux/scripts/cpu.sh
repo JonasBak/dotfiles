@@ -2,6 +2,7 @@
 [ -z $(tmux showenv LOGGING_CPU) ] && \
   echo "CPU:    " && \
   tmux setenv LOGGING_CPU true
+
 echo "CPU:$(top -bn2 | \
   grep "Cpu(s)" | \
   sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \

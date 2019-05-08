@@ -1,2 +1,4 @@
 #!/bin/bash
-echo 🐋: $(docker ps -q | wc -l)
+if command -v docker>/dev/null; then
+  echo 🐋: $(docker ps -q | wc -l)
+fi
