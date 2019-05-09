@@ -32,6 +32,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 set updatetime=500
 
+set nocompatible
+
 " General settings
 syntax on
 set encoding=utf8

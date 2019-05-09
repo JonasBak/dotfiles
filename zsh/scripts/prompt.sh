@@ -33,10 +33,10 @@ set_prompt() {
 			 diff+="%{$fg[green]%}+$added%{$reset_color%}"
 		fi
     if [ $modified -ne "+0" ]; then 
-			 diff+="%{$fg[blue]%}+$modified%{$reset_color%}"
+			 diff+="%{$fg[yellow]%}+$modified%{$reset_color%}"
 		fi
     if [ $untracked -ne "+0" ]; then 
-			 diff+="%{$fg[yellow]%}+$untracked%{$reset_color%}"
+			 diff+="%{$fg[red]%}+$untracked%{$reset_color%}"
 		fi
 
     if [ -n "$diff" ]; then
