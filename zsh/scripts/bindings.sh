@@ -31,7 +31,7 @@ l(){
   (
   [ ! -z $@ ] && cd $@
 	# ls -la | tail -n +4 | awk '
-	ls -1a | tail -n +3 | awk '
+	ls -1ab | tail -n +3 | awk '
   BEGIN {
     if (system("[[ -d ./.git ]]") == 0) {isrepo=1};
     RED="\033[01;31m";
@@ -41,13 +41,13 @@ l(){
     NONE="\033[0m";
   };
   {
-    file=$NF;
+    file=$0;
     childrepo="";
-    if(system("[[ -d ./" $NF "/.git ]]") == 0)
-      childrepo=GREEN"[g]"NONE;
+    if(system("[[ -d \"./" $NF "/.git\" ]]") == 0)
+      childrepo=BLUE" g "NONE;
     if (isrepo == 1) {
       status="";
-      command="git status -s "file;
+      command="git status -s \""file"\"";
       if ((command |& getline line) > 0) {
         status = substr(line, 1, 2);
         status = gensub("\\?\\?", RED"??"NONE, "g", status);
@@ -56,9 +56,9 @@ l(){
       };
       close(command);
     };
-    if (system("[[ -d ./" file " ]]") == 0)
+    if (system("[[ -d \"./" file "\" ]]") == 0)
       file=BLUE file NONE "/"
-    else if (system("[[ -x ./" file " ]]") == 0)
+    else if (system("[[ -x \"./" file "\" ]]") == 0)
       file=GREEN file NONE
     printf " %3s %2s %-30s\n", childrepo, status, file;
   };'
