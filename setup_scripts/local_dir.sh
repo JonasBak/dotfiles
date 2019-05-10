@@ -5,9 +5,9 @@ if [[ -z $DOTFILES ]]; then
   exit 1
 fi
 
-if [[ ! -d $(DOTFILES)/local ]]; then
-  mkdir $(DOTFILES)/local;
-  mkdir $(DOTFILES)/local/git;
-	echo "export DOTFILES=$(DOTFILES)" > $(PWD)/local/var;
+if [[ ! -d $DOTFILES/local ]]; then
+  mkdir $DOTFILES/local;
+  mkdir $DOTFILES/local/git;
+	echo "export DOTFILES=$DOTFILES" > $DOTFILES/local/var;
 fi
 

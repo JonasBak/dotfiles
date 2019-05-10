@@ -29,3 +29,5 @@ source $DOTFILES/zsh/scripts/prompt.sh
 source $DOTFILES/zsh/scripts/fixls.zsh
 source $DOTFILES/zsh/scripts/bindings.sh
 source $DOTFILES/zsh/scripts/kubectl.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

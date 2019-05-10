@@ -61,7 +61,7 @@ vim: setup_local
 	@echo "Installing plugins"
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	@echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> $(PWD)/local/zsh
+	# @echo "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh" >> $(PWD)/local/zsh
 	@$(call install_if_needed,the_silver_searcher)
 	@vim +PlugInstall +qall
 	@echo "Finished!"
