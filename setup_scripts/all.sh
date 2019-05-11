@@ -10,6 +10,8 @@ SETUP_SCRIPTS=$DOTFILES/setup_scripts
 echo "Installing all features"
 echo "ZSH"
 source $SETUP_SCRIPTS/zsh.sh
+echo "BIN"
+source $SETUP_SCRIPTS/bin.sh
 echo "TMUX"
 source $SETUP_SCRIPTS/tmux.sh
 echo "VIM"

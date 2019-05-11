@@ -4,7 +4,7 @@ install_if_needed() {
 
 backup_config() {
   if [[ -f $1 ]] && [[ ! -f $1.old ]]; then
-    cp $1 $1.old;
+    cp $1 $1.old
   fi
 }
 
@@ -13,10 +13,8 @@ source_file() {
 }
 
 git_clone() {
-  if [[ -d "$2" ]]; then
-    echo $1 already cloned;
-  else
-    git clone $1 $2;
+  if [[ ! -d "$2" ]]; then
+    git clone $1 $2
   fi
 }
 

@@ -12,7 +12,6 @@ source_file zsh/zshrc ~/.zshrc
 
 echo "Setting up local variables"
 sed -i '1isource '"$DOTFILES"'/local/zsh' ~/.zshrc
-
 if [[ ! -f "$DOTFILES/local/zsh" ]]; then
   echo "source $DOTFILES/local/var" > $DOTFILES/local/zsh
 fi
@@ -34,6 +33,5 @@ if [ "$CURRENT_SHELL" != "zsh" ]; then
     chsh -s $(grep /zsh$ /etc/shells | tail -1)
   else
     printf "Couldn't set zsh as default shell, everything else is good"
-    exit 1
   fi
 fi
