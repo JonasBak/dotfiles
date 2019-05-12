@@ -28,10 +28,6 @@ git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZAH
 echo "Setting default shell to zsh"
 CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$CURRENT_SHELL" != "zsh" ]; then
-  if hash chsh >/dev/null 2>&1; then
-    install_if_needed util-linux-user
-    chsh -s $(grep /zsh$ /etc/shells | tail -1)
-  else
-    printf "Couldn't set zsh as default shell, everything else is good"
-  fi
+  install_if_needed util-linux-user
+  chsh -s $(grep /zsh$ /etc/shells | tail -1)
 fi
