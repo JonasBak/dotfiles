@@ -4,7 +4,6 @@ if [[ "$1" = "edit" || "$1" = "e" ]]; then
   vim
 elif [[ "$1" = "add" ]]; then
   echo export $2 >> $DOTFILES/local/var
-  source $DOTFILES/local/var
   echo Added $2 to environment
 elif [[ "$1" = "update" ]]; then
   cd $DOTFILES

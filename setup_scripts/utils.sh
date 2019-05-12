@@ -1,5 +1,5 @@
 install_if_needed() {
-	type $1 >/dev/null 2>&1 || sudo dnf install $1
+	type $1 >/dev/null 2>&1 || sudo dnf install -y $1
 }
 
 backup_config() {
