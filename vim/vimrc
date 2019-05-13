@@ -27,11 +27,13 @@ set rtp+=~/.fzf
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" General settings
 set updatetime=500
 
 set nocompatible
 
-" General settings
+let mapleader = " "
+
 syntax on
 set encoding=utf8
 set number
@@ -89,35 +91,16 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Completion
-set omnifunc=syntaxcomplete#Complete
-filetype plugin on
-set completeopt=longest,menuone
-function! TabComplete(forwards)
-	if (pumvisible())
-		return a:forwards ? "\<C-N>" : "\<C-P>"
-	endif
-  let line = getline('.')
-  let substr = strpart(line, col('.')-3, 2)
-  let substr = matchstr(substr, "[^ \t]*$")
-  if (strlen(substr)==0)
-    return "\<tab>"
-  endif
-  let has_slash = match(substr, '\/') != -1
-  if (has_slash)
-    return "\<C-X>\<C-F>\<C-P>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-inoremap <Tab> <c-r>=TabComplete(1)<CR>
-inoremap <S-Tab> <c-r>=TabComplete(0)<CR>
+source $DOTFILES/vim/scripts/completion.vim
+
+" Tags
+source $DOTFILES/vim/scripts/tags.vim
 
 " Clipboard
 noremap <C-c> :!echo <C-r><C-w>\| xsel -ib<cr><cr>
 vnoremap <C-c> :w !xsel -ib<cr><cr>
 
 " Plugin config
-
 nnoremap <C-p> :GFiles<cr>
 nnoremap <C-p><C-p> :Ag<cr>
 nnoremap <C-p><C-p><C-p> :Ag <C-r><C-w><cr>

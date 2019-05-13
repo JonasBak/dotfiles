@@ -14,3 +14,9 @@ echo "Installing plugins"
    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 install_if_needed the_silver_searcher
 vim +PlugInstall +qall
+
+if [[ ! -d $DOTFILES/local/tags ]]; then
+  mkdir $DOTFILES/local/tags
+fi
+install_if_needed ctags
+install_if_needed cscope
