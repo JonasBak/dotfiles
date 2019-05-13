@@ -20,5 +20,5 @@ echo "TOOLS"
 source $SETUP_SCRIPTS/tools.sh
 echo "FONT"
 source $SETUP_SCRIPTS/font.sh
-echo "COLORS"
-source $SETUP_SCRIPTS/colors.sh
+echo "PREFERENCES"
+source $SETUP_SCRIPTS/preferences.sh

@@ -1,6 +1,6 @@
 SETUP_SCRIPTS=$DOTFILES/setup_scripts
 
-source $SETUP_SCRIPTS/utils.sh
+source $SETUP_SCRIPTS/.utils.sh
 
 if [[ -z $PATCHED_FONT ]]; then
   wget -O inconsolata.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/complete/Inconsolata%20LGC%20Nerd%20Font%20Complete%20Mono.ttf

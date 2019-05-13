@@ -1,6 +1,6 @@
 SETUP_SCRIPTS=$DOTFILES/setup_scripts
 
-source $SETUP_SCRIPTS/utils.sh
+source $SETUP_SCRIPTS/.utils.sh
 
 tools=(
   dmenu

@@ -1,0 +1,32 @@
+[profiles:/:]
+visible-name='dotconf'
+
+[profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+foreground-color='#D8DEE9'
+visible-name='dotconf'
+scrollbar-policy='never'
+nord-gnome-terminal-version='0.1.0'
+palette=['#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#88C0D0', '#E5E9F0', '#4C566A', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#8FBCBB', '#ECEFF4']
+cell-width-scale=1.0
+cursor-background-color='rgb(216,222,233)'
+title=''
+cursor-colors-set=true
+highlight-colors-set=true
+cell-height-scale=1.0
+use-transparent-background=false
+use-theme-colors=false
+cursor-foreground-color='rgb(59,66,82)'
+use-theme-transparency=false
+use-system-font=true
+use-theme-background=false
+bold-color-same-as-fg=true
+bold-color='#D8DEE9'
+background-color='#2E3440'
+audible-bell=false
+highlight-background-color='rgb(136,192,208)'
+highlight-foreground-color='rgb(46,52,64)'
+
+[/]
+schema-version=uint32 3
+default-show-menubar=false
+
