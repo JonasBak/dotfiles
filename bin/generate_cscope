@@ -1,3 +1,15 @@
 #!/bin/sh
-git ls-files | awk '/\.*\/?.*tests?.*\/.+$|.*\.css|.*\.lock|.*\.md/{next} {print}' | xargs cscope -b -q -f $1
+git ls-files | awk '
+/\/.*tests?.*\/\
+|\/migrations\/\
+|\/fixtures\/\
+|\/?assets\/\
+|\/?docs\/\
+|\/?npm\/\
+|\.css\
+|\.lock\
+|\.md\
+|\.txt\
+|\.html\
+/{next} {print}' | xargs cscope -b -q -f $1
 

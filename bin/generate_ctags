@@ -1,3 +1,15 @@
 #!/bin/sh
-git ls-files | awk '/\.*\/?.*tests?.*\/.+$|.*\.css|.*\.lock|.*\.md/{next} {print}' | xargs uctags -f - 2>/dev/null > $1
+git ls-files | awk '
+/\/.*tests?.*\/\
+|\/migrations\/\
+|\/fixtures\/\
+|\/?assets\/\
+|\/?docs\/\
+|\/?npm\/\
+|\.css\
+|\.lock\
+|\.md\
+|\.txt\
+|\.html\
+/{next} {print}' | xargs uctags -f - 2>/dev/null > $1
 
