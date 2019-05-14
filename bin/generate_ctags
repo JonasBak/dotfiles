@@ -1,3 +1,3 @@
 #!/bin/sh
-git ls-files | xargs uctags -f TMPUTAGS --exclude="*.css" --tag-relative=always && mv TMPUTAGS $1
+git ls-files | awk '/\.*\/?.*tests?.*\/.+$|.*\.css|.*\.lock|.*\.md/{next} {print}' | xargs uctags -f - 2>/dev/null > $1
 

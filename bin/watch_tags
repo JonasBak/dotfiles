@@ -1,0 +1,15 @@
+#!/bin/sh
+run_command="entr -r generate_tags"
+RUNNING=$(ps -ef | grep "$run_command" | awk '$8=="entr"{print $2}')
+if [[ ! -z $RUNNING ]]; then
+  echo "Running in $RUNNING, killing now"
+  kill $RUNNING
+  if [[ $1 == "kill" ]]; then
+    exit 0
+  fi
+fi
+if [[ $1 == "kill" ]]; then
+  exit 1
+fi
+
+git ls-files | $run_command &
