@@ -23,5 +23,4 @@ function! TabComplete(forwards)
 endfunction
 inoremap <Tab> <c-r>=TabComplete(1)<CR>
 inoremap <S-Tab> <c-r>=TabComplete(0)<CR>
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

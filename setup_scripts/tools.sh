@@ -5,6 +5,8 @@ source $SETUP_SCRIPTS/.utils.sh
 tools=(
   dmenu
   entr
+  cscope
+  inotify-tools
 )
 
 for tool in "${tools[@]}"

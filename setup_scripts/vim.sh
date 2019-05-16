@@ -18,5 +18,3 @@ vim +PlugInstall +qall
 if [[ ! -d $DOTFILES/local/tags ]]; then
   mkdir $DOTFILES/local/tags
 fi
-install_if_needed ctags
-install_if_needed cscope

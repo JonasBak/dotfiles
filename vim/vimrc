@@ -23,7 +23,7 @@ Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-set rtp+=~/.fzf 
+set rtp+=~/.fzf
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -162,25 +162,25 @@ let g:ale_sign_warning = '•'
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config=1
 let g:ale_rust_cargo_use_check = 1
-let g:ale_cpp_clang_options = '-std=c++14'
 let g:ale_fixers = {
-            \   'javascript': ['prettier'],
-            \   'css': ['prettier'],
-            \   'c': ['clang-format'],
-            \   'python': ['yapf', 'isort'],
-            \   'java': ['google_java_format'],
-            \   'rust': ['rustfmt'],
-            \   'c++': ['clang-format'],
-            \   'sh': ['shfmt']
-            \}
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['prettier'],
+      \   'css': ['prettier'],
+      \   'c': ['clang-format'],
+      \   'python': ['yapf', 'isort'],
+      \   'java': ['google_java_format'],
+      \   'rust': ['rustfmt'],
+      \   'c++': ['clang-format'],
+      \   'sh': ['shfmt']
+      \}
 
 let g:ale_linters = {
-            \ 'go': ['gometalinter', 'gofmt'],
-            \ 'cpp': [ 'clang', 'clangtidy', 'cppcheck', 'cpplint', 'gcc' ],
-            \ 'rust': ['cargo', 'rls', 'rustc'],
-            \ 'javascript': ['eslint', 'flow','prettier'],
-            \ 'css': ['stylelint', 'prettier'],
-            \ 'python': ['pycodestyle', 'flake8'],
-            \ 'graphql': ['prettier', 'eslint'],
-            \ 'c': ['clang-format'],
-            \}
+      \ 'go': ['gometalinter', 'gofmt'],
+      \ 'cpp': [ 'clang', 'clangtidy', 'cppcheck', 'cpplint', 'gcc' ],
+      \ 'rust': ['cargo', 'rls', 'rustc'],
+      \ 'javascript': ['eslint', 'flow','prettier'],
+      \ 'css': ['stylelint', 'prettier'],
+      \ 'python': ['pycodestyle', 'flake8'],
+      \ 'graphql': ['prettier', 'eslint'],
+      \ 'c': ['clang-format'],
+      \}
