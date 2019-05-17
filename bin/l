@@ -1,7 +1,7 @@
 #!/bin/sh
 [[ ! -z $@ ]] && cd $@
 # ls -la | tail -n +4 | awk '
-ls -1ab | tail -n +3 | awk '
+ls -1ab | tail -n +3 | awk -v patched="$PATCHED_FONT" '
 BEGIN {
   if (system("[[ -d ./.git ]]") == 0) {isrepo=1};
   RED="\033[01;31m";
@@ -10,11 +10,12 @@ BEGIN {
   BLUE="\033[01;34m";
   NONE="\033[0m";
 };
+{icon=""}
+/\.yml|\.yaml/{icon="";}
+/\.py/{icon="";}
+/\.html/{icon="";}
 {
   file=$0;
-  childrepo="";
-  if(system("[[ -d \"./" $NF "/.git\" ]]") == 0)
-    childrepo=BLUE" g "NONE;
   status="";
   if (isrepo == 1) {
     command="git status -s \""file"\"";
@@ -26,10 +27,14 @@ BEGIN {
     };
     close(command);
   };
-  if (system("[[ -d \"./" file "\" ]]") == 0)
+  if (system("[[ -d \"./" file "\" ]]") == 0) {
     file=BLUE file NONE "/"
+    icon=BLUE""NONE;
+  }
   else if (system("[[ -x \"./" file "\" ]]") == 0)
     file=GREEN file NONE
-  printf " %3s %2s %-30s\n", childrepo, status, file;
+  if(system("[[ -d \"./" $NF "/.git\" ]]") == 0)
+    icon=BLUE""NONE;
+  printf " %2s %s %-30s\n", status, (patched ? icon : " "), file;
 };'
 
