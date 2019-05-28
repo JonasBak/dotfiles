@@ -11,9 +11,12 @@ BEGIN {
   NONE="\033[0m";
 };
 {icon=""}
-/\.yml|\.yaml/{icon="";}
-/\.py/{icon="";}
-/\.html/{icon="";}
+/\.yml$|\.yaml$/{icon="";}
+/\.py$/{icon="";}
+/\.rs$/{icon="";}
+/\.json$/{icon="";}
+/\.jsx?$/{icon="";}
+/\.html$/{icon="";}
 {
   file=$0;
   status="";
@@ -28,13 +31,14 @@ BEGIN {
     close(command);
   };
   if (system("[[ -d \"./" file "\" ]]") == 0) {
+    if(system("[[ -d \"./" file "/.git\" ]]") == 0)
+      icon=BLUE""NONE;
+    else
+      icon=BLUE""NONE;
     file=BLUE file NONE "/"
-    icon=BLUE""NONE;
   }
   else if (system("[[ -x \"./" file "\" ]]") == 0)
     file=GREEN file NONE
-  if(system("[[ -d \"./" $NF "/.git\" ]]") == 0)
-    icon=BLUE""NONE;
   printf " %2s %s %-30s\n", status, (patched ? icon : " "), file;
 };'
 

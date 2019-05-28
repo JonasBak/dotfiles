@@ -1,9 +1,5 @@
 #!/bin/bash
-[ -z $(tmux showenv LOGGING_CPU) ] && \
-  echo "CPU:    " && \
-  tmux setenv LOGGING_CPU true
-
-echo "CPU:$(top -bn2 | \
+echo "CPU:$(top -bn2 -d0.2 | \
   grep "Cpu(s)" | \
   sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
   tail -1 | \
