@@ -24,6 +24,10 @@ git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_PLUGINS/
 git_clone https://github.com/zsh-users/zsh-completions.git $ZSH_PLUGINS/zsh-completions
 git_clone https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_PLUGINS/zsh-history-substring-search
 
+if [[ ! -d $DOTFILES/local/zsh_completions ]]; then
+  mkdir $DOTFILES/local/zsh_completions
+fi
+
 echo "Setting default shell to zsh"
 CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$CURRENT_SHELL" != "zsh" ]; then

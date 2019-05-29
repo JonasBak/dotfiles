@@ -25,7 +25,7 @@ source_plugin zsh-syntax-highlighting
 source_plugin zsh-completions
 source_plugin zsh-history-substring-search
 
-export fpath=($ZSH_PLUGINS/zsh-completions/src $fpath)
+export fpath=($ZSH_PLUGINS/zsh-completions/src $DOTFILES/local/zsh_completions $fpath)
 
 source $DOTFILES/zsh/scripts/prompt.sh
 source $DOTFILES/zsh/scripts/bindings.sh
