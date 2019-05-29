@@ -29,7 +29,7 @@ export fpath=($ZSH_PLUGINS/zsh-completions/src $DOTFILES/local/zsh_completions $
 
 source $DOTFILES/zsh/scripts/prompt.sh
 source $DOTFILES/zsh/scripts/bindings.sh
-source $DOTFILES/zsh/scripts/kubectl.zsh
+source $DOTFILES/zsh/scripts/completions.zsh
 
 # Completion
 if [[ -f $HOME/.zcompdump ]]; then
