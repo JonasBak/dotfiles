@@ -8,12 +8,13 @@ install_if_needed zsh
 
 echo "Backing up old zshrc and installing new"
 backup_config ~/.zshrc
-source_file zsh/zshrc ~/.zshrc
+source_file local/zsh ~/.zshrc
 
 echo "Setting up local variables"
 if [[ ! -f "$DOTFILES/local/zsh" ]]; then
   echo "source $DOTFILES/local/var" > $DOTFILES/local/zsh
 fi
+add_if_not_present "source $DOTFILES/zsh/zshrc" $DOTFILES/local/zsh
 
 echo "Cloning and setting up dependencies"
 ZSH_PLUGINS=$DOTFILES/local/zsh_plugins
