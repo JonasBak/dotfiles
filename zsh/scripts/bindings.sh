@@ -17,4 +17,5 @@ if [[ -d $ZSH_PLUGINS/zsh-history-substring-search ]]; then
   bindkey '^[[B' history-substring-search-down
 fi
 
-bindkey "\e[3~" delete-char
+bindkey "^[[3~" delete-char
+bindkey -M menuselect "^[[Z" reverse-menu-complete
