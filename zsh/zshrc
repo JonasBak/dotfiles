@@ -9,7 +9,8 @@ HISTFILE=~/.zsh_history
 SAVEHIST=3000
 setopt inc_append_history # To save every command before it is executed
 setopt hist_ignore_all_dups
-setopt share_history # setopt inc_append_history
+setopt share_history
+setopt inc_append_history
 
 export VISUAL=vim
 
@@ -32,22 +33,5 @@ export fpath=($ZSH_PLUGINS/zsh-completions/src $DOTFILES/local/zsh_completions $
 source $DOTFILES/zsh/scripts/prompt.sh
 source $DOTFILES/zsh/scripts/bindings.sh
 source $DOTFILES/zsh/scripts/completions.zsh
-
-# Completion
-if [[ -f $HOME/.zcompdump ]]; then
-  last_comp_dump=$(date -r $HOME/.zcompdump +%s)
-  current_time=$( date +%s )
-  autoload -Uz compinit
-  if (( last_comp_dump < (current_time-(60*60*24)) )); then
-    autoload -Uz compdump
-    compinit
-    compdump
-  else
-    compinit -C
-  fi
-else
-  autoload -Uz compinit
-  compinit
-fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
