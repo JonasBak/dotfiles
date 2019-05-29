@@ -17,13 +17,12 @@ if [[ ! -f "$DOTFILES/local/zsh" ]]; then
 fi
 
 echo "Cloning and setting up dependencies"
-ZSH=$DOTFILES/local/git/oh-my-zsh
-ZAS=$ZSH/custom/plugins/zsh-autosuggestions
-ZAH=$ZSH/custom/plugins/zsh-syntax-highlighting
-add_if_not_present "export ZSH=$ZSH" $DOTFILES/local/var
-git_clone https://github.com/robbyrussell/oh-my-zsh.git $ZSH
-git_clone https://github.com/zsh-users/zsh-autosuggestions.git $ZAS
-git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZAH
+ZSH_PLUGINS=$DOTFILES/local/zsh_plugins
+add_if_not_present "export ZSH_PLUGINS=$ZSH_PLUGINS" $DOTFILES/local/var
+git_clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_PLUGINS/zsh-autosuggestions
+git_clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_PLUGINS/zsh-syntax-highlighting
+git_clone https://github.com/zsh-users/zsh-completions.git $ZSH_PLUGINS/zsh-completions
+git_clone https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_PLUGINS/zsh-history-substring-search
 
 echo "Setting default shell to zsh"
 CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')

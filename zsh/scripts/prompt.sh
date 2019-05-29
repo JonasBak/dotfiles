@@ -2,6 +2,8 @@ autoload -U colors && colors
 
 setopt PROMPT_SUBST
 
+autoload -U add-zsh-hook
+
 _prompt_left_pre=$(if [[ -z $PATCHED_FONT ]];
   then echo "["
   else echo " "; fi)
@@ -65,4 +67,4 @@ set_prompt() {
   fi
 }
 
-precmd_functions+=set_prompt
+add-zsh-hook precmd set_prompt

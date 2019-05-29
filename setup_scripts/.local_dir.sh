@@ -7,7 +7,6 @@ fi
 
 if [[ ! -d $DOTFILES/local ]]; then
   mkdir $DOTFILES/local
-  mkdir $DOTFILES/local/git
-	echo "export DOTFILES=$DOTFILES" > $DOTFILES/local/var
+  echo "export DOTFILES=$DOTFILES" > $DOTFILES/local/var
 fi
 

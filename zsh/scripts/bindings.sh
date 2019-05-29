@@ -1,5 +1,3 @@
-unalias l
-
 alias c="cd ~/code"
 
 alias copy="xsel -ib"
@@ -13,3 +11,10 @@ if [ $commands[l] ]; then
   }
   alias cd="cd_l"
 fi
+
+if [[ -d $ZSH_PLUGINS/zsh-history-substring-search ]]; then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+fi
+
+bindkey "\e[3~" delete-char
