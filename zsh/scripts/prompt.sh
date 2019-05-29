@@ -45,6 +45,11 @@ set_prompt() {
     branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
     RIGHT+="%{$fg[blue]%}$branch%{$reset_color%}"
 
+    ahead=$(git cherry)
+    if [ ! -z $ahead ]; then
+      RIGHT+="%{$fg[red]%}++%{$reset_color%}"
+    fi
+
     diff=""
     if [ $added -ne "+0" ]; then
       diff+="%{$fg[green]%}+$added%{$reset_color%}"

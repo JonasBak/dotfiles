@@ -11,7 +11,6 @@ backup_config ~/.zshrc
 source_file zsh/zshrc ~/.zshrc
 
 echo "Setting up local variables"
-sed -i '1isource '"$DOTFILES"'/local/zsh' ~/.zshrc
 if [[ ! -f "$DOTFILES/local/zsh" ]]; then
   echo "source $DOTFILES/local/var" > $DOTFILES/local/zsh
 fi
@@ -26,6 +25,14 @@ git_clone https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_PLU
 
 if [[ ! -d $DOTFILES/local/zsh_completions ]]; then
   mkdir $DOTFILES/local/zsh_completions
+fi
+
+if [[ $commands[kubectl] && ! -f $DOTFILES/local/zsh_completions/_kubectl ]]; then
+  kubectl completion zsh > $DOTFILES/local/zsh_completions/_kubectl
+fi
+
+if [[ $commands[docker] && ! -f $DOTFILES/local/zsh_completions/_docker ]]; then
+  curl -fLo $DOTFILES/local/zsh_completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 fi
 
 echo "Setting default shell to zsh"
