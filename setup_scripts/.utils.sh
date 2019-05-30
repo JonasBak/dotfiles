@@ -1,5 +1,5 @@
 install_if_needed() {
-	type $1 >/dev/null 2>&1 || sudo dnf install -y $1
+  type $1 >/dev/null 2>&1 || sudo dnf install -y $1
 }
 
 backup_config() {
@@ -8,8 +8,15 @@ backup_config() {
   fi
 }
 
-source_file() {
-  echo "source $DOTFILES/$1" > $2
+link_file() {
+  local_file=$(echo $1 | cut -d "/" -f1)
+  echo "source $DOTFILES/local/$local_file" > $2
+  if [[ ! -f "$DOTFILES/local/$local_file" ]]; then
+    if [[ ! -z $3 ]]; then
+      echo $3 > $DOTFILES/local/$local_file
+    fi
+    echo "source $DOTFILES/$1" >> $DOTFILES/local/$local_file
+  fi
 }
 
 git_clone() {

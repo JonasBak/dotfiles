@@ -6,15 +6,9 @@ source $SETUP_SCRIPTS/.utils.sh
 echo "Installing and setting up zsh"
 install_if_needed zsh
 
-echo "Backing up old zshrc and installing new"
+echo "Linking config files"
 backup_config ~/.zshrc
-source_file local/zsh ~/.zshrc
-
-echo "Setting up local variables"
-if [[ ! -f "$DOTFILES/local/zsh" ]]; then
-  echo "source $DOTFILES/local/var" > $DOTFILES/local/zsh
-fi
-add_if_not_present "source $DOTFILES/zsh/zshrc" $DOTFILES/local/zsh
+link_file zsh/zshrc ~/.zshrc "source $DOTFILES/local/var"
 
 echo "Cloning and setting up dependencies"
 ZSH_PLUGINS=$DOTFILES/local/zsh_plugins

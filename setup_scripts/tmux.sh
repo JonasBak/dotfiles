@@ -5,6 +5,6 @@ source $SETUP_SCRIPTS/.utils.sh
 
 echo "Installing and setting up tmux"
 install_if_needed tmux
-echo "Backing up old tmux.conf and installing new"
+echo "Linking config files"
 backup_config ~/.tmux.conf
-source_file tmux/tmux.conf ~/.tmux.conf
+link_file tmux/tmux.conf ~/.tmux.conf
