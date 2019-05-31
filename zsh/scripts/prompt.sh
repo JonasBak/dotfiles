@@ -21,20 +21,20 @@ _prompt_right_separator=$(if [[ -z $PATCHED_FONT ]];
   else echo " "; fi)
 _prompt_right_post=$(if [[ -z $PATCHED_FONT ]];
   then echo "]"
-  else echo " "; fi)
+  else echo ""; fi)
 _prompt_env=$(if [[ -z $PATCHED_FONT ]];
   then echo "%{$fg[green]%}(env)%{$reset_color%}% "
   else echo -e "%{$fg[green]%}(env)%{$reset_color%}% "; fi)
 
 set_prompt() {
   PS1="$_prompt_left_pre"
-  PS1+="%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
+  PS1+="%{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%}"
 
   if [[ ! -z "${VIRTUAL_ENV}" ]]; then
     PS1+="$_prompt_left_separator$_prompt_env"
   fi
 
-  PS1+="$_prompt_right_post"
+  PS1+="$_prompt_left_post"
 
   if git rev-parse --is-inside-work-tree 2> /dev/null | grep -q 'true' ; then
     modified=$(git status -s | grep "^.\(M\|D\)" -c)

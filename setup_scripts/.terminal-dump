@@ -1,13 +1,19 @@
 [profiles:/:]
 visible-name='dotconf'
 
+[profiles:]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+default='b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+
 [profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
-foreground-color='#D8DEE9'
-visible-name='dotconf'
+foreground-color='rgb(213,213,213)'
+highlight-foreground-color='rgb(46,52,64)'
 scrollbar-policy='never'
 nord-gnome-terminal-version='0.1.0'
-palette=['#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#88C0D0', '#E5E9F0', '#4C566A', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#8FBCBB', '#ECEFF4']
+palette=['rgb(28,28,28)', 'rgb(193,59,59)', 'rgb(108,179,108)', 'rgb(235,203,139)', 'rgb(95,135,175)', 'rgb(95,95,135)', 'rgb(95,135,135)', 'rgb(108,108,108)', 'rgb(87,87,87)', 'rgb(191,67,67)', 'rgb(111,186,111)', 'rgb(235,203,139)', 'rgb(104,146,188)', 'rgb(135,135,175)', 'rgb(95,175,175)', 'rgb(255,255,255)']
 cell-width-scale=1.0
+bold-is-bright=true
+visible-name='dotconf'
 cursor-background-color='rgb(216,222,233)'
 title=''
 cursor-colors-set=true
@@ -21,12 +27,12 @@ use-system-font=true
 use-theme-background=false
 bold-color-same-as-fg=true
 bold-color='#D8DEE9'
-background-color='#2E3440'
-audible-bell=false
+background-color='rgb(38,38,38)'
+background-transparency-percent=30
 highlight-background-color='rgb(136,192,208)'
-highlight-foreground-color='rgb(46,52,64)'
+audible-bell=false
 
 [/]
 schema-version=uint32 3
+theme-variant='dark'
 default-show-menubar=false
-
