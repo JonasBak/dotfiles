@@ -1,5 +1,10 @@
-set omnifunc=syntaxcomplete#Complete
 filetype plugin on
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+endif
 set completeopt=longest,menuone
 function! TabComplete(forwards)
 	if (pumvisible())

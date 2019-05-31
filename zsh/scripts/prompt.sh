@@ -28,7 +28,7 @@ _prompt_env=$(if [[ -z $PATCHED_FONT ]];
 
 set_prompt() {
   PS1="$_prompt_left_pre"
-  PS1+="%{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%}"
+  PS1+="%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
 
   if [[ ! -z "${VIRTUAL_ENV}" ]]; then
     PS1+="$_prompt_left_separator$_prompt_env"

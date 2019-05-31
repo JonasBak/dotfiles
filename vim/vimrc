@@ -37,14 +37,13 @@ let mapleader = " "
 syntax on
 set encoding=utf8
 set number
-set ttimeoutlen=10         "used for key code delays
+set ttimeoutlen=10
 set scrolloff=10
 set mouse=a
-" set nowrap
-set noswapfile             "no stupid .swp file
+set noswapfile
 set ignorecase
 
-" Indent option, 4 spaces, also for tabs
+" Indent option
 filetype indent on
 set autoindent
 set smartindent
@@ -149,7 +148,9 @@ if (empty($TMUX))
 endif
 
 silent! colorscheme apprentice
-hi VertSplit ctermbg=234 ctermfg=234
+hi VertSplit ctermbg=236 ctermfg=236
+hi StatusLineNC ctermbg=236 ctermfg=236
+hi StatusLine ctermbg=236 ctermfg=236
 
 hi ALEErrorSign ctermfg=1
 hi ALEwarningSign ctermfg=3
