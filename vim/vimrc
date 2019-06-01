@@ -101,7 +101,7 @@ set pastetoggle=<F2>
 noremap <leader>? :help <c-r><c-w><cr>
 
 " Plugin config
-nnoremap <expr> <leader>1 (exists("./.git") ? ":GFiles" : ":Files")."\<cr>"
+nnoremap <expr> <leader>1 (len(system('git rev-parse --abbrev-ref HEAD 2> /dev/null')) ? ':GFiles' : ':Files')."\<cr>"
 nnoremap <leader>2 :Ag<cr>
 nnoremap <leader>3 :Ag <C-r><C-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
