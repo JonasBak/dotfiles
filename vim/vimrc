@@ -74,9 +74,6 @@ inoremap (( ()<left>
 inoremap [[ []<left>
 inoremap << <><left>
 inoremap {{ {}<left>
-inoremap "" ""<left>
-inoremap '' ''<left>
-inoremap `` ``<left>
 
 inoremap (<cr> (<cr>)<esc>O
 inoremap {<cr> {<cr>}<esc>O
@@ -96,13 +93,18 @@ source $DOTFILES/vim/scripts/completion.vim
 source $DOTFILES/vim/scripts/tags.vim
 
 " Clipboard
-noremap <C-c> :!echo <C-r><C-w>\| xsel -ib<cr><cr>
-vnoremap <C-c> :w !xsel -ib<cr><cr>
+nnoremap <C-c> :!echo <C-r><C-w>\| xclip<cr><cr>
+vnoremap <C-c> :w! xclip<cr><cr>
+nnoremap <leader>v :r! xclip -o<cr>
+set pastetoggle=<F2>
+
+noremap <leader>? :help <c-r><c-w><cr>
 
 " Plugin config
-nnoremap <C-p> :GFiles<cr>
-nnoremap <C-p><C-p> :Ag<cr>
-nnoremap <C-p><C-p><C-p> :Ag <C-r><C-w><cr>
+nnoremap <expr> <leader>1 (exists("./.git") ? ":GFiles" : ":Files")."\<cr>"
+nnoremap <leader>2 :Ag<cr>
+nnoremap <leader>3 :Ag <C-r><C-w><cr>
+nnoremap <leader>4 :GFiles?<cr>
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)

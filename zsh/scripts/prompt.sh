@@ -45,7 +45,7 @@ set_prompt() {
     branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
     RIGHT+="%{$fg[blue]%}$branch%{$reset_color%}"
 
-    ahead=$(git cherry)
+    ahead=$(git cherry 2> /dev/null)
     if [ ! -z $ahead ]; then
       RIGHT+="%{$fg[red]%}++%{$reset_color%}"
     fi
