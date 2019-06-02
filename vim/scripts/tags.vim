@@ -9,14 +9,17 @@ if filereadable(db_cscope)
 endif
 
 function! GenerateCtags(file)
+  let exists = filereadable(a:file)
   execute "! $DOTFILES/bin/generate_ctags " . a:file
-  execute "set tags+=" . a:file
+  if (! exists)
+    execute "set tags+=" . a:file
+  endif
 endfunction
 function! GenerateCscope(file)
   let exists = filereadable(a:file)
   execute "! $DOTFILES/bin/generate_cscope " . a:file
   if (! exists)
-    execute "cs add " . a:file
+    execute "silent cs add " . a:file
   endif
 endfunction
 function! GenerateTags(file_base)

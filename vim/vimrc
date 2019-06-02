@@ -43,6 +43,8 @@ set mouse=a
 set noswapfile
 set ignorecase
 
+set lazyredraw
+
 " Indent option
 filetype indent on
 set autoindent
@@ -94,11 +96,13 @@ source $DOTFILES/vim/scripts/tags.vim
 
 " Clipboard
 nnoremap <C-c> :!echo <C-r><C-w>\| xclip<cr><cr>
-vnoremap <C-c> :w! xclip<cr><cr>
-nnoremap <leader>v :r! xclip -o<cr>
+vnoremap <C-c> :w !xclip<cr><cr>
+nnoremap <leader>v :r !xclip -o 2> /dev/null<cr>
 set pastetoggle=<F2>
 
-noremap <leader>? :help <c-r><c-w><cr>
+nnoremap <leader>? :help <c-r><c-w><cr>
+
+nnoremap <leader><leader> :noh<cr>
 
 " Plugin config
 nnoremap <expr> <leader>1 (len(system('git rev-parse --abbrev-ref HEAD 2> /dev/null')) ? ':GFiles' : ':Files')."\<cr>"
