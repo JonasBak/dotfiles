@@ -8,23 +8,16 @@ if filereadable(db_cscope)
   silent execute "cs add " . db_cscope
 endif
 
-function! GenerateCtags(file)
-  let exists = filereadable(a:file)
-  execute "! $DOTFILES/bin/generate_ctags " . a:file
-  if (! exists)
-    execute "set tags+=" . a:file
-  endif
-endfunction
-function! GenerateCscope(file)
-  let exists = filereadable(a:file)
-  execute "! $DOTFILES/bin/generate_cscope " . a:file
-  if (! exists)
-    execute "silent cs add " . a:file
-  endif
-endfunction
 function! GenerateTags(file_base)
-  call GenerateCtags(a:file_base . ".ctags")
-  call GenerateCscope(a:file_base . ".cscope")
+  let exists_ctags = filereadable(a:file_base . ".ctags")
+  let exists_cscope = filereadable(a:file_base . ".cscope")
+  execute "! $DOTFILES/bin/generate_tags"
+  if (! exists_ctags)
+    execute "set tags+=" . a:file_base . ".ctags"
+  endif
+  if (! exists_cscope)
+    execute "silent cs add " . a:file_base . ".cscope"
+  endif
 endfunction
 
 command Tagme :call GenerateTags(db_file)
