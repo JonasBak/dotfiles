@@ -1,5 +1,4 @@
 #!/bin/sh
 base="$DOTFILES/local/tags/${PWD//\//.}"
-generate_cscope "$base.cscope"
-generate_ctags "$base.ctags"
-# notify-send "(re)generated tags for $PWD"
+$DOTFILES/lib/generate_cscope "$base.cscope"
+$DOTFILES/lib/generate_ctags "$base.ctags"
