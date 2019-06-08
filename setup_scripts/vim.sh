@@ -15,6 +15,9 @@ echo "Installing plugins"
    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 install_if_needed the_silver_searcher
 vim +PlugInstall +qall
+ln -b $DOTFILES/vim/lib/coc-settings.json ~/.vim/coc-settings.json
+ln -b $DOTFILES/vim/lib/package.json ~/.config/coc/extensions/package.json
+vim +CocUpdateSync +qall
 
 if [[ ! -d $DOTFILES/local/tags ]]; then
   mkdir $DOTFILES/local/tags

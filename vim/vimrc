@@ -8,6 +8,9 @@ Plug 'haya14busa/incsearch.vim'
 " Linting
 Plug 'w0rp/ale'
 
+" Completion
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+
 " Navigation
 Plug 'scrooloose/nerdtree'
 
@@ -88,9 +91,6 @@ inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-" Completion
-source $DOTFILES/vim/scripts/completion.vim
-
 " Tags
 source $DOTFILES/vim/scripts/tags.vim
 
@@ -99,8 +99,6 @@ nnoremap <C-c> :!echo <C-r><C-w>\| xclip<cr><cr>
 vnoremap <C-c> :w !xclip<cr><cr>
 nnoremap <leader>v :r !xclip -o 2> /dev/null<cr>
 set pastetoggle=<F2>
-
-nnoremap <leader>? :help <c-r><c-w><cr>
 
 nnoremap <leader><leader> :noh<cr>
 
@@ -121,9 +119,10 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'filename', 'modified' ] ],
-      \   'right': [ ['lineinfo'], ['percent'] ]
+      \   'right': [ [], ['cocstatus', 'percent'] ]
       \ },
       \ 'component_function': {
+      \   'cocstatus': 'coc#status',
       \   'mode': 'WrappedMode',
       \   'paste': 'WrappedPaste',
       \   'gitbranch': 'WrappedGitBranch',
@@ -158,6 +157,7 @@ hi VertSplit ctermbg=234 ctermfg=234
 hi StatusLineNC ctermbg=234 ctermfg=234
 hi StatusLine ctermbg=234 ctermfg=234
 
+" ALE
 hi ALEErrorSign ctermfg=1
 hi ALEwarningSign ctermfg=3
 
@@ -179,13 +179,33 @@ let g:ale_fixers = {
       \   'sh': ['shfmt']
       \}
 
-let g:ale_linters = {
-      \ 'go': ['gometalinter', 'gofmt'],
-      \ 'cpp': [ 'clang', 'clangtidy', 'cppcheck', 'cpplint', 'gcc' ],
-      \ 'rust': ['cargo', 'rls', 'rustc'],
-      \ 'javascript': ['eslint', 'flow','prettier'],
-      \ 'css': ['stylelint', 'prettier'],
-      \ 'python': ['pycodestyle', 'flake8'],
-      \ 'graphql': ['prettier', 'eslint'],
-      \ 'c': ['clang-format'],
-      \}
+" CoC
+set hidden
+set nobackup
+set nowritebackup
+set shortmess+=c
+set signcolumn=yes
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <silent> <Leader>g <Plug>(coc-definition)
+nmap <silent> <Leader>r <Plug>(coc-references)
+nmap <Leader>R <Plug>(coc-rename)
+nnoremap <silent> <Leader>? :call <SID>show_documentation()<CR>
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
