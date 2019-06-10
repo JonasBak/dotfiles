@@ -20,7 +20,7 @@ function! GenerateTags(file_base)
   endif
 endfunction
 
-command Tagme :call GenerateTags(db_file)
+command! Tagme :call GenerateTags(db_file)
 
 set csto=1
 set notagrelative

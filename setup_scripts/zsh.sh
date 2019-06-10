@@ -22,11 +22,11 @@ if [[ ! -d $DOTFILES/local/zsh_completions ]]; then
   mkdir $DOTFILES/local/zsh_completions
 fi
 
-if [[ $commands[kubectl] && ! -f $DOTFILES/local/zsh_completions/_kubectl ]]; then
+if type kubectl > /dev/null 2>&1 && [[ ! -f $DOTFILES/local/zsh_completions/_kubectl ]]; then
   kubectl completion zsh > $DOTFILES/local/zsh_completions/_kubectl
 fi
 
-if [[ $commands[docker] && ! -f $DOTFILES/local/zsh_completions/_docker ]]; then
+if type docker > /dev/null 2>&1 && [[ ! -f $DOTFILES/local/zsh_completions/_docker ]]; then
   curl -fLo $DOTFILES/local/zsh_completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 fi
 

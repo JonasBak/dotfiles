@@ -16,6 +16,8 @@ echo "TMUX"
 source $SETUP_SCRIPTS/tmux.sh
 echo "VIM"
 source $SETUP_SCRIPTS/vim.sh
+echo "VIM CoC"
+source $SETUP_SCRIPTS/vim_coc.sh
 echo "TOOLS"
 source $SETUP_SCRIPTS/tools.sh
 echo "FONT"
