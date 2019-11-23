@@ -3,6 +3,7 @@ install_if_needed() {
 }
 
 backup_config() {
+  # TODO backup with date
   if [[ -f $1 ]] && [[ ! -f $1.old ]]; then
     cp $1 $1.old
   fi

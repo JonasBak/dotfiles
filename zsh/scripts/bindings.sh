@@ -4,6 +4,8 @@ alias copy="xsel -ib"
 
 alias dotf="cd $DOTFILES"
 
+alias vdiff="vim -d"
+
 if type l > /dev/null 2>&1; then
   cd_l() {
     cd $@

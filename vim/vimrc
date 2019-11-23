@@ -128,6 +128,9 @@ let g:lightline = {
       \             [ 'gitbranch', 'filename', 'modified' ] ],
       \   'right': [ [], ['cocstatus', 'percent'] ]
       \ },
+      \ 'inactive': {
+      \   'left': [ [ 'filename', 'modified' ] ]
+      \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
       \   'mode': 'WrappedMode',
@@ -177,13 +180,16 @@ let g:ale_rust_cargo_use_check = 1
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier'],
+      \   'typescript': ['prettier'],
       \   'css': ['prettier'],
       \   'c': ['clang-format'],
-      \   'python': ['yapf', 'isort'],
+      \   'cuda': ['clang-format'],
+      \   'python': ['isort', 'black'],
       \   'java': ['google_java_format'],
       \   'rust': ['rustfmt'],
       \   'c++': ['clang-format'],
-      \   'sh': ['shfmt']
+      \   'sh': ['shfmt'],
+      \   'go': ['gofmt']
       \}
 
 " CoC
