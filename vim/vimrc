@@ -141,7 +141,7 @@ set laststatus=2
 
 hi VertSplit ctermbg=235 ctermfg=235
 hi StatusLineNC ctermbg=235 ctermfg=235
-hi StatusLine ctermbg=235 ctermfg=255
+hi StatusLine ctermbg=235 ctermfg=248
 
 " ALE
 hi ALEErrorSign ctermfg=1
