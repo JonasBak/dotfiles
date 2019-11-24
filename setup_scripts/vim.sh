@@ -16,10 +16,6 @@ echo "Installing plugins"
 install_if_needed the_silver_searcher
 vim +PlugInstall +qall
 
-if [[ ! -d $DOTFILES/local/tags ]]; then
-  mkdir $DOTFILES/local/tags
-fi
-
 if [[ ! -d $DOTFILES/local/vim_undo ]]; then
   mkdir $DOTFILES/local/vim_undo
 fi

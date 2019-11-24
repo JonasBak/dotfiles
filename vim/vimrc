@@ -98,9 +98,6 @@ inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-" Tags
-source $DOTFILES/vim/scripts/tags.vim
-
 " Clipboard
 nnoremap <C-c> :!echo <C-r><C-w>\| xclip<cr><cr>
 vnoremap <C-c> :w !xclip -selection clipboard<cr><cr>
