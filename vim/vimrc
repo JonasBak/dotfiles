@@ -17,10 +17,12 @@ endif
 Plug 'scrooloose/nerdtree'
 
 " Git
+Plug 'itchyny/vim-gitbranch'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " Visual
+Plug 'itchyny/lightline.vim'
 Plug 'romainl/apprentice'
 Plug 'sheerun/vim-polyglot'
 
@@ -117,6 +119,33 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+" Statusline config
+set noshowmode
+set laststatus=2
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'filename', 'modified' ] ],
+      \   'right': [ [], ['cocstatus', 'percent'] ]
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'mode': 'WrappedMode',
+      \   'paste': 'WrappedPaste',
+      \   'gitbranch': 'WrappedGitBranch',
+      \   'filename': 'WrappedFilename',
+      \   'modified': 'WrappedModified',
+      \   'lineinfo': 'WrappedLineInfo',
+      \   'percent': 'WrappedPercent'
+      \ },
+      \ 'colorscheme': 'default',
+      \ }
+
+source $DOTFILES/vim/scripts/lightline_functions.vim
+
 " NERDTree config
 noremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
@@ -135,13 +164,14 @@ if (empty($TMUX))
 endif
 
 silent! colorscheme apprentice
+hi VertSplit ctermbg=234 ctermfg=234
+hi StatusLineNC ctermbg=234 ctermfg=234
+hi StatusLine ctermbg=234 ctermfg=234
 
-" Statusline config (Shoud set colors after colorscheme)
-set laststatus=2
-
-hi VertSplit ctermbg=235 ctermfg=235
-hi StatusLineNC ctermbg=235 ctermfg=235
-hi StatusLine ctermbg=235 ctermfg=248
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
+let s:palette.inactive.middle = s:palette.normal.middle
+let s:palette.tabline.middle = s:palette.normal.middle
 
 " ALE
 hi ALEErrorSign ctermfg=1
