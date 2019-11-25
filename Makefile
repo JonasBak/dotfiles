@@ -17,7 +17,7 @@ bin: local
 	echo "export PATH=$(PWD)/bin:$$PATH" >> ./local/var
 
 sway: utils
-	$(INSTALL_COMMAND) sway swaylock rofi
+	$(INSTALL_COMMAND) sway swaylock rofi swayidle
 	stow sway
 
 tmux: utils
