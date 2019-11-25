@@ -9,7 +9,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'w0rp/ale'
 
 " Completion
-if executable("node")
+if (! empty($VIM_USE_COC))
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 endif
 
@@ -108,8 +108,8 @@ nnoremap <leader><leader> :noh<cr>
 
 " Plugin config
 nnoremap <expr> <leader>1 (len(system('git rev-parse --abbrev-ref HEAD 2> /dev/null')) ? ':GFiles' : ':Files')."\<cr>"
-nnoremap <leader>2 :Ag<cr>
-nnoremap <leader>3 :Ag <C-r><C-w><cr>
+nnoremap <leader>2 :Rg<cr>
+nnoremap <leader>3 :Rg <C-r><C-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
 
 map /  <Plug>(incsearch-forward)
@@ -141,7 +141,7 @@ let g:lightline = {
       \ 'colorscheme': 'srcery_drk',
       \ }
 
-source $DOTFILES/vim/scripts/lightline_functions.vim
+source $DOTFILES/utils/vim/lightline_functions.vim
 
 " NERDTree config
 noremap <C-n> :NERDTreeToggle<CR>
@@ -196,7 +196,7 @@ let g:ale_fixers = {
       \}
 
 " CoC
-if executable("node")
+if (! empty($VIM_USE_COC))
   set hidden
   set nobackup
   set nowritebackup

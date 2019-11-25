@@ -22,7 +22,7 @@ set $menu 'rofi -modi window,drun,run -show drun -color-window "$background, $ba
 # Other
 set $term gnome-terminal
 
-set $background_image /home/jonasbak/Pictures/wallpaper.jpg
+set $background_image ~/.config/sway/wallpaper.jpg
 
 set $lockscreen swaylock -f -i $background_image -s fill --inside-color 00000000 --inside-clear-color 00000000 --inside-ver-color 00000000 --inside-wrong-color 00000000 --key-hl-color 5F87AF --layout-bg-color BCBCBC --ring-color BCBCBC --indicator-thickness 4
 
@@ -210,7 +210,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while /home/jonasbak/dotfiles/sway/bar.sh; do sleep 1; done
+    status_command while ~/.config/sway/bar.sh; do sleep 1; done
 
     colors {
         statusline $foreground
