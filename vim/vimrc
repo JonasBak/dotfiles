@@ -138,7 +138,7 @@ let g:lightline = {
       \   'lineinfo': 'WrappedLineInfo',
       \   'percent': 'WrappedPercent'
       \ },
-      \ 'colorscheme': 'default',
+      \ 'colorscheme': 'srcery_drk',
       \ }
 
 source $DOTFILES/vim/scripts/lightline_functions.vim
