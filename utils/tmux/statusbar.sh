@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$($DOTFILES/tmux/scripts/pass.sh)$($DOTFILES/tmux/scripts/kubernetes.sh)$($DOTFILES/tmux/scripts/docker.sh)"
+echo "$($DOTFILES/utils/tmux/pass.sh)$($DOTFILES/utils/tmux/kubernetes.sh)$($DOTFILES/utils/tmux/docker.sh)"

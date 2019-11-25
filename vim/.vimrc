@@ -30,8 +30,6 @@ call plug#end()
 
 set rtp+=~/.fzf
 
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
 " General settings
 set updatetime=500
 

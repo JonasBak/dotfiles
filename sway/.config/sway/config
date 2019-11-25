@@ -20,7 +20,7 @@ set $urgent #5F87AF
 set $menu 'rofi -modi window,drun,run -show drun -color-window "$background, $background, $background" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
 
 # Other
-set $term gnome-terminal
+set $term alacritty
 
 set $background_image ~/.config/sway/wallpaper.jpg
 

@@ -55,4 +55,9 @@ zsh: utils
 	if [[ "$(expr "$(SHELL)" : '.*/\(.*\)')" != "zsh" ]]; then $(INSTALL_COMMAND) util-linux-user; \
 		chsh -s /bin/zsh; fi
 
-.PHONY: local font utils bin sway tmux vim vim-coc zsh
+alacritty: utils
+	sudo dnf copr enable pschyska/alacritty
+	$(INSTALL_COMMAND) alacritty
+	stow alacritty
+
+.PHONY: local font utils bin sway tmux vim vim-coc zsh alacritty
