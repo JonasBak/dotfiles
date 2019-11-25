@@ -6,14 +6,14 @@ local:
 utils:
 	$(INSTALL_COMMAND) stow
 
-font:
+font: local
 	wget -O inconsolata.ttf "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/complete/Inconsolata%20LGC%20Nerd%20Font%20Complete%20Mono.ttf"
 	mkdir -p ~/.local/share/fonts/inconsolata
 	mv inconsolata.ttf ~/.local/share/fonts/inconsolata
 	fc-cache
 	echo "export PATCHED_FONT=true" >> ./local/var
 
-bin:
+bin: local
 	echo "export PATH=$(PWD)/bin:$$PATH" >> ./local/var
 
 sway: utils
@@ -33,7 +33,7 @@ vim: utils
 	if [[ ! -d ./local/vim_undo ]]; then mkdir ./local/vim_undo; fi
 	if [[ ! -d ./local/vim_sessions ]]; then mkdir ./local/vim_sessions; fi
 
-vim-coc:
+vim-coc: utils local
 	$(INSTALL_COMMAND) nodejs
 	if ! type yarn > /dev/null 2>&1; then sudo npm install -g yarn; fi
 	echo "export VIM_USE_COC=1" >> ./local/var
