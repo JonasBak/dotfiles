@@ -255,4 +255,4 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
 bindsym $mod+p exec $term --class pass -e sh -c $HOME/dotfiles/bin/pw
 for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
 
-include @sysconfdir@/sway/config.d/*
+include ~/.config/sway/config.d/*
