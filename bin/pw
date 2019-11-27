@@ -1,0 +1,20 @@
+#!/bin/bash
+export PASSWORD_STORE_DIR=$HOME/.pwd
+export FZF=$HOME/.fzf/bin/fzf
+# TODO
+export WL_CLIPBOARD_DIR=$HOME/code/packages/bin/
+
+cd $PASSWORD_STORE_DIR
+FILE=$(git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | $FZF)
+
+if [[ -z "$FILE" ]]; then
+  exit 0
+fi
+
+PASSWORD=$(pass "$FILE" | head -n 1)
+
+echo "Copied $FILE!"
+echo
+echo "Window will close and clipboard will clear after pasted"
+
+echo $PASSWORD | $WL_CLIPBOARD_DIR/wl-copy -fon

@@ -97,9 +97,9 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Clipboard
-nnoremap <C-c> :!echo <C-r><C-w>\| xclip<cr><cr>
-vnoremap <C-c> :w !xclip -selection clipboard<cr><cr>
-nnoremap <leader>v :r !xclip -o 2> /dev/null<cr>
+nnoremap <C-c> :!echo <C-r><C-w>\| wl-copy<cr><cr>
+vnoremap <C-c> :w !wl-copy<cr><cr>
+nnoremap <leader>v :r !wl-paste<cr>
 set pastetoggle=<F2>
 
 nnoremap <leader><leader> :noh<cr>

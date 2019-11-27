@@ -30,6 +30,8 @@ set $bright-magenta #8080c1
 set $bright-cyan #48b0b0
 set $bright-white #ffffff
 
+set $tr-blue #517eacaa
+
 # Application launcher
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu 'rofi -modi window,drun,run -show drun -color-window "$black, $black, $black" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
@@ -234,17 +236,23 @@ bar {
     }
 }
 
-# Colors                border        bg            text        indi        childborder
-client.focused          $bright-blue  $bright-blue  $foreground $white      $bright-blue
-client.focused_inactive $background   $background   $foreground $background $background
-client.unfocused        $background   $background   $foreground $background $background
-client.urgent           $blue         $blue         $foreground $blue       $blue
+# Colors                border      bg          text        indi        childborder
+client.focused          $tr-blue    $tr-blue    $foreground $blue       $tr-blue
+client.focused_inactive $background $background $foreground $background $background
+client.unfocused        $background $background $foreground $background $background
+client.urgent           $blue       $blue       $foreground $blue       $blue
 
-# Font
 font InconsolataLGC Nerd Font Mono Medium 11
 
 default_border pixel 2
 
 gaps inner 10
+
+# Fix going idle when not supposed to
+for_window [app_id="firefox"] inhibit_idle fullscreen
+
+# Run pass script
+bindsym $mod+p exec $term --class pass -e sh -c $HOME/dotfiles/bin/pw
+for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
 
 include @sysconfdir@/sway/config.d/*
