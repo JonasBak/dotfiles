@@ -65,11 +65,21 @@ set_prompt() {
       RIGHT+="$_prompt_right_separator$diff"
     fi
 
+    # RPROMPT is set in zle-keymap-select
     RIGHT+="$_prompt_right_post"
-    RPROMPT=$RIGHT
   else
-    RPROMPT=""
+    RIGHT=""
   fi
 }
 
 add-zsh-hook precmd set_prompt
+
+function zle-line-init zle-keymap-select {
+  MODE="${${KEYMAP/vicmd/vi}/(main|viins)/}"
+  RPS1="%{$fg[red]%}$MODE%{$reset_color%}%  $RIGHT"
+  RPS2=$RPS1
+  zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select

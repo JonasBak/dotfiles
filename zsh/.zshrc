@@ -16,11 +16,15 @@ setopt hist_ignore_all_dups
 setopt share_history
 setopt inc_append_history
 
-export VISUAL=vim
-
 stty -ixon
 
-zmodload zsh/complist # Needed for reverse-menu-complete binding
+export EDITOR=vim
+export VISUAL=vim
+
+KEYTIMEOUT=1
+
+# Vi mode
+bindkey -v
 
 # Plugins
 source_plugin() {

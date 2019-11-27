@@ -9,15 +9,30 @@ set $up k
 set $right l
 
 # Colors
-set $highlight #5F87AF
-set $indicator #BCBCBC
 set $background #262626
-set $foreground #BCBCBC
-set $urgent #5F87AF
+set $foreground #cfcfcf
+
+set $black #1c1c1c
+set $red #cb3c3c
+set $green #4d9e4d
+set $yellow #f4d443
+set $blue #517eac
+set $magenta #61619e
+set $cyan #3e8d8d
+set $white #7b7b7b
+
+set $bright-black #606060
+set $bright-red #c83d3d
+set $bright-green #74b574
+set $bright-yellow #f8e33c
+set $bright-blue #608bc3
+set $bright-magenta #8080c1
+set $bright-cyan #48b0b0
+set $bright-white #ffffff
 
 # Application launcher
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu 'rofi -modi window,drun,run -show drun -color-window "$background, $background, $background" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
+set $menu 'rofi -modi window,drun,run -show drun -color-window "$black, $black, $black" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
 
 # Other
 set $term alacritty
@@ -219,11 +234,11 @@ bar {
     }
 }
 
-# Colors                border   bg       text     indi     childborder
-client.focused          $highlight $highlight $foreground $indicator $highlight
-client.focused_inactive $background $background $foreground $background $background
-client.unfocused        $background $background $foreground $background $background
-client.urgent           $urgent $urgent $foreground $urgent $urgent
+# Colors                border        bg            text        indi        childborder
+client.focused          $bright-blue  $bright-blue  $foreground $white      $bright-blue
+client.focused_inactive $background   $background   $foreground $background $background
+client.unfocused        $background   $background   $foreground $background $background
+client.urgent           $blue         $blue         $foreground $blue       $blue
 
 # Font
 font InconsolataLGC Nerd Font Mono Medium 11

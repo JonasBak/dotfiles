@@ -29,4 +29,11 @@ if [[ -d $ZSH_PLUGINS/zsh-history-substring-search ]]; then
 fi
 
 bindkey "^[[3~" delete-char
+bindkey "^?" backward-delete-char
+
+zmodload zsh/complist # Needed for reverse-menu-complete binding
 bindkey -M menuselect "^[[Z" reverse-menu-complete
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
