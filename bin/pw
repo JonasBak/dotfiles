@@ -1,8 +1,8 @@
 #!/bin/bash
 export PASSWORD_STORE_DIR=$HOME/.pwd
-export FZF=$HOME/.fzf/bin/fzf
+export FZF="$HOME/.fzf/bin/fzf --reverse"
 # TODO
-export WL_CLIPBOARD_DIR=$HOME/code/packages/bin/
+export WL_CLIPBOARD_DIR=$HOME/code/packages/bin
 
 cd $PASSWORD_STORE_DIR
 FILE=$(git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | $FZF)
