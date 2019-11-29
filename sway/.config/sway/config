@@ -41,7 +41,7 @@ set $term alacritty
 
 set $background_image ~/.config/sway/wallpaper.jpg
 
-set $lockscreen swaylock -f -i $background_image -s fill --inside-color 00000000 --inside-clear-color 00000000 --inside-ver-color 00000000 --inside-wrong-color 00000000 --key-hl-color 5F87AF --layout-bg-color BCBCBC --ring-color BCBCBC --indicator-thickness 4
+set $lockscreen swock -f -i ~/.config/sway/wallpaper.jpg --font "InconsolataLGC Nerd Font Mono"
 
 ### Output configuration
 
@@ -258,5 +258,8 @@ for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
 # Run screenshot script
 bindsym --release Print exec $term --class screenshot --title screenshot -e sh -c $HOME/dotfiles/bin/screenshot
 for_window [app_id="screenshot"] focus, floating enabled, resize set 550 px 125 px
+
+# Notification deamon
+exec mako
 
 include ~/.config/sway/config.d/*

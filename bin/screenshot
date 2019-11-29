@@ -1,9 +1,5 @@
 #!/bin/bash
 export FZF="$HOME/.fzf/bin/fzf --reverse"
-# TODO
-export WL_CLIPBOARD_DIR=$HOME/code/packages/bin
-export GRIM_DIR=$HOME/code/packages/bin
-
 
 RESP=$(cat <<EOF | $FZF
 screen
@@ -46,13 +42,13 @@ case "$RESP" in
     if [[ -z "$FILENAME" ]]; then
       exit 1
     fi
-    $GRIM_DIR/grim $FLAG "$VALUE" ~/Pictures/$FILENAME
+    grim $FLAG "$VALUE" ~/Pictures/$FILENAME
     ;;
   copy)
     echo "Copied image!"
     echo
     echo "Window will close and clipboard will clear after pasted"
-    $GRIM_DIR/grim $FLAG "$VALUE" - | $WL_CLIPBOARD_DIR/wl-copy -fo
+    grim $FLAG "$VALUE" - | wl-copy -fo
     ;;
   *)
     exit 1
