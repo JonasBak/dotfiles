@@ -91,9 +91,6 @@ floating_modifier $mod normal
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
-# Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
 bindsym $mod+Shift+r exec $lockscreen
 
 #
@@ -258,6 +255,10 @@ for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
 # Run screenshot script
 bindsym --release Print exec $term --class screenshot --title screenshot -e sh -c $HOME/dotfiles/bin/screenshot
 for_window [app_id="screenshot"] focus, floating enabled, resize set 550 px 125 px
+
+# Run logout/reboot/shutdown
+bindsym $mod+Shift+e exec $term --class letmeout -e sh -c $HOME/dotfiles/bin/letmeout
+for_window [app_id="letmeout"] focus, floating enabled, resize set 150 px 105 px
 
 # Notification deamon
 exec mako

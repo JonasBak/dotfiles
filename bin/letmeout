@@ -1,0 +1,23 @@
+#!/bin/bash
+export FZF="$HOME/.fzf/bin/fzf --reverse"
+
+RESP=$(cat <<EOF | $FZF
+Logout
+Reboot
+Shutdown
+EOF
+);
+
+case "$RESP" in
+  Logout)
+    swaymsg exit
+    ;;
+  Reboot)
+    systemctl reboot
+    ;;
+  Shutdown)
+    systemctl poweroff
+    ;;
+  *)
+    exit 1
+esac
