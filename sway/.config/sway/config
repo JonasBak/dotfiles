@@ -1,14 +1,15 @@
-### Variables
+#
+# Variables
+#
+
 # Windows key
 set $mod Mod4
 
-# Vim keys
 set $left h
 set $down j
 set $up k
 set $right l
 
-# Colors
 set $background #262626
 set $foreground #cfcfcf
 
@@ -32,66 +33,48 @@ set $bright-white #ffffff
 
 set $tr-blue #517eacaa
 
-# Application launcher
-#set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu 'rofi -modi window,drun,run -show drun -color-window "$black, $black, $black" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
 
-# Other
 set $term alacritty
 
-set $background_image ~/.config/sway/wallpaper.jpg
+set $background_image ~/dotfiles/utils/sway/wallpaper.jpg
 
-set $lockscreen swock -f -i ~/.config/sway/wallpaper.jpg --font "InconsolataLGC Nerd Font Mono"
+set $lockscreen swock -f -i ~/dotfiles/utils/sway/wallpaper.jpg --font "InconsolataLGC Nerd Font Mono"
 
-### Output configuration
-
-# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
+#
+# Output
+#
 output * bg $background_image fill
 
-### Idle configuration
-
+#
+# Idle
+#
 exec swayidle -w \
          timeout 300 '$lockscreen' \
          timeout 600 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
          before-sleep '$lockscreen'
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+for_window [app_id="firefox-wayland"] inhibit_idle fullscreen
 
-### Input configuration
-
+#
+# Input
+#
 input * xkb_layout "no"
 input * xkb_options "caps:escape"
 
-input "1267:5:Elan_Touchpad" {
-  tap enabled
-  natural_scroll enabled
-}
-
-### Key bindings
-
-# Open terminal
-bindsym $mod+Return exec $term
-
-# Kill focused window
+#
+# Key bindings
+#
 bindsym $mod+Shift+q kill
 
-# Start your launcher
+bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
+bindsym $mod+Shift+r exec $lockscreen
 
-# Drag floating windows by holding down $mod and left mouse button.
-# Resize them with right mouse button + $mod.
-# Despite the name, also works for non-floating windows.
-# Change normal to inverse to use left mouse button for resizing and right
-# mouse button for dragging.
 floating_modifier $mod normal
 
-# Reload the configuration file
 bindsym $mod+Shift+c reload
-
-bindsym $mod+Shift+r exec $lockscreen
 
 #
 # Moving around:
@@ -154,62 +137,40 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 
+#
 # Layout stuff:
 #
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
 bindsym $mod+bar splith
 bindsym $mod+minus splitv
 
-# Switch the current container between different layout styles
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# Make the current focus fullscreen
 bindsym $mod+f fullscreen
-
-# Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
-
-# Swap focus between the tiling area and the floating area
 bindsym $mod+space focus mode_toggle
-
-# Move focus to the parent container
 bindsym $mod+a focus parent
+
 #
 # Scratchpad:
 #
-# Sway has a "scratchpad", which is a bag of holding for windows.
-# You can send windows there and get them back later.
-
-# Move the currently focused window to the scratchpad
 bindsym $mod+Shift+plus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+plus scratchpad show
+
 #
-# Resizing containers:
+# Modes
 #
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
-    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -218,13 +179,10 @@ bindsym $mod+r mode "resize"
 #
 # Status Bar:
 #
-# Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while ~/.config/sway/bar.sh; do sleep 1; done
+    status_command while ~/dotfiles/utils/sway/bar.sh; do sleep 1; done
 
     colors {
         statusline $foreground
@@ -233,6 +191,9 @@ bar {
     }
 }
 
+#
+# Appearance
+#
 # Colors                border      bg          text        indi        childborder
 client.focused          $tr-blue    $tr-blue    $foreground $blue       $tr-blue
 client.focused_inactive $background $background $foreground $background $background
@@ -245,9 +206,9 @@ default_border pixel 2
 
 gaps inner 10
 
-# Fix going idle when not supposed to
-for_window [app_id="firefox"] inhibit_idle fullscreen
-
+#
+# Other
+#
 # Run pass script
 bindsym $mod+p exec $term --class pass -e sh -c $HOME/dotfiles/bin/pw
 for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
