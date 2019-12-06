@@ -159,9 +159,9 @@ if (empty($TMUX))
 endif
 
 silent! colorscheme apprentice
-hi VertSplit ctermbg=234 ctermfg=234
-hi StatusLineNC ctermbg=234 ctermfg=234
-hi StatusLine ctermbg=234 ctermfg=234
+hi VertSplit ctermbg=235 ctermfg=234
+hi StatusLineNC ctermbg=235 ctermfg=235
+hi StatusLine ctermbg=235 ctermfg=235
 
 let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
 let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
