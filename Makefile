@@ -1,10 +1,10 @@
 INSTALL_COMMAND := sudo dnf install -y
 
 local:
-	[[ ! -d ./local ]] && mkdir ./local && touch ./local/var
+	if [[ ! -d ./local ]]; then mkdir ./local && touch ./local/var; fi
 
 utils:
-	$(INSTALL_COMMAND) stow
+	if ! type stow > /dev/null 2>&1; then $(INSTALL_COMMAND) stow; fi
 
 font: local
 	wget -O inconsolata.ttf "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/complete/Inconsolata%20LGC%20Nerd%20Font%20Complete%20Mono.ttf"
@@ -40,7 +40,7 @@ vim-coc: utils local
 	DOTFILES=$(PWD) VIM_USE_COC=1 vim +PlugInstall +qall
 	DOTFILES=$(PWD) VIM_USE_COC=1 vim +"CocInstall -sync coc-gocode coc-python coc-rls coc-tsserver rope" +qall
 
-zsh: utils
+zsh: utils local
 	$(INSTALL_COMMAND) zsh
 	stow zsh
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git ./local/zsh_plugins/zsh-autosuggestions
