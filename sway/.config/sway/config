@@ -33,7 +33,7 @@ set $bright-white #ffffff
 
 set $tr-blue #517eacaa
 
-set $menu 'rofi -modi window,drun,run -show drun -color-window "$black, $black, $black" -color-normal "$background, $foreground, $background, $foreground, $background" -color-active "$background, $foreground, $background, $foreground, $background" -color-urgent "$background, $foreground, $background, $foreground, $background" -sidebar-mode -show-icons'
+set $menu 'wofi --show drun -I'
 
 set $term alacritty
 
