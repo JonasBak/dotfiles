@@ -196,9 +196,9 @@ bar {
 # Appearance
 #
 # Colors                border      bg          text        indi        childborder
-client.focused          $tr-blue    $tr-blue    $foreground $blue       $tr-blue
+client.focused          $background $background $foreground $blue       $blue
 client.focused_inactive $background $background $foreground $background $background
-client.unfocused        $background $background $foreground $background $background
+client.unfocused        $background $black      $foreground $background $background
 client.urgent           $blue       $blue       $foreground $blue       $blue
 
 font InconsolataLGC Nerd Font Mono Medium 11
