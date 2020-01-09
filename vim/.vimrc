@@ -10,7 +10,7 @@ Plug 'w0rp/ale'
 
 " Completion
 if (! empty($VIM_USE_COC))
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 endif
 
 " Navigation
