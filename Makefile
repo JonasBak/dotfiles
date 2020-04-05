@@ -16,6 +16,9 @@ font: local
 bin: local
 	echo "export PATH=$(PWD)/bin:\$$PATH" >> ./local/var
 	$(INSTALL_COMMAND) fzf ripgrep
+	if [[ -z "$(DONT_INSTALL_PACKAGES)" && ! -d ./local/packages ]]; then \
+		git clone --depth=1 ssh://git@gitea.lan.jbakken.com:222/jonasbak/packages.git ./local/packages && \
+		echo "export PATH=$(PWD)/local/packages/bin:\$$PATH" >> ./local/var; fi
 
 sway: utils
 	$(INSTALL_COMMAND) sway swaylock rofi swayidle
