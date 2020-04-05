@@ -15,6 +15,7 @@ font: local
 
 bin: local
 	echo "export PATH=$(PWD)/bin:\$$PATH" >> ./local/var
+	$(INSTALL_COMMAND) fzf ripgrep
 
 sway: utils
 	$(INSTALL_COMMAND) sway swaylock rofi swayidle
@@ -25,7 +26,7 @@ tmux: utils
 	stow tmux
 
 vim: utils
-	$(INSTALL_COMMAND) vim ripgrep
+	$(INSTALL_COMMAND) vim
 	if [[ ! -f ~/.vim/autoload/plug.vim ]]; then curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim; fi
 	stow vim

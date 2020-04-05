@@ -42,5 +42,5 @@ export fpath=($DOTFILES/local/zsh_plugins/zsh-completions/src $DOTFILES/local/zs
 source $DOTFILES/utils/zsh/bindings.sh
 source $DOTFILES/utils/zsh/completions.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ ! -f /usr/share/fzf/shell/key-bindings.zsh ]] || source /usr/share/fzf/shell/key-bindings.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
