@@ -14,7 +14,7 @@ font: local
 	echo "export PATCHED_FONT=true" >> ./local/var
 
 bin: local
-	echo "export PATH=$(PWD)/bin:$$PATH" >> ./local/var
+	echo "export PATH=$(PWD)/bin:\$$PATH" >> ./local/var
 
 sway: utils
 	$(INSTALL_COMMAND) sway swaylock rofi swayidle

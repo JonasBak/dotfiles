@@ -182,6 +182,7 @@ let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier'],
       \   'typescript': ['prettier'],
+      \   'typescriptreact': ['prettier'],
       \   'css': ['prettier'],
       \   'c': ['clang-format'],
       \   'cuda': ['clang-format'],

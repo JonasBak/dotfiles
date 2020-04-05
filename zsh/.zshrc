@@ -15,6 +15,7 @@ setopt inc_append_history # To save every command before it is executed
 setopt hist_ignore_all_dups
 setopt share_history
 setopt inc_append_history
+setopt histignorespace
 
 stty -ixon
 
