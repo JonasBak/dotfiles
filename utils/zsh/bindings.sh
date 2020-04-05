@@ -6,13 +6,10 @@ alias dotf="cd $DOTFILES"
 
 alias vdiff="vim -d"
 
-if type l > /dev/null 2>&1; then
-  cd_l() {
-    cd $@
-    [[ "$(ls -1a | wc -l)" -le "28" ]] && l
-  }
-  alias cd="cd_l"
-fi
+cd_ls() {
+  cd $@ && [[ "$(ls -1a | wc -l)" -le "28" ]] && ls -a1F
+}
+alias cd="cd_ls"
 
 v() {
   session="$DOTFILES/local/vim_sessions/${PWD//\//.}"
