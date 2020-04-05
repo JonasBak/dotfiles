@@ -17,8 +17,6 @@ setopt share_history
 setopt inc_append_history
 setopt histignorespace
 
-stty -ixon
-
 export EDITOR=vim
 export VISUAL=vim
 
@@ -29,7 +27,7 @@ bindkey -v
 
 # Plugins
 source_plugin() {
-  [[ -d $DOTFILES/local/zsh_plugins/$1 ]] && source $DOTFILES/local/zsh_plugins/$1/$1.plugin.zsh
+  [[ -d $DOTFILES/local/zsh_plugins/$1 ]] && source $DOTFILES/local/zsh_plugins/$1/${2:-$1.plugin.zsh}
 }
 
 source_plugin zsh-autosuggestions
@@ -37,10 +35,12 @@ source_plugin zsh-syntax-highlighting
 source_plugin zsh-completions
 source_plugin zsh-history-substring-search
 
+source_plugin powerlevel10k powerlevel10k.zsh-theme
+
 export fpath=($DOTFILES/local/zsh_plugins/zsh-completions/src $DOTFILES/local/zsh_completions $fpath)
 
-source $DOTFILES/utils/zsh/prompt.sh
 source $DOTFILES/utils/zsh/bindings.sh
 source $DOTFILES/utils/zsh/completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
