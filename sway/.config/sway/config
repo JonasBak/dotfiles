@@ -181,15 +181,7 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 bar {
-    position top
-
-    status_command while ~/dotfiles/utils/sway/bar.sh; do sleep 1; done
-
-    colors {
-        statusline $foreground
-        background $background
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
 
 #

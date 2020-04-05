@@ -1,0 +1,77 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "modules-left": [
+    "sway/workspaces",
+  "sway/mode"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "idle_inhibitor",
+    "network",
+    "pulseaudio",
+    "custom/keyboard-layout",
+    "battery",
+    "clock#date",
+    "clock#time"
+  ],
+
+  "battery": {
+    "interval": 10,
+      "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": " {icon} {capacity}%",
+    "format-discharging": "{icon} {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tooltip": true
+  },
+  "clock#date": {
+    "interval": 10,
+    "format": " {:%e %b %Y}",
+    "tooltip-format": "{:%e %B %Y}"
+  },
+  "custom/keyboard-layout": {
+    "exec": "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
+    "interval": 30,
+    "format": "  {}",
+    "signal": 1,
+    "tooltip": false
+  },
+  "network": {
+    "interval": 10,
+    "format-wifi": " {essid} ({signalStrength}%)",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": "⚠",
+    "tooltip-format": "{ifname}: {ipaddr}"
+  },
+  "sway/window": {
+    "format": "{}",
+    "max-length": 40
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", ""]
+    }
+  },
+  "idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		}
+	}
+}

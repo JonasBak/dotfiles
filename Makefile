@@ -21,7 +21,7 @@ bin: local
 		echo "export PATH=$(PWD)/local/packages/bin:\$$PATH" >> ./local/var; fi
 
 sway: utils
-	$(INSTALL_COMMAND) sway swaylock rofi swayidle
+	$(INSTALL_COMMAND) sway swaylock wofi swayidle waybar mako grim wl-clipboard
 	stow sway
 
 tmux: utils

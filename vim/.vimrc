@@ -183,6 +183,7 @@ let g:ale_fixers = {
       \   'typescript': ['prettier'],
       \   'typescriptreact': ['prettier'],
       \   'css': ['prettier'],
+      \   'markdown': ['prettier'],
       \   'c': ['clang-format'],
       \   'cuda': ['clang-format'],
       \   'python': ['isort', 'black'],
