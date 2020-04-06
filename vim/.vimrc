@@ -138,7 +138,7 @@ let g:lightline = {
       \ 'colorscheme': 'srcery_drk',
       \ }
 
-source $DOTFILES/utils/vim/lightline_functions.vim
+source ~/.vim/lightline_functions.vim
 
 " NERDTree config
 noremap <C-n> :NERDTreeToggle<CR>

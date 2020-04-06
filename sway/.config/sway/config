@@ -37,14 +37,14 @@ set $menu 'wofi --show drun -I'
 
 set $term alacritty
 
-set $background_image ~/dotfiles/utils/sway/wallpaper.jpg
+set $wallpapers ~/.config/sway/wallpapers
 
-set $lockscreen swock -f -i ~/dotfiles/utils/sway/wallpaper.jpg --font "InconsolataLGC Nerd Font Mono"
+set $lockscreen swock -f -i `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` --font "InconsolataLGC Nerd Font Mono"
 
 #
 # Output
 #
-output * bg $background_image fill
+output * bg `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` fill
 
 #
 # Idle
