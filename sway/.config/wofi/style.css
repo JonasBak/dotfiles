@@ -1,0 +1,36 @@
+window {
+  margin: 5px;
+  border: 2px solid #CFCFCF;
+  background-color: #262626;
+  border-radius: 5px;
+}
+
+
+#scroll {
+  padding: 5px;
+  margin: 0px 5px 5px;
+  background-color: #262626;
+}
+
+#input {
+  margin: 10px 10px 0px;
+}
+
+*:focus {
+  outline-color: transparent;
+}
+
+#entry #selected {
+  background-color: #404040;
+  border-radius: 5px;
+}
+
+expander > * > *:focus {
+  background-color: #262626;
+  border-radius: 5px;
+}
+
+* {
+  background-color: transparent;
+  border-color: transparent;
+}
