@@ -11,10 +11,9 @@
   ],
   "modules-right": [
     "idle_inhibitor",
-    "network",
     "pulseaudio",
-    "custom/keyboard-layout",
     "battery",
+    "network",
     "clock#date",
     "clock#time"
   ],
@@ -41,17 +40,10 @@
     "format": " {:%e %b %Y}",
     "tooltip-format": "{:%e %B %Y}"
   },
-  "custom/keyboard-layout": {
-    "exec": "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
-    "interval": 30,
-    "format": "  {}",
-    "signal": 1,
-    "tooltip": false
-  },
   "network": {
     "interval": 10,
     "format-wifi": " {essid} ({signalStrength}%)",
-    "format-ethernet": " {ifname}",
+    "format-ethernet": "{ifname}",
     "format-disconnected": "⚠",
     "tooltip-format": "{ifname}: {ipaddr}"
   },
@@ -70,8 +62,8 @@
   "idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
-			"activated": "",
-			"deactivated": ""
+			"activated": "零",
+			"deactivated": "鈴"
 		}
 	}
 }

@@ -197,7 +197,7 @@ font InconsolataLGC Nerd Font Mono Medium 11
 
 default_border pixel 2
 
-gaps inner 10
+gaps inner 20
 
 #
 # Other

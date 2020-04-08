@@ -24,30 +24,29 @@
     min-height: 0;
     margin: 0;
     padding: 0;
+    font-size: 13px;
 }
 
 #waybar {
-    background: rgba(26,26,26,0.4);
+    background: rgba(26,26,26,0.35);
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
+    box-shadow: inset 0px -10px 8px -20px #000000;
     color: white;
-    font-family: InconsolataLGC Nerd Font Mono Medium;
-    font-size: 13px;
 }
 
 #window {
     font-weight: bold;
-    border-bottom: 2px solid rgba(255,255,255,0.8);
+    border-bottom: 2px solid rgba(255,255,255,0.7);
     border-radius: 1px;
     padding-top: 2px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-window#waybar.empty #window,
-window#waybar.solo #window {
+window#waybar.empty #window {
     border-color: transparent;
     color: transparent;
 }
-
 
 #battery,
 #clock,
@@ -56,12 +55,17 @@ window#waybar.solo #window {
 #network,
 #idle_inhibitor,
 #pulseaudio {
-    border-bottom: 2px solid rgba(255,255,255,0.8);
+    border-bottom: 2px solid rgba(255,255,255,0.7);
     border-radius: 1px;
     padding-top: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 5px;
+}
+
+#idle_inhibitor {
+    font-family: InconsolataLGC Nerd Font Mono;
+    font-size: 18px;
 }
 
 #battery {
@@ -88,32 +92,31 @@ window#waybar.solo #window {
     animation-duration: 2s;
 }
 
-#mode {
-    background: #64727D;
-    border-top: 2px solid white;
-    padding-bottom: 2px;
-}
-
 #network.disconnected {
     color: orange;
 }
 
 #workspaces button {
-    background: rgba(26,26,26,0.4);
-    border-bottom: 2px solid rgba(100,100,100,0.8);
-    padding-top: 2px;
     padding-left: 10px;
     padding-right: 10px;
-    color: #888888;
+    color: rgba(255,255,255,0.7);
+    border-bottom: 2px solid transparent;
+    border-radius: 1px;
+    padding-top: 2px;
+}
+
+#workspaces button:hover {
+    background: transparent;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    border-color: rgba(255,255,255,0.7);
 }
 
 #workspaces button.focused {
-    border-color: #4c7899;
     color: white;
-    background-color: #285577;
+    border-color: rgba(255,255,255,0.7);
 }
 
 #workspaces button.urgent {
     border-color: #c9545d;
-    color: #c9545d;
 }
