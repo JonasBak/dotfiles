@@ -1,18 +1,14 @@
 #!/bin/bash
 export PASSWORD_STORE_DIR=$HOME/.pwd
-export FZF="$HOME/.fzf/bin/fzf --reverse"
-
-cd $PASSWORD_STORE_DIR
-FILE=$(git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | $FZF)
-
+FILE=$(pass git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | wofi -d --width 500 --height 200)
 if [[ -z "$FILE" ]]; then
-  exit 0
+  exit 1
 fi
-
-PASSWORD=$(pass "$FILE" | head -n 1)
-
-echo "Copied $FILE!"
-echo
-echo "Window will close and clipboard will clear after pasted"
-
-echo $PASSWORD | wl-copy -fon
+PASSWORD=$(pass "$FILE")
+if [[ ! $? -eq 0 ]]; then
+  notify-send "Failed to get password"
+  exit 2
+fi
+echo "$PASSWORD" | head -n 1 | wl-copy -on
+notify-send -t 15000 "pass $FILE" "Password copied for 30 seconds"
+sleep 30

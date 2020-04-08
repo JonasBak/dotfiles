@@ -203,8 +203,7 @@ gaps inner 20
 # Other
 #
 # Run pass script
-bindsym $mod+p exec $term --class pass -e sh -c $HOME/dotfiles/bin/pw
-for_window [app_id="pass"] focus, floating enabled, resize set 450 px 125 px
+bindsym $mod+p exec $HOME/dotfiles/bin/pw
 
 # Run screenshot script
 bindsym --release Print exec $term --class screenshot --title screenshot -e sh -c $HOME/dotfiles/bin/screenshot

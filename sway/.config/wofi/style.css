@@ -20,6 +20,10 @@ window {
   outline-color: transparent;
 }
 
+#entry > * {
+  padding-left: 10px;
+}
+
 #entry #selected {
   background-color: #404040;
   border-radius: 5px;
