@@ -1,2 +1,2 @@
 # dotfiles
-![screenshot](https://user-images.githubusercontent.com/16608915/69964722-2bb3ff80-1513-11ea-9dcd-e9553a853bc3.png)
+![dotfiles](https://user-images.githubusercontent.com/16608915/78837261-f4d78400-79f3-11ea-8a3c-956862073b1a.png)
