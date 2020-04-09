@@ -27,8 +27,6 @@ Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-set rtp+=~/.fzf
-
 " General settings
 set updatetime=500
 

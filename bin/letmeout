@@ -1,7 +1,6 @@
 #!/bin/bash
-export FZF="$HOME/.fzf/bin/fzf --reverse"
-
-RESP=$(cat <<EOF | $FZF
+RESP=$(cat <<EOF | wofi -din --width 500 --height 150
+Lock
 Logout
 Reboot
 Shutdown
@@ -9,6 +8,10 @@ EOF
 );
 
 case "$RESP" in
+  Lock)
+    IMAGE="$(find -L ~/.config/sway/wallpapers -type f | shuf -n 1 | xargs realpath)"
+    swaymsg exec "swock -f -i \"$IMAGE\" --font \"InconsolataLGC Nerd Font Mono\""
+    ;;
   Logout)
     swaymsg exit
     ;;

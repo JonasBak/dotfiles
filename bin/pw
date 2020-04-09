@@ -1,6 +1,6 @@
 #!/bin/bash
 export PASSWORD_STORE_DIR=$HOME/.pwd
-FILE=$(pass git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | wofi -d --width 500 --height 200)
+FILE=$(pass git ls-files | grep -e '^\w.*\.gpg' | sed 's/.gpg$//g' | wofi -din --width 500 --height 200)
 if [[ -z "$FILE" ]]; then
   exit 1
 fi

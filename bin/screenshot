@@ -1,7 +1,7 @@
 #!/bin/bash
-export FZF="$HOME/.fzf/bin/fzf --reverse"
+WOFI="wofi -din --width 500 --height 150"
 
-RESP=$(cat <<EOF | $FZF
+RESP=$(cat <<EOF | $WOFI
 screen
 window
 EOF
@@ -9,7 +9,7 @@ EOF
 
 case "$RESP" in
   screen)
-    VALUE="$(swaymsg -t get_outputs | jq -r '.[] | "\(.name)"' | $FZF)"
+    VALUE="$(swaymsg -t get_outputs | jq -r '.[] | "\(.name)"' | $WOFI)"
     if [[ -z "$VALUE" ]]; then
       exit 1
     fi
@@ -18,7 +18,7 @@ case "$RESP" in
   window)
     VALUE="$(swaymsg -t get_tree |\
       jq -r '.. | select(.pid? and .visible?) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height) (\(.name))"' |\
-      grep -v "screenshot" | $FZF | cut -d ' ' -f 1,2 --output-delimiter ' ')"
+      grep -v "screenshot" | $WOFI | cut -d ' ' -f 1,2 --output-delimiter ' ')"
     if [[ -z "$VALUE" ]]; then
       exit 1
     fi
@@ -29,26 +29,22 @@ case "$RESP" in
 esac
 
 
-RESP=$(cat <<EOF | $FZF
+RESP=$(cat <<EOF | $WOFI
 save
 copy
 EOF
 );
 
+sleep 0.5
 case "$RESP" in
   save)
-    echo "Filename:"
-    read FILENAME </dev/tty
-    if [[ -z "$FILENAME" ]]; then
-      exit 1
-    fi
+    FILENAME="$(date +'%Y-%m-%d-%H-%M-%S').png"
     grim $FLAG "$VALUE" ~/Pictures/$FILENAME
+    notify-send -t 15000 "Screenshot" "Image saved as ~/Pictures/$FILENAME"
     ;;
   copy)
-    echo "Copied image!"
-    echo
-    echo "Window will close and clipboard will clear after pasted"
-    grim $FLAG "$VALUE" - | wl-copy -fo
+    grim $FLAG "$VALUE" - | wl-copy
+    notify-send -t 15000 "Screenshot" "Image copied to clipboard"
     ;;
   *)
     exit 1

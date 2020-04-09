@@ -33,7 +33,7 @@ set $bright-white #ffffff
 
 set $tr-blue #517eacaa
 
-set $menu 'wofi --show drun -I'
+set $menu 'wofi --show drun -nIi'
 
 set $term alacritty
 
@@ -71,7 +71,6 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
-bindsym $mod+Shift+r exec $lockscreen
 
 floating_modifier $mod normal
 
@@ -206,12 +205,13 @@ gaps inner 20
 bindsym $mod+p exec $HOME/dotfiles/bin/pw
 
 # Run screenshot script
-bindsym --release Print exec $term --class screenshot --title screenshot -e sh -c $HOME/dotfiles/bin/screenshot
-for_window [app_id="screenshot"] focus, floating enabled, resize set 550 px 125 px
+bindsym --release Print exec $HOME/dotfiles/bin/screenshot
 
-# Run logout/reboot/shutdown
-bindsym $mod+Shift+e exec $term --class letmeout -e sh -c $HOME/dotfiles/bin/letmeout
-for_window [app_id="letmeout"] focus, floating enabled, resize set 150 px 105 px
+# Run lock/logout/reboot/shutdown script
+bindsym $mod+Shift+e exec $HOME/dotfiles/bin/letmeout
+
+# Fix wofi in normal mode
+for_window [app_id="wofi"] focus, floating enabled, border none
 
 # Notification deamon
 exec mako
