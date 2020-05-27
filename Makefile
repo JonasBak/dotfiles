@@ -38,8 +38,7 @@ vim: utils
 	if [[ ! -d ./local/vim_sessions ]]; then mkdir ./local/vim_sessions; fi
 
 vim-coc: utils local
-	$(INSTALL_COMMAND) nodejs
-	if ! type yarn > /dev/null 2>&1; then sudo npm install -g yarn; fi
+	$(INSTALL_COMMAND) nodejs yarnpkg
 	echo "export VIM_USE_COC=1" >> ./local/var
 	DOTFILES=$(PWD) VIM_USE_COC=1 vim +PlugInstall +qall
 	DOTFILES=$(PWD) VIM_USE_COC=1 vim +"CocInstall -sync coc-gocode coc-python coc-rls coc-tsserver rope" +qall

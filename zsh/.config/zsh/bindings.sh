@@ -20,7 +20,7 @@ v() {
   fi
 }
 
-if [[ -d $ZSH_PLUGINS/zsh-history-substring-search ]]; then
+if [[ -d $DOTFILES/local/zsh_plugins/zsh-history-substring-search ]]; then
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
 fi
