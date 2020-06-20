@@ -1,9 +1,7 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "*"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
   "diagnostic.checkCurrentLine": true,
   "diagnostic.messageTarget": "echo",
   "python.jediEnabled": false,
-  "suggest.autoTrigger": "trigger"
+  "suggest.autoTrigger": "none"
 }

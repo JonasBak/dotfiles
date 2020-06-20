@@ -46,6 +46,10 @@ set undofile
 
 command! Q :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
 
+command! Trim :%s/\s\+$//e
+
+set pastetoggle=<F2>
+
 " Indent option
 filetype indent on
 set autoindent
@@ -70,14 +74,14 @@ set smartcase
 nnoremap <leader><leader> :noh<cr>
 
 " Autoclosing
-inoremap (( ()<left>
-inoremap [[ []<left>
-inoremap << <><left>
-inoremap {{ {}<left>
+inoremap (( ()<c-g>U<left>
+inoremap [[ []<c-g>U<left>
+inoremap {{ {}<c-g>U<left>
+inoremap << <><c-g>U<left>
 
-inoremap (<cr> (<cr>)<esc>O
-inoremap {<cr> {<cr>}<esc>O
-inoremap [<cr> [<cr>]<esc>O
+inoremap (<cr> (<cr>)<c-o>O
+inoremap [<cr> [<cr>]<c-o>O
+inoremap {<cr> {<cr>}<c-o>O
 
 " Move lines
 inoremap <C-j> <Esc>:m .+1<CR>==gi
