@@ -2,10 +2,6 @@ call plug#begin('~/.vim/plugged')
 
 " Search
 Plug 'junegunn/fzf.vim'
-Plug 'haya14busa/incsearch.vim'
-
-" Linting
-Plug 'w0rp/ale'
 
 " Completion
 if (! empty($VIM_USE_COC))
@@ -13,7 +9,7 @@ if (! empty($VIM_USE_COC))
 endif
 
 " Navigation
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 
 " Git
 Plug 'itchyny/vim-gitbranch'
@@ -59,22 +55,19 @@ set shiftwidth=2
 set expandtab
 set smarttab
 
-" Tab navigation
-noremap <C-l> :tabnext<CR>
-noremap <C-h> :tabprevious<CR>
-noremap <C-t> :tabnew<CR>
-
-" No arrow keys for navigation
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" Navigation
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 " Search
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+nnoremap <leader><leader> :noh<cr>
 
 " Autoclosing
 inoremap (( ()<left>
@@ -86,30 +79,19 @@ inoremap (<cr> (<cr>)<esc>O
 inoremap {<cr> {<cr>}<esc>O
 inoremap [<cr> [<cr>]<esc>O
 
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
+" Move lines
 inoremap <C-j> <Esc>:m .+1<CR>==gi
 inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-" Clipboard
-nnoremap <C-c> :!echo <C-r><C-w>\| wl-copy<cr><cr>
-vnoremap <C-c> :w !wl-copy<cr><cr>
-nnoremap <leader>v :r !wl-paste<cr>
-set pastetoggle=<F2>
-
-nnoremap <leader><leader> :noh<cr>
-
 " Plugin config
-nnoremap <expr> <leader>1 (len(system('git rev-parse --abbrev-ref HEAD 2> /dev/null')) ? ':GFiles' : ':Files')."\<cr>"
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git"'
+
+nnoremap <leader>1 :Files<cr>
 nnoremap <leader>2 :Rg<cr>
 nnoremap <leader>3 :Rg <C-r><C-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 " Statusline config
 set noshowmode
@@ -165,33 +147,6 @@ let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
 let s:palette.inactive.middle = s:palette.normal.middle
 let s:palette.tabline.middle = s:palette.normal.middle
 
-" ALE
-hi ALEErrorSign ctermfg=1
-hi ALEwarningSign ctermfg=3
-
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
-
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config=1
-let g:ale_rust_cargo_use_check = 1
-let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['prettier'],
-      \   'typescript': ['prettier'],
-      \   'typescriptreact': ['prettier'],
-      \   'css': ['prettier'],
-      \   'markdown': ['prettier'],
-      \   'c': ['clang-format'],
-      \   'cuda': ['clang-format'],
-      \   'python': ['isort', 'black'],
-      \   'java': ['google_java_format'],
-      \   'rust': ['rustfmt'],
-      \   'c++': ['clang-format'],
-      \   'sh': ['shfmt'],
-      \   'go': ['gofmt']
-      \}
-
 " CoC
 if (! empty($VIM_USE_COC))
   set hidden
@@ -204,6 +159,11 @@ if (! empty($VIM_USE_COC))
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
+
+  nmap <silent> <leader>g <Plug>(coc-definition)
+  nmap <silent> <leader>r <Plug>(coc-references)
+  nmap <leader>R <Plug>(coc-rename)
+
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -211,10 +171,6 @@ if (! empty($VIM_USE_COC))
       call CocAction('doHover')
     endif
   endfunction
-
-  nmap <silent> <Leader>g <Plug>(coc-definition)
-  nmap <silent> <Leader>r <Plug>(coc-references)
-  nmap <Leader>R <Plug>(coc-rename)
   nnoremap <silent> <Leader>? :call <SID>show_documentation()<CR>
 
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

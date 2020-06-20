@@ -41,7 +41,6 @@ vim-coc: utils local
 	$(INSTALL_COMMAND) nodejs yarnpkg
 	echo "export VIM_USE_COC=1" >> ./local/var
 	DOTFILES=$(PWD) VIM_USE_COC=1 vim +PlugInstall +qall
-	DOTFILES=$(PWD) VIM_USE_COC=1 vim +"CocInstall -sync coc-gocode coc-python coc-rls coc-tsserver rope" +qall
 
 zsh: utils local
 	$(INSTALL_COMMAND) zsh
