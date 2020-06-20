@@ -16,7 +16,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " Visual
-Plug 'itchyny/lightline.vim'
 Plug 'romainl/apprentice'
 Plug 'sheerun/vim-polyglot'
 
@@ -88,6 +87,35 @@ inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
+" Statusline config
+set laststatus=2
+set noshowmode
+function! HandleMode()
+  if (mode() =~# '\v(n|no)')
+    hi StatusLine ctermfg=252
+  elseif (mode() ==# 'i')
+    hi StatusLine ctermfg=010
+  else
+    hi StatusLine ctermfg=003
+  endif
+  return ' [' . mode() . '] ' . {
+        \ 0: '',
+        \ 1: 'PASTE ',
+        \}[&paste]
+endfunction
+
+set statusline=%t       "tail of the filename
+set statusline+=%{HandleMode()}
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%=      "left/right separator
+if (! empty($VIM_USE_COC))
+  set statusline+=[%{coc#status()}]
+endif
+set statusline+=\ %c:   "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
 " Plugin config
 let $BASE_RG = 'rg --hidden --follow --glob "!.git"'
 let $FZF_DEFAULT_COMMAND = $BASE_RG . ' --files'
@@ -102,38 +130,14 @@ nnoremap <leader>2 :Rg<cr>
 nnoremap <leader>3 :Rg <C-r><C-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
 
-" Statusline config
-set noshowmode
-set laststatus=2
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'filename', 'modified' ] ],
-      \   'right': [ [], ['cocstatus', 'percent'] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'mode': 'WrappedMode',
-      \   'paste': 'WrappedPaste',
-      \   'filename': 'WrappedFilename',
-      \   'modified': 'WrappedModified',
-      \   'lineinfo': 'WrappedLineInfo',
-      \   'percent': 'WrappedPercent'
-      \ },
-      \ 'colorscheme': 'srcery_drk',
-      \ }
-
-source ~/.vim/lightline_functions.vim
-
 " NERDTree config
 noremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden= 1
 let g:NERDTreeWinSize = 25
+
+let g:NERDTreeStatusline = '%#NonText#'
 
 " Colorscheme
 if (empty($TMUX))
@@ -147,13 +151,8 @@ endif
 
 silent! colorscheme apprentice
 hi VertSplit ctermbg=235 ctermfg=234
-hi StatusLineNC ctermbg=235 ctermfg=235
-hi StatusLine ctermbg=235 ctermfg=235
-
-let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
-let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
-let s:palette.inactive.middle = s:palette.normal.middle
-let s:palette.tabline.middle = s:palette.normal.middle
+hi StatusLine ctermbg=235 ctermfg=242
+hi StatusLineNC ctermbg=235 ctermfg=242
 
 " CoC
 if (! empty($VIM_USE_COC))
