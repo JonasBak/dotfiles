@@ -12,7 +12,6 @@ endif
 Plug 'preservim/nerdtree'
 
 " Git
-Plug 'itchyny/vim-gitbranch'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
@@ -90,7 +89,13 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Plugin config
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git"'
+let $BASE_RG = 'rg --hidden --follow --glob "!.git"'
+let $FZF_DEFAULT_COMMAND = $BASE_RG . ' --files'
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   $BASE_RG . ' --column --line-number --no-heading --color=always --smart-case -- ' . shellescape(<q-args>),
+  \   1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nnoremap <leader>1 :Files<cr>
 nnoremap <leader>2 :Rg<cr>
@@ -103,7 +108,7 @@ set laststatus=2
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'filename', 'modified' ] ],
+      \             [ 'filename', 'modified' ] ],
       \   'right': [ [], ['cocstatus', 'percent'] ]
       \ },
       \ 'inactive': {
@@ -113,7 +118,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status',
       \   'mode': 'WrappedMode',
       \   'paste': 'WrappedPaste',
-      \   'gitbranch': 'WrappedGitBranch',
       \   'filename': 'WrappedFilename',
       \   'modified': 'WrappedModified',
       \   'lineinfo': 'WrappedLineInfo',

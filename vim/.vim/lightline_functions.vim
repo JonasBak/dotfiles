@@ -12,13 +12,6 @@ function! WrappedLineInfo()
     return ''
   endif
 endfunction
-function! WrappedGitBranch()
-  if &ft !=? 'nerdtree'
-    return gitbranch#name()
-  else
-    return ''
-  endif
-endfunction
 function! WrappedModified()
   if &mod
     return '+'
