@@ -44,7 +44,8 @@ set undofile
 
 command! Q :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
 
-command! Trim :%s/\s\+$//e
+let trimblacklist = []
+autocmd BufWritePre * if index(trimblacklist, &ft) < 0 | %s/\s\+$//e
 
 set pastetoggle=<F2>
 
@@ -92,7 +93,7 @@ set laststatus=2
 set noshowmode
 function! HandleMode()
   if (mode() =~# '\v(n|no)')
-    hi StatusLine ctermfg=252
+    hi StatusLine ctermfg=253
   elseif (mode() ==# 'i')
     hi StatusLine ctermfg=010
   else
@@ -110,7 +111,7 @@ set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=%=      "left/right separator
 if (! empty($VIM_USE_COC))
-  set statusline+=[%{coc#status()}]
+  set statusline+=%{coc#status()}
 endif
 set statusline+=\ %c:   "cursor column
 set statusline+=%l/%L   "cursor line/total lines
@@ -186,4 +187,11 @@ if (! empty($VIM_USE_COC))
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  hi CocErrorHighlight ctermfg=015
+  hi CocErrorSign ctermfg=001 ctermbg=234
+  hi CocWarningSign ctermfg=003 ctermbg=234
+  hi CocInfoSign ctermfg=007 ctermbg=234
+  hi CocHintSign ctermfg=007 ctermbg=234
+  let g:gitgutter_sign_priority = 1
 endif
