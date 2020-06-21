@@ -50,7 +50,6 @@ zsh: utils local
 	git clone https://github.com/zsh-users/zsh-completions.git ./local/zsh_plugins/zsh-completions
 	git clone https://github.com/zsh-users/zsh-history-substring-search.git ./local/zsh_plugins/zsh-history-substring-search
 	if [[ ! -d ./local/zsh_completions ]]; then mkdir ./local/zsh_completions; fi
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./local/zsh_plugins/powerlevel10k
 	if type kubectl > /dev/null 2>&1 && [[ ! -f ./local/zsh_completions/_kubectl ]]; then \
 		kubectl completion zsh > ./local/zsh_completions/_kubectl; fi
 	if type docker > /dev/null 2>&1 && [[ ! -f ./local/zsh_completions/_docker ]]; then \

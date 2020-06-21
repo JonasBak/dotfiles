@@ -1,4 +1,7 @@
 #!/bin/bash
 if command -v docker>/dev/null; then
-  echo -e "#{?PATCHED_FONT,\uf308,🐋} $(docker ps -q | wc -l)"
+  running=$(docker ps -q | wc -l)
+  if [[ $running -ne 0 ]]; then
+    echo -n "docker: $running"
+  fi
 fi

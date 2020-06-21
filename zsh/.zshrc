@@ -35,12 +35,10 @@ source_plugin zsh-syntax-highlighting
 source_plugin zsh-completions
 source_plugin zsh-history-substring-search
 
-source_plugin powerlevel10k powerlevel10k.zsh-theme
-
 export fpath=($DOTFILES/local/zsh_plugins/zsh-completions/src $DOTFILES/local/zsh_completions $fpath)
 
 source ~/.config/zsh/bindings.sh
 source ~/.config/zsh/completions.zsh
+source ~/.config/zsh/prompt.zsh
 
 [[ ! -f /usr/share/fzf/shell/key-bindings.zsh ]] || source /usr/share/fzf/shell/key-bindings.zsh
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
