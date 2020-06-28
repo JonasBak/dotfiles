@@ -154,6 +154,8 @@ silent! colorscheme apprentice
 hi VertSplit ctermbg=235 ctermfg=234
 hi StatusLine ctermbg=235 ctermfg=242
 hi StatusLineNC ctermbg=235 ctermfg=242
+hi LineNr ctermbg=235 ctermfg=242
+hi SignColumn ctermbg=235
 
 " CoC
 if (! empty($VIM_USE_COC))
@@ -168,7 +170,7 @@ if (! empty($VIM_USE_COC))
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  nmap <silent> <leader>g <Plug>(coc-definition)
+  nmap <silent> <leader>d <Plug>(coc-definition)
   nmap <silent> <leader>r <Plug>(coc-references)
   nmap <leader>R <Plug>(coc-rename)
 
@@ -188,10 +190,5 @@ if (! empty($VIM_USE_COC))
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-  hi CocErrorHighlight ctermfg=015
-  hi CocErrorSign ctermfg=001 ctermbg=234
-  hi CocWarningSign ctermfg=003 ctermbg=234
-  hi CocInfoSign ctermfg=007 ctermbg=234
-  hi CocHintSign ctermfg=007 ctermbg=234
   let g:gitgutter_sign_priority = 1
 endif
