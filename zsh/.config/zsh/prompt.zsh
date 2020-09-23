@@ -2,7 +2,7 @@
 autoload -U colors && colors
 setopt prompt_subst
 
-PROMPT_SYMBOL="❯"
+PROMPT_SYMBOL=">"
 
 PROMPT_COLORS_CURRENT_DIR=cyan
 PROMPT_COLORS_RETURN_STATUS_TRUE=white
