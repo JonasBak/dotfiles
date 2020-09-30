@@ -3,10 +3,8 @@ call plug#begin('~/.vim/plugged')
 " Search
 Plug 'junegunn/fzf.vim'
 
-" Completion
-if (! empty($VIM_USE_COC))
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-endif
+" Completion/Linting/Fixing
+Plug 'dense-analysis/ale'
 
 " Navigation
 Plug 'preservim/nerdtree'
@@ -44,9 +42,6 @@ set undofile
 
 command! Q :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
 
-let trimblacklist = []
-autocmd BufWritePre * if index(trimblacklist, &ft) < 0 | %s/\s\+$//e
-
 set pastetoggle=<F2>
 
 " Indent option
@@ -70,7 +65,7 @@ set incsearch
 set ignorecase
 set smartcase
 
-nnoremap <leader><leader> :noh<cr>
+nnoremap <leader><leader> :noh<cr>:pc<cr>
 
 " Autoclosing
 inoremap (( ()<c-g>U<left>
@@ -110,9 +105,6 @@ set statusline+=%{HandleMode()}
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=%=      "left/right separator
-if (! empty($VIM_USE_COC))
-  set statusline+=%{coc#status()}
-endif
 set statusline+=\ %c:   "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
@@ -157,38 +149,54 @@ hi StatusLineNC ctermbg=235 ctermfg=242
 hi LineNr ctermbg=235 ctermfg=242
 hi SignColumn ctermbg=235
 
-" CoC
-if (! empty($VIM_USE_COC))
-  set hidden
-  set nobackup
-  set nowritebackup
-  set shortmess+=c
-  set signcolumn=yes
+" ALE
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    :ALEHover
+  endif
+endfunction
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-  nmap <silent> <leader>d <Plug>(coc-definition)
-  nmap <silent> <leader>r <Plug>(coc-references)
-  nmap <leader>R <Plug>(coc-rename)
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
+\   'css': ['prettier'],
+\   'markdown': ['prettier'],
+\   'python': ['black'],
+\   'rust': ['rustfmt'],
+\   'go': ['gofmt']
+\}
+let g:ale_fix_on_save = 1
 
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-  nnoremap <silent> <Leader>? :call <SID>show_documentation()<CR>
+hi ALEErrorSign ctermfg=1
+hi ALEwarningSign ctermfg=3
 
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+let g:ale_sign_column_always = 1
 
-  let g:gitgutter_sign_priority = 1
-endif
+let g:ale_hover_cursor = 0
+
+set completeopt=menu,menuone,noselect,noinsert
+set omnifunc=ale#completion#OmniFunc
+
+
+nnoremap <silent> <Leader>? :call <SID>show_documentation()<cr>
+
+nmap <silent> <leader>d :ALEGoToDefinition -split<cr>
+nmap <silent> <leader>r :ALEFindReferences -split<cr>
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ "\<c-x>\<c-o>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"

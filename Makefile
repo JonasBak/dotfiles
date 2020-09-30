@@ -37,11 +37,6 @@ vim: utils
 	if [[ ! -d ./local/vim_undo ]]; then mkdir ./local/vim_undo; fi
 	if [[ ! -d ./local/vim_sessions ]]; then mkdir ./local/vim_sessions; fi
 
-vim-coc: utils local
-	$(INSTALL_COMMAND) nodejs yarnpkg
-	echo "export VIM_USE_COC=1" >> ./local/var
-	DOTFILES=$(PWD) VIM_USE_COC=1 vim +PlugInstall +qall
-
 zsh: utils local
 	$(INSTALL_COMMAND) zsh
 	stow zsh
@@ -62,4 +57,4 @@ alacritty: utils
 	$(INSTALL_COMMAND) alacritty
 	stow alacritty
 
-.PHONY: local font utils bin sway tmux vim vim-coc zsh alacritty
+.PHONY: local font utils bin sway tmux vim zsh alacritty
