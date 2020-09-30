@@ -14,7 +14,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " Visual
-Plug 'romainl/apprentice'
+Plug 'jonasbak/apprentice'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
@@ -86,18 +86,34 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " Statusline config
 set laststatus=2
 set noshowmode
-function! HandleMode()
-  if (mode() =~# '\v(n|no)')
-    hi StatusLine ctermfg=253
-  elseif (mode() ==# 'i')
+
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
     hi StatusLine ctermfg=010
+  elseif a:mode == 'r'
+    hi StatusLine ctermfg=009
   else
     hi StatusLine ctermfg=003
   endif
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertChange * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline ctermfg=253
+
+function! HandleMode()
   return ' [' . mode() . '] ' . {
         \ 0: '',
         \ 1: 'PASTE ',
         \}[&paste]
+endfunction
+function! HandleALE()
+  let l:count = ale#statusline#Count(bufnr(''))
+  return l:count.total == 0 ? '' : printf(
+    \   '%dW %dE',
+    \   l:count.warning,
+    \   l:count.error,
+    \)
 endfunction
 
 set statusline=%t       "tail of the filename
@@ -105,6 +121,7 @@ set statusline+=%{HandleMode()}
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=%=      "left/right separator
+set statusline+=%{HandleALE()}
 set statusline+=\ %c:   "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
@@ -143,11 +160,6 @@ if (empty($TMUX))
 endif
 
 silent! colorscheme apprentice
-hi VertSplit ctermbg=235 ctermfg=234
-hi StatusLine ctermbg=235 ctermfg=242
-hi StatusLineNC ctermbg=235 ctermfg=242
-hi LineNr ctermbg=235 ctermfg=242
-hi SignColumn ctermbg=235
 
 " ALE
 function! s:show_documentation()
@@ -163,6 +175,10 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:ale_linters = {
+\   'go': ['gofmt', 'golint', 'govet', 'gopls'],
+\}
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
@@ -177,7 +193,7 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 
 hi ALEErrorSign ctermfg=1
-hi ALEwarningSign ctermfg=3
+hi ALEWarningSign ctermfg=3
 
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
@@ -187,7 +203,6 @@ let g:ale_hover_cursor = 0
 
 set completeopt=menu,menuone,noselect,noinsert
 set omnifunc=ale#completion#OmniFunc
-
 
 nnoremap <silent> <Leader>? :call <SID>show_documentation()<cr>
 
