@@ -95,11 +95,6 @@ bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# Ditto, with arrow keys
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
 # Media control
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -151,6 +146,14 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
+
+#
+# Resize
+#
+bindsym $mod+Shift+Left resize shrink width 100px
+bindsym $mod+Shift+Down resize grow height 100px
+bindsym $mod+Shift+Up resize shrink height 100px
+bindsym $mod+Shift+Right resize grow width 100px
 
 #
 # Scratchpad:

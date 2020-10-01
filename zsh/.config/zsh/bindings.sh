@@ -20,6 +20,20 @@ v() {
   fi
 }
 
+find-and-edit() {
+  file=""
+  rg --hidden --follow --glob '!.git' --files | fzf | while read item; do
+    file=$item
+    break
+  done
+  if [[ -z "$file" ]]; then
+    exit 1
+  fi
+  vim $file </dev/tty
+}
+zle -N find-and-edit
+bindkey "^V" find-and-edit
+
 if [[ -d $DOTFILES/local/zsh_plugins/zsh-history-substring-search ]]; then
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down

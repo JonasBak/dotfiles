@@ -57,4 +57,10 @@ alacritty: utils
 	$(INSTALL_COMMAND) alacritty
 	stow alacritty
 
-.PHONY: local font utils bin sway tmux vim zsh alacritty
+linters: local
+	$(INSTALL_COMMAND) yarnpkg
+	yarn config set prefix ~/.yarn
+	yarn global add pyright prettier
+	echo "export PATH=$(yarn global bin):\$$PATH" >> ./local/var
+
+.PHONY: local font utils bin sway tmux vim zsh alacritty linters

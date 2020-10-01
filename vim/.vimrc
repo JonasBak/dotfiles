@@ -40,7 +40,7 @@ set lazyredraw
 set undodir=$DOTFILES/local/vim_undo
 set undofile
 
-command! Q :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
+command! Q :NERDTreeClose | :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
 
 set pastetoggle=<F2>
 
@@ -207,7 +207,7 @@ set omnifunc=ale#completion#OmniFunc
 nnoremap <silent> <Leader>? :call <SID>show_documentation()<cr>
 
 nmap <silent> <leader>d :ALEGoToDefinition -split<cr>
-nmap <silent> <leader>r :ALEFindReferences -split<cr>
+nmap <silent> <leader>r :ALEFindReferences -split -relative<cr>
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <TAB>

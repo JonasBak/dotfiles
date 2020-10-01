@@ -16,7 +16,8 @@ PROMPT_COLORS_PYTHON_ENV=green
 
 PROMPT='$(prompt_current_dir)$(prompt_bg_jobs)$(prompt_return_status)%{$reset_color%}'
 
-RPROMPT='$(prompt_git_status)%{$reset_color%}'
+RPROMPT_TEMPLATE='$(prompt_git_status)%{$reset_color%}'
+RPROMPT="$RPROMPT_TEMPLATE"
 
 prompt_current_dir() {
   echo -n "%{$fg_bold[$PROMPT_COLORS_CURRENT_DIR]%}%~ "
@@ -54,3 +55,13 @@ prompt_bg_jobs() {
   bg_status="%{$fg_no_bold[$PROMPT_COLORS_BG_JOBS]%}%(1j.↓%j .)"
   echo -n $bg_status
 }
+
+function zle-line-init zle-keymap-select {
+    tmp="$KEYMAP $RPROMPT_TEMPLATE"
+    RPS1="${${tmp/vicmd/vi}/(main|viins)/ }"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
