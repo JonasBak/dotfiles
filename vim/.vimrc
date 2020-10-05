@@ -37,6 +37,8 @@ set ignorecase
 
 set lazyredraw
 
+set hidden
+
 set undodir=$DOTFILES/local/vim_undo
 set undofile
 
@@ -45,7 +47,7 @@ command! Q :NERDTreeClose | :execute "mks! " . $DOTFILES . "/local/vim_sessions/
 set pastetoggle=<F2>
 
 " Indent option
-filetype indent on
+filetype plugin indent on
 set autoindent
 set smartindent
 set tabstop=2
@@ -54,10 +56,10 @@ set expandtab
 set smarttab
 
 " Navigation
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
 
 " Search
 set hlsearch
@@ -65,7 +67,7 @@ set incsearch
 set ignorecase
 set smartcase
 
-nnoremap <leader><leader> :noh<cr>:pc<cr>
+nnoremap <leader><leader> :nohlsearch <bar> pclose <bar> lclose <bar> helpclose<cr>
 
 " Autoclosing
 inoremap (( ()<c-g>U<left>
@@ -78,10 +80,10 @@ inoremap [<cr> [<cr>]<c-o>O
 inoremap {<cr> {<cr>}<c-o>O
 
 " Move lines
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+inoremap <c-j> <esc>V:move .+1<cr>==gi
+inoremap <c-k> <esc>V:move .-2<cr>==gi
+vnoremap <c-j> :move '>+1<cr>gv=gv
+vnoremap <c-k> :move '<-2<cr>gv=gv
 
 " Statusline config
 set laststatus=2
@@ -137,11 +139,11 @@ command! -bang -nargs=* Rg
 
 nnoremap <leader>1 :Files<cr>
 nnoremap <leader>2 :Rg<cr>
-nnoremap <leader>3 :Rg <C-r><C-w><cr>
+nnoremap <leader>3 :Rg <c-r><c-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
 
 " NERDTree config
-noremap <C-n> :NERDTreeToggle<CR>
+noremap <c-n> :NERDTreeToggle<cr>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden= 1
@@ -166,7 +168,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    :ALEHover
+    :ALEHover | ALEDetail
   endif
 endfunction
 
@@ -204,14 +206,14 @@ let g:ale_hover_cursor = 0
 set completeopt=menu,menuone,noselect,noinsert
 set omnifunc=ale#completion#OmniFunc
 
-nnoremap <silent> <Leader>? :call <SID>show_documentation()<cr>
+nnoremap <silent> <leader>? :call <sid>show_documentation()<cr>
 
-nmap <silent> <leader>d :ALEGoToDefinition -split<cr>
-nmap <silent> <leader>r :ALEFindReferences -split -relative<cr>
+nmap <silent> <leader>d :ALEGoToDefinition<cr>
+nmap <silent> <leader>r :ALEFindReferences -relative<cr>
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+inoremap <silent><expr> <tab>
+      \ pumvisible() ? "\<c-n>" :
+      \ <sid>check_back_space() ? "\<tab>" :
       \ "\<c-x>\<c-o>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"

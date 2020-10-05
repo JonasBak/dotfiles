@@ -22,7 +22,7 @@ v() {
 
 find-and-edit() {
   file=""
-  rg --hidden --follow --glob '!.git' --files | fzf | while read item; do
+  rg --hidden --follow --glob '!.git' --files | fzf --reverse --height 40% --prompt "> vim " | while read item; do
     file=$item
     break
   done
@@ -30,6 +30,7 @@ find-and-edit() {
     exit 1
   fi
   vim $file </dev/tty
+  zle reset-prompt
 }
 zle -N find-and-edit
 bindkey "^V" find-and-edit
