@@ -1,13 +1,7 @@
-alias c="cd ~/code"
-
-alias copy="xsel -ib"
-
 alias dotf="cd $DOTFILES"
 
-alias vdiff="vim -d"
-
 cd_ls() {
-  cd $@ && [[ "$(ls -1a | wc -l)" -le "28" ]] && ls -a1F
+  cd $@ && [[ "$(ls -1a | wc -l)" -le "28" ]] && ls -a1F || true
 }
 alias cd="cd_ls"
 
@@ -39,9 +33,6 @@ if [[ -d $DOTFILES/local/zsh_plugins/zsh-history-substring-search ]]; then
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
 fi
-
-bindkey "^[[3~" delete-char
-bindkey "^?" backward-delete-char
 
 zmodload zsh/complist # Needed for reverse-menu-complete binding
 bindkey -M menuselect "^[[Z" reverse-menu-complete

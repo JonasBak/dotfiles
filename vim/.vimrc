@@ -33,7 +33,6 @@ set ttimeoutlen=10
 set scrolloff=10
 set mouse=a
 set noswapfile
-set ignorecase
 
 set lazyredraw
 
@@ -45,6 +44,19 @@ set undofile
 command! Q :NERDTreeClose | :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
 
 set pastetoggle=<F2>
+
+function! Pandoc(from, to) range
+  let l:output = system('echo ' . shellescape(join(getline(a:firstline, a:lastline), "\n"))
+        \ . " | "
+        \ . "pandoc -f " . a:from . " -t " . a:to
+        \ )
+  echo l:output
+  if confirm("Ok?", "&Y\n&n", 1) == 1
+    silent! exec ":" . a:firstline . "," . a:lastline . " delete | " . a:firstline . "-1 put =l:output"
+  endif
+endfunction
+
+command! -nargs=+ -range PD <line1>,<line2>call Pandoc(<f-args>)
 
 " Indent option
 filetype plugin indent on
