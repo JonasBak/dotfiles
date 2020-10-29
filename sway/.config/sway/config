@@ -39,7 +39,7 @@ set $term alacritty
 
 set $wallpapers ~/.config/sway/wallpapers
 
-set $lockscreen swock -f -i `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` --font "InconsolataLGC Nerd Font Mono"
+set $lockscreen swaylock -f -i `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` --font "InconsolataLGC Nerd Font Mono"
 
 #
 # Output

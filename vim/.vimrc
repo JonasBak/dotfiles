@@ -17,7 +17,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jonasbak/apprentice'
 Plug 'sheerun/vim-polyglot'
 
+" Other
+Plug 'tpope/vim-surround'
+
 call plug#end()
+
+runtime! macros/matchit.vim
 
 " General settings
 set updatetime=500
@@ -57,6 +62,8 @@ function! Pandoc(from, to) range
 endfunction
 
 command! -nargs=+ -range PD <line1>,<line2>call Pandoc(<f-args>)
+
+nnoremap <leader>p :let @p = system("wl-paste -n")<cr>
 
 " Indent option
 filetype plugin indent on
@@ -184,11 +191,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gopls'],
 \}
@@ -223,9 +225,8 @@ nnoremap <silent> <leader>? :call <sid>show_documentation()<cr>
 nmap <silent> <leader>d :ALEGoToDefinition<cr>
 nmap <silent> <leader>r :ALEFindReferences -relative<cr>
 
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-inoremap <silent><expr> <tab>
+inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
+inoremap <silent><expr> <leader><tab>
       \ pumvisible() ? "\<c-n>" :
-      \ <sid>check_back_space() ? "\<tab>" :
       \ "\<c-x>\<c-o>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
