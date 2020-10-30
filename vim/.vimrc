@@ -226,7 +226,7 @@ nmap <silent> <leader>d :ALEGoToDefinition<cr>
 nmap <silent> <leader>r :ALEFindReferences -relative<cr>
 
 inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
-inoremap <silent><expr> <leader><tab>
+inoremap <silent><expr> <tab>
       \ pumvisible() ? "\<c-n>" :
-      \ "\<c-x>\<c-o>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+      \ "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-x>\<c-o>"
