@@ -63,7 +63,9 @@ endfunction
 
 command! -nargs=+ -range PD <line1>,<line2>call Pandoc(<f-args>)
 
-nnoremap <leader>p :let @p = system("wl-paste -n")<cr>
+nnoremap <leader>p :let @p = system("wl-paste -n")<cr>"pp
+nnoremap <leader>P :let @p = system("wl-paste -n")<cr>"pP
+vnoremap <leader>c :w !wl-copy -n<cr>
 
 " Indent option
 filetype plugin indent on
@@ -222,8 +224,8 @@ set omnifunc=ale#completion#OmniFunc
 
 nnoremap <silent> <leader>? :call <sid>show_documentation()<cr>
 
-nmap <silent> <leader>d :ALEGoToDefinition<cr>
-nmap <silent> <leader>r :ALEFindReferences -relative<cr>
+nnoremap <silent> <leader>d :ALEGoToDefinition<cr>
+nnoremap <silent> <leader>r :ALEFindReferences -relative<cr>
 
 inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
 inoremap <silent><expr> <tab>
