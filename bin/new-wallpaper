@@ -1,2 +1,2 @@
 #!/bin/bash
-find -L ~/.config/sway/wallpapers -type f | shuf -n 1 | xargs realpath | xargs -I "X" swaymsg "output * bg X fill"
+find -L ~/.config/sway/wallpapers -type f | shuf -n 1 | xargs realpath | xargs -I "X" swaymsg "output * bg X center"
