@@ -5,15 +5,6 @@ cd_ls() {
 }
 alias cd="cd_ls"
 
-v() {
-  session="$DOTFILES/local/vim_sessions/${PWD//\//.}"
-  if [[ -f $session ]]; then
-    vim -S $session
-  else
-    vim
-  fi
-}
-
 find-and-edit() {
   file=""
   rg --hidden --follow --glob '!.git' --files | fzf --reverse --height 40% --prompt "> vim " | while read item; do
@@ -21,10 +12,12 @@ find-and-edit() {
     break
   done
   if [[ -z "$file" ]]; then
-    exit 1
+    zle reset-prompt
+    return 1
   fi
-  vim $file </dev/tty
+  LBUFFER="vim ${file}"
   zle reset-prompt
+  return 0
 }
 zle -N find-and-edit
 bindkey "^V" find-and-edit

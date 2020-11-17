@@ -46,8 +46,6 @@ set hidden
 set undodir=$DOTFILES/local/vim_undo
 set undofile
 
-command! Q :NERDTreeClose | :execute "mks! " . $DOTFILES . "/local/vim_sessions/" . substitute($PWD, "\/", "\.", "g") | qa
-
 set pastetoggle=<F2>
 
 function! Pandoc(from, to) range
@@ -75,12 +73,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set smarttab
-
-" Navigation
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
 
 " Search
 set hlsearch
