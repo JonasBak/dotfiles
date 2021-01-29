@@ -10,7 +10,6 @@ Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 
 " Git
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " Visual
@@ -19,6 +18,7 @@ Plug 'sheerun/vim-polyglot'
 
 " Other
 Plug 'tpope/vim-surround'
+Plug 'jonasbak/org.vim'
 
 call plug#end()
 
@@ -154,6 +154,8 @@ nnoremap <leader>1 :Files<cr>
 nnoremap <leader>2 :Rg<cr>
 nnoremap <leader>3 :Rg <c-r><c-w><cr>
 nnoremap <leader>4 :GFiles?<cr>
+
+let g:org_clean_folds = 1
 
 " NERDTree config
 noremap <c-n> :NERDTreeToggle<cr>

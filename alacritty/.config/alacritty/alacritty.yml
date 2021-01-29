@@ -148,7 +148,6 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night Bright)
 colors:
   # Default colors
   primary:
@@ -157,7 +156,7 @@ colors:
 
   # Normal colors
   normal:
-    black: "0x1c1c1c"
+    black: "0x262626"
     red: "0xcb3333"
     green: "0x409e40"
     yellow: "0xf4d443"
@@ -330,8 +329,6 @@ working_directory: None
 alt_send_esc: true
 
 key_bindings:
-  - { key: Add, mods: Control, action: IncreaseFontSize }
-  - { key: Subtract, mods: Control, action: DecreaseFontSize }
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: Paste, action: Paste }
