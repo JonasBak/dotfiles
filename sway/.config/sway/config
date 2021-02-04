@@ -218,8 +218,14 @@ bindsym --release Print exec $HOME/dotfiles/bin/screenshot
 # Run lock/logout/reboot/shutdown script
 bindsym $mod+Shift+e exec $HOME/dotfiles/bin/letmeout
 
+# Run notebook in floating window
+bindsym $mod+n exec alacritty --class alacritty-notebook --command $HOME/dotfiles/bin/notebook
+
 # Fix wofi in normal mode
 for_window [app_id="wofi"] focus, floating enabled, border none
+
+# Alacritty notebook
+for_window [app_id="alacritty-notebook"] focus, floating enabled
 
 # Notification deamon
 exec mako

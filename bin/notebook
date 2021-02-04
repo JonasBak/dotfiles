@@ -1,0 +1,6 @@
+#!/bin/bash
+FILE=$(find ~/sync/org ~/sync/notes -type f | fzf)
+if [[ -z "$FILE" ]]; then
+  exit 1
+fi
+vim $FILE
