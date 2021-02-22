@@ -195,7 +195,7 @@ bar {
 # Appearance
 #
 # Colors                border      bg          text        indi        childborder
-client.focused          $background $background $foreground $blue       $blue
+client.focused          $background $background $foreground $background $background
 client.focused_inactive $background $background $foreground $background $background
 client.unfocused        $background $black      $foreground $background $background
 client.urgent           $blue       $blue       $foreground $blue       $blue

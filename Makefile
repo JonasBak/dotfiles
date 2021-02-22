@@ -50,7 +50,6 @@ zsh: utils local
 		chsh -s /bin/zsh; fi
 
 alacritty: utils
-	sudo dnf copr enable pschyska/alacritty
 	$(INSTALL_COMMAND) alacritty
 	stow alacritty
 

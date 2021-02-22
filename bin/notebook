@@ -3,4 +3,5 @@ FILE=$(find ~/sync/org ~/sync/notes -type f | fzf)
 if [[ -z "$FILE" ]]; then
   exit 1
 fi
+cd ~/sync
 vim $FILE
