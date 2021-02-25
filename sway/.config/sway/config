@@ -195,14 +195,14 @@ bar {
 # Appearance
 #
 # Colors                border      bg          text        indi        childborder
-client.focused          $background $background $foreground $background $background
+client.focused          $background $background $foreground $background $bright-black
 client.focused_inactive $background $background $foreground $background $background
-client.unfocused        $background $black      $foreground $background $background
+client.unfocused        $background $background $white      $background $background
 client.urgent           $blue       $blue       $foreground $blue       $blue
 
 font InconsolataLGC Nerd Font Mono Medium 11
 
-default_border pixel 2
+default_border none
 
 gaps inner 20
 
@@ -225,10 +225,10 @@ bindsym $mod+n exec alacritty --class alacritty-notebook --command $HOME/dotfile
 for_window [app_id="wofi"] focus, floating enabled, border none
 
 # Alacritty notebook
-for_window [app_id="alacritty-notebook"] focus, floating enabled
+for_window [app_id="alacritty-notebook"] focus, floating enabled, border pixel 2
 
 # Notification deamon
-exec mako
+exec mako --default-timeout 5000
 
 # Progress bar
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob

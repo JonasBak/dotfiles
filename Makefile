@@ -27,12 +27,14 @@ tmux: utils
 
 vim: utils
 	$(INSTALL_COMMAND) vim
-	if [[ ! -f ~/.vim/autoload/plug.vim ]]; then curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim; fi
 	stow vim
-	DOTFILES=$(PWD) vim +PlugInstall +qall
-	if [[ ! -d ./local/vim_undo ]]; then mkdir ./local/vim_undo; fi
-	if [[ ! -d ./local/vim_sessions ]]; then mkdir ./local/vim_sessions; fi
+
+nvim: vim
+	$(INSTALL_COMMAND) neovim
+	if [[ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]]; then curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+		 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim; fi
+	stow neovim
+	DOTFILES=$(PWD) nvim +PlugInstall +qall
 
 zsh: utils local
 	$(INSTALL_COMMAND) zsh

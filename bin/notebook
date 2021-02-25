@@ -4,4 +4,4 @@ if [[ -z "$FILE" ]]; then
   exit 1
 fi
 cd ~/sync
-vim $FILE
+nvim $FILE
