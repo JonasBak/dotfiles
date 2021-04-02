@@ -18,7 +18,7 @@ bin: local
 	$(INSTALL_COMMAND) fzf ripgrep
 
 sway: utils
-	$(INSTALL_COMMAND) sway swaylock wofi swayidle waybar mako grim wl-clipboard wob light
+	$(INSTALL_COMMAND) sway swaylock wofi swayidle waybar mako grim wl-clipboard wob light wlsunset ulauncher
 	stow sway
 
 tmux: utils

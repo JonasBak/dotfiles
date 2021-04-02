@@ -221,6 +221,11 @@ bindsym $mod+Shift+e exec $HOME/dotfiles/bin/letmeout
 # Run notebook in floating window
 bindsym $mod+n exec alacritty --class alacritty-notebook --command $HOME/dotfiles/bin/notebook
 
+# ulauncher
+exec ulauncher --hide-window
+bindsym $mod+u exec ulauncher-toggle
+for_window [app_id="ulauncher"] border none
+
 # Fix wofi in normal mode
 for_window [app_id="wofi"] focus, floating enabled, border none
 
@@ -232,5 +237,9 @@ exec mako --default-timeout 5000
 
 # Progress bar
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+
+exec lxpolkit
+
+exec wlsunset
 
 include ~/.config/sway/config.d/*
