@@ -39,12 +39,12 @@ set $term alacritty
 
 set $wallpapers ~/.config/sway/wallpapers
 
-set $lockscreen swaylock -f -i `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` --font "InconsolataLGC Nerd Font Mono" --scaling center
+set $lockscreen swaylock -f -i `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` --font "InconsolataLGC Nerd Font Mono" --scaling fill
 
 #
 # Output
 #
-output * bg `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` center
+output * bg `find -L $wallpapers -type f | shuf -n 1 | xargs realpath` fill
 
 #
 # Idle
@@ -56,7 +56,6 @@ exec swayidle -w \
          before-sleep '$lockscreen'
 
 for_window [app_id="firefox-wayland"] inhibit_idle fullscreen
-for_window [app_id="firefox-wayland"] inhibit_idle focus
 
 #
 # Input
@@ -243,3 +242,5 @@ exec lxpolkit
 exec wlsunset
 
 include ~/.config/sway/config.d/*
+
+include /etc/sway/config.d/*
