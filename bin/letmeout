@@ -10,7 +10,7 @@ EOF
 case "$RESP" in
   Lock)
     IMAGE="$(find -L ~/.config/sway/wallpapers -type f | shuf -n 1 | xargs realpath)"
-    swaymsg exec "swaylock -f -i \"$IMAGE\" --font \"InconsolataLGC Nerd Font Mono\" --scaling center"
+    swaymsg exec "swaylock -f -i \"$IMAGE\" --font \"InconsolataLGC Nerd Font Mono\" --scaling fill"
     ;;
   Logout)
     swaymsg exit
