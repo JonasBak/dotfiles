@@ -1,4 +1,4 @@
-export DOTFILES=$(dirname $(dirname $(readlink -nf ~/.zshrc)))
+export DOTFILES="/Users/jonas/dotfiles"
 
 [[ -f $DOTFILES/local/var ]] && source $DOTFILES/local/var
 
@@ -27,7 +27,7 @@ bindkey -v
 
 # Plugins
 source_plugin() {
-  [[ -d $DOTFILES/local/zsh_plugins/$1 ]] && source $DOTFILES/local/zsh_plugins/$1/${2:-$1.plugin.zsh}
+  [[ -d $DOTFILES/local/zsh_plugins/$1 ]] && source $DOTFILES/local/zsh_plugins/$1/$1.plugin.zsh
 }
 
 source_plugin zsh-autosuggestions
@@ -42,3 +42,5 @@ source ~/.config/zsh/completions.zsh
 source ~/.config/zsh/prompt.zsh
 
 [[ ! -f /usr/share/fzf/shell/key-bindings.zsh ]] || source /usr/share/fzf/shell/key-bindings.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

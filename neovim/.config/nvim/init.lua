@@ -3,6 +3,7 @@ vim.api.nvim_exec(
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 
 Plug 'neovim/nvim-lspconfig'
 
