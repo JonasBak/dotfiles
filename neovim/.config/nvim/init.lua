@@ -1,26 +1,25 @@
 vim.api.nvim_exec(
 [[
-call plug#begin(stdpath('data') . '/plugged')
-
-Plug 'junegunn/fzf.vim'
-
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-Plug 'airblade/vim-gitgutter'
-
-Plug 'tpope/vim-surround'
-
-Plug 'jonasbak/apprentice'
-
-call plug#end()
-
 source ~/.vimrc
-
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git"'
 ]],
 false)
+
+require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
+
+  use 'junegunn/fzf.vim'
+
+  use 'neovim/nvim-lspconfig'
+
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
+  use 'airblade/vim-gitgutter'
+
+  use 'tpope/vim-surround'
+
+  use 'jonasbak/apprentice'
+end)
 
 -- LSP
 
@@ -93,9 +92,9 @@ false)
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
-  -- highlight = {
-  --   enable = true
-  -- },
+  highlight = {
+    enable = true
+  },
   -- indent = {
   --   enable = true
   -- }
