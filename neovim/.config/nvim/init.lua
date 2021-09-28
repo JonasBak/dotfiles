@@ -8,6 +8,7 @@ false)
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
+  use 'junegunn/fzf'
   use 'junegunn/fzf.vim'
 
   use 'neovim/nvim-lspconfig'
@@ -15,6 +16,8 @@ require('packer').startup(function()
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
   use 'airblade/vim-gitgutter'
+
+  use 'folke/which-key.nvim'
 
   use 'tpope/vim-surround'
 
@@ -44,22 +47,6 @@ lspconfig.rls.setup{ on_attach = on_attach }
 lspconfig.pyright.setup{ on_attach = on_attach }
 lspconfig.tsserver.setup{ on_attach = on_attach }
 
-local map = vim.api.nvim_set_keymap
-local options = {noremap = true, silent = true}
-
-map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<cr>', options)
-map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', options)
-map('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>', options)
-map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>', options)
-map('n', '<leader>s', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', options)
-map('n', '<leader>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', options)
-map('n', '<leader>l', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', options)
-
-map('n', '<leader>1', '<cmd>Files<cr>', options)
-map('n', '<leader>2', '<cmd>Rg<cr>', options)
-map('n', '<leader>3', ':Rg <c-r><c-w><cr>', options)
-map('n', '<leader>4', '<cmd>GFiles?<cr>', options)
-
 vim.cmd 'silent! colorscheme apprentice'
 
 vim.api.nvim_exec(
@@ -68,22 +55,18 @@ sign define LspDiagnosticsSignError text=█ texthl=LspDiagnosticsSignError line
 sign define LspDiagnosticsSignWarning text=█ texthl=LspDiagnosticsSignWarning linehl= numhl=
 sign define LspDiagnosticsSignInformation text=█ texthl=LspDiagnosticsSignInformation linehl= numhl=
 sign define LspDiagnosticsSignHint text=█ texthl=LspDiagnosticsSignHint linehl= numhl=
-
 highlight LspDiagnosticsFloatingError ctermfg=1
 highlight LspDiagnosticsFloatingWarning ctermfg=3
 highlight LspDiagnosticsFloatingInformation ctermfg=15
 highlight LspDiagnosticsFloatingHint ctermfg=15
-
 highlight LspDiagnosticsVirtualTextError ctermfg=1
 highlight LspDiagnosticsVirtualTextWarning ctermfg=8
 highlight LspDiagnosticsVirtualTextInformation ctermfg=8
 highlight LspDiagnosticsVirtualTextHint ctermfg=8
-
 highlight LspDiagnosticsSignError ctermfg=1
 highlight LspDiagnosticsSignWarning ctermfg=8
 highlight LspDiagnosticsSignInformation ctermfg=8
 highlight LspDiagnosticsSignHint ctermfg=8
-
 highlight LspDiagnosticsUnderlineError ctermfg=1
 ]],
 false)
@@ -95,9 +78,9 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true
   },
-  -- indent = {
-  --   enable = true
-  -- }
+  indent = {
+    enable = true
+  }
 }
 
 vim.api.nvim_exec(
@@ -107,3 +90,46 @@ set foldlevelstart=99
 set foldexpr=nvim_treesitter#foldexpr()
 ]],
 false)
+
+--- which-key
+
+local which_key = require "which-key"
+
+local mappings = {
+  ['<leader>'] = {
+    ['1'] = {'<cmd>Files<cr>', 'Search filenames'},
+    ['2'] = {'<cmd>Rg<cr>', 'Search file contents'},
+    ['3'] = {'<cmd>Rg <c-r><c-w><cr>', 'Search word under cursor'},
+    ['4'] = {'<cmd>GFiles?<cr>', 'Search git diff'},
+    ['<leader>'] = {'<cmd>nohlsearch <bar> pclose <bar> lclose <bar> cclose <bar> helpclose<cr>', 'Close stuff'},
+    l = {
+      name = 'LSP mappings',
+      d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition' },
+      f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format file' },
+      h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover' },
+      r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename' },
+      s = { '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', 'Show diagnostic' },
+      n = { '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', 'Go to next diagnostic' },
+      l = { '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', 'Loclist' },
+    },
+    g = {
+      name = 'Git mappings',
+      b = { '<cmd>split <bar> terminal git --no-pager blame %<cr>', 'Git blame' },
+    },
+  },
+  ['<c-w>'] = {
+    t = { '<cmd>tabnew<cr>', 'New tab' },
+    H = { '<cmd>-tabnext<cr>', 'Previous tab' },
+    L = { '<cmd>tabnext<cr>', 'Next tab' },
+  },
+}
+local opts = {
+  mode = "n",
+  prefix = "",
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
+
+which_key.register(mappings, opts)

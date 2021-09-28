@@ -38,12 +38,6 @@ let g:netrw_winsize = 18
 
 let mapleader = " "
 
-nnoremap <leader><leader> :nohlsearch <bar> pclose <bar> lclose <bar> cclose <bar> helpclose<cr>
-
-nnoremap <leader>p :let @p = system("wl-paste -n")<cr>"pp
-nnoremap <leader>P :let @p = system("wl-paste -n")<cr>"pP
-vnoremap <leader>c :w !wl-copy -n<cr>
-
 nnoremap <c-n> :Lexplore<cr>
 
 inoremap (<cr> (<cr>)<c-o>O
