@@ -1,18 +1,19 @@
 #!/bin/bash
-export PASSWORD_STORE_DIR=$HOME/.pwd
-FILE=$(pass git ls-files | grep -E '^(own/email|own/services|own/homelab|own/totp).*\.gpg' | sed 's/.gpg$//g' | wofi -din --width 500 --height 200)
+set -e
+export PASSWORD_STORE_DIR=$HOME/.password-store
+FILE=$(pass git ls-files | grep -E '^(own/email|own/services|own/homelab|own/totp|work/).*\.gpg' | sed 's/.gpg$//g' | fzf)
 if [[ -z "$FILE" ]]; then
   exit 1
 fi
-COMMAND="pass"
+COMMAND="pass -c"
 if [[ "$FILE" =~ ^own/totp/.* ]]; then
-  COMMAND="pass otp"
+  COMMAND="pass otp -c"
 fi
 PASSWORD=$($COMMAND "$FILE")
-if [[ ! $? -eq 0 ]]; then
-  notify-send -t 5000 "Failed to get password"
-  exit 2
-fi
-echo "$PASSWORD" | head -n 1 | wl-copy -on
-notify-send -t 5000 "pass $FILE" "Password copied for 30 seconds"
-sleep 30
+# if [[ ! $? -eq 0 ]]; then
+#   # notify-send -t 5000 "Failed to get password"
+#   exit 2
+# fi
+# echo "$PASSWORD" | head -n 1 | wl-copy -on
+# # notify-send -t 5000 "pass $FILE" "Password copied for 30 seconds"
+# sleep 30

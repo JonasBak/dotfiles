@@ -8,6 +8,7 @@ false)
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
+  use 'junegunn/fzf'
   use 'junegunn/fzf.vim'
 
   use 'neovim/nvim-lspconfig'
@@ -95,9 +96,9 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true
   },
-  -- indent = {
-  --   enable = true
-  -- }
+  indent = {
+    enable = true
+  }
 }
 
 vim.api.nvim_exec(

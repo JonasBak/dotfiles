@@ -17,6 +17,7 @@ PROMPT_COLORS_PYTHON_ENV=green
 PROMPT='$(prompt_current_dir)$(prompt_bg_jobs)$(prompt_return_status)%{$reset_color%}'
 
 RPROMPT_TEMPLATE='$(prompt_git_status)%{$reset_color%}'
+# RPROMPT_TEMPLATE=''
 RPROMPT="$RPROMPT_TEMPLATE"
 
 prompt_current_dir() {

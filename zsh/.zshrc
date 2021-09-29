@@ -39,8 +39,14 @@ export fpath=($DOTFILES/local/zsh_plugins/zsh-completions/src $DOTFILES/local/zs
 
 source ~/.config/zsh/bindings.sh
 source ~/.config/zsh/completions.zsh
-source ~/.config/zsh/prompt.zsh
+# source ~/.config/zsh/prompt.zsh
 
 [[ ! -f /usr/share/fzf/shell/key-bindings.zsh ]] || source /usr/share/fzf/shell/key-bindings.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.serverless/bin:$PATH"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
