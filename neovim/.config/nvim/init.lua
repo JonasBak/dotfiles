@@ -114,7 +114,12 @@ local mappings = {
     },
     g = {
       name = 'Git mappings',
-      b = { '<cmd>split <bar> terminal git --no-pager blame %<cr>', 'Git blame' },
+      b = { '<cmd>split <bar> terminal git --no-pager blame "%"<cr>', 'Git blame' },
+    },
+    f = {
+      name = 'Formatting',
+      p = { '<cmd>silent ! prettier --write "%"<cr>', 'Prettier' },
+      t = { '<cmd>silent ! terraform fmt -write=true "%"<cr>', 'Terraform' },
     },
   },
   ['<c-w>'] = {
