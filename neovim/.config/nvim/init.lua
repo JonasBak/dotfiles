@@ -118,7 +118,7 @@ local mappings = {
       name = 'Git mappings',
       b = { '<cmd>split <bar> terminal git --no-pager blame "%"<cr>', 'Git blame current file' },
       l = { '<cmd>split <bar> terminal git --no-pager log -- "%"<cr>', 'Git log current file' },
-      d = { '<cmd>split <bar> terminal git --no-pager diff "%"<cr>', 'Git diff current file' },
+      d = { '<cmd>call DiffRef("HEAD", expand("%"))<cr>', 'Git diff current file' },
       D = { '<cmd>ShowDiffsCurrentFile<cr>', 'Git diff in diff mode' },
     },
     f = {
@@ -148,20 +148,51 @@ which_key.register(mappings, opts)
 
 vim.api.nvim_exec(
 [[
-function DiffRefFromLog(logref)
-  let ref = split(a:logref)[0]
-  let file = expand('%')
-  exec 'diffsplit ' . ref . ':' . file
-  exec '%! git show ' . ref . ':' . file
+function DiffRef(ref, file)
+  setlocal noreadonly
+  let fileref = a:ref . ':' . a:file
+  exec 'diffsplit ' . fileref
+  exec '%! git show ' . fileref
   lua into_scratch()
+
+  let b:is_git_buffer = 1
+
+  nmap <buffer> <c-n> <cmd>call DiffNewerCommit()<cr>
+  nmap <buffer> <c-p> <cmd>call DiffOlderCommit()<cr>
 endfunction
 
-command! -nargs=1 DiffRefFromLog :call DiffRefFromLog(<q-args>)
+function DiffRefFromLog(logref)
+  let ref = split(a:logref)[0]
+  if exists("b:is_git_buffer")
+    bwipeout %
+  endif
+  let file = expand('%')
+  call DiffRef(ref, file)
+endfunction
+
+function DiffNewerCommit()
+  let bufferName = split(expand('%'), ':')
+  let ref = bufferName[0]
+  bwipeout %
+  let file = expand('%')
+  let newer = system('echo -n "$(git log --format=%h ' . ref . '..HEAD | tail -n 1)"')
+  call DiffRef(newer, file)
+endfunction
+
+function DiffOlderCommit()
+  let bufferName = split(expand('%'), ':')
+  let ref = bufferName[0]
+  bwipeout %
+  let file = expand('%')
+  let older = system('echo -n "$(git log -n 1 --format=%h ' . ref . '^1)"')
+  call DiffRef(older, file)
+endfunction
 
 function FzfChooseCommit(sink)
   call fzf#run(fzf#wrap({'source': 'git log --abbrev-commit --format=oneline --decorate', 'sink': a:sink}))
 endfunction
 
+command! -nargs=1 DiffRefFromLog :call DiffRefFromLog(<q-args>)
 command! ShowDiffsCurrentFile :call FzfChooseCommit('DiffRefFromLog')
 ]],
 false)
@@ -172,7 +203,7 @@ function into_scratch()
     setlocal buftype=nofile
     setlocal bufhidden=delete
     setlocal readonly
-    setlocal nomodifiable
+    " setlocal nomodifiable
   ]],
   false)
 end
