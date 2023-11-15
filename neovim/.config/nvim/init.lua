@@ -1,37 +1,48 @@
-vim.api.nvim_exec(
-[[
-source ~/.vimrc
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git"'
-]],
-false)
+vim.cmd("source ~/.vimrc")
 
-require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
+local plugins = {
+  { 'nvim-telescope/telescope.nvim', dependencies = { "nvim-lua/plenary.nvim" } },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  { 'nvim-telescope/telescope-ui-select.nvim' },
+  { 'neovim/nvim-lspconfig' },
+  { 'nvim-treesitter/nvim-treesitter' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'airblade/vim-gitgutter' },
+  { 'folke/which-key.nvim' },
+  { 'tpope/vim-surround' },
+  { 'jonasbak/apprentice' },
+}
 
-  use 'neovim/nvim-lspconfig'
+local lazy_opts = {
+}
 
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+require("lazy").setup(plugins, lazy_opts)
 
-  use 'airblade/vim-gitgutter'
-
-  use 'folke/which-key.nvim'
-
-  use 'tpope/vim-surround'
-
-  use 'jonasbak/apprentice'
-end)
+require "git"
+require "undo"
 
 -- LSP
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
- vim.lsp.diagnostic.on_publish_diagnostics, {
-   virtual_text = {
-     severity_limit = "Error",
-   },
- }
+vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    severity_limit = "Error",
+  },
+}
 )
 
 local on_attach = function(client, bufnr)
@@ -43,89 +54,189 @@ end
 local lspconfig = require'lspconfig'
 
 lspconfig.gopls.setup{ on_attach = on_attach }
-lspconfig.rls.setup{ on_attach = on_attach }
+lspconfig.rust_analyzer.setup{ on_attach = on_attach }
 lspconfig.pyright.setup{ on_attach = on_attach }
 lspconfig.tsserver.setup{ on_attach = on_attach }
+lspconfig.terraformls.setup{ on_attach = on_attach }
 
 vim.cmd 'silent! colorscheme apprentice'
-
-vim.api.nvim_exec(
-[[
-sign define LspDiagnosticsSignError text=█ texthl=LspDiagnosticsSignError linehl= numhl=
-sign define LspDiagnosticsSignWarning text=█ texthl=LspDiagnosticsSignWarning linehl= numhl=
-sign define LspDiagnosticsSignInformation text=█ texthl=LspDiagnosticsSignInformation linehl= numhl=
-sign define LspDiagnosticsSignHint text=█ texthl=LspDiagnosticsSignHint linehl= numhl=
-highlight LspDiagnosticsFloatingError ctermfg=1
-highlight LspDiagnosticsFloatingWarning ctermfg=3
-highlight LspDiagnosticsFloatingInformation ctermfg=15
-highlight LspDiagnosticsFloatingHint ctermfg=15
-highlight LspDiagnosticsVirtualTextError ctermfg=1
-highlight LspDiagnosticsVirtualTextWarning ctermfg=8
-highlight LspDiagnosticsVirtualTextInformation ctermfg=8
-highlight LspDiagnosticsVirtualTextHint ctermfg=8
-highlight LspDiagnosticsSignError ctermfg=1
-highlight LspDiagnosticsSignWarning ctermfg=8
-highlight LspDiagnosticsSignInformation ctermfg=8
-highlight LspDiagnosticsSignHint ctermfg=8
-highlight LspDiagnosticsUnderlineError ctermfg=1
-]],
-false)
 
 -- Treesitter
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {
+    "c",
+    "c_sharp",
+    "go",
+    "hcl",
+    "java",
+    "javascript",
+    "json",
+    "lua",
+    "python",
+    "rust",
+    "terraform",
+    "toml",
+    "typescript",
+    "yaml",
+    "zig",
+  },
   highlight = {
     enable = true
   },
-  -- indent = {
-  --   enable = true
-  -- }
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["as"] = { query = "@scope", query_group = "locals" },
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+  },
 }
 
-vim.api.nvim_exec(
-[[
-set foldmethod=expr
-set foldlevelstart=99
-set foldexpr=nvim_treesitter#foldexpr()
-]],
-false)
+require'treesitter-context'.setup{
+  max_lines = 1,
+  multiline_threshold = 1,
+  trim_scope = 'inner',
+  mode = 'cursor',
+}
 
---- which-key
+vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Comment" })
+vim.api.nvim_set_hl(0, "TreesitterContextBottom", { link = "Comment" })
+vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "Comment" })
+
+vim.o.foldmethod = 'expr'
+vim.o.foldlevelstart = 99
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- telescope
+
+local telescope_actions = require('telescope.actions')
+local telescope_config = require("telescope.config")
+local telescope = require('telescope')
+
+local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
+table.insert(vimgrep_arguments, "--hidden")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+
+telescope.setup{
+  defaults = {
+    vimgrep_arguments = vimgrep_arguments,
+    mappings = {
+      i = {
+        ["<esc>"] = telescope_actions.close,
+        ["<c-k>"] = telescope_actions.move_selection_previous,
+        ["<c-j>"] = telescope_actions.move_selection_next,
+        ["<c-a>"] = telescope_actions.select_all,
+        ["<c-f>"] = telescope_actions.to_fuzzy_refine,
+        ["<c-v>"] = telescope_actions.smart_send_to_qflist,
+        ["<c-s>"] = telescope_actions.select_horizontal,
+        ["<c-t>"] = telescope_actions.select_tab,
+      },
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+    },
+    live_grep = {
+      find_command = { "rg", "--hidden", "--glob", "!**/.git/*" },
+    },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {},
+    },
+  },
+}
+
+-- telescope.load_extension('fzf') -- conflicts with undo.lua
+telescope.load_extension("ui-select")
+
+-- which-key
 
 local which_key = require "which-key"
 
-local mappings = {
+local mappings_n = {
   ['<leader>'] = {
-    ['1'] = {'<cmd>Files<cr>', 'Search filenames'},
-    ['2'] = {'<cmd>Rg<cr>', 'Search file contents'},
-    ['3'] = {'<cmd>Rg <c-r><c-w><cr>', 'Search word under cursor'},
-    ['4'] = {'<cmd>GFiles?<cr>', 'Search git diff'},
-    ['<leader>'] = {'<cmd>nohlsearch <bar> pclose <bar> lclose <bar> cclose <bar> helpclose<cr>', 'Close stuff'},
+    ['1'] = {'<cmd>lua require"telescope.builtin".find_files(telescope_otps_cwd_git_root())<cr>', 'Search filenames'},
+    ['!'] = {'<cmd>lua require"telescope.builtin".find_files({ cwd = vim.fn.expand("%:p:h") })<cr>', 'Search filenames relative to current file'},
+    ['2'] = {'<cmd>lua require"telescope.builtin".live_grep(telescope_otps_cwd_git_root())<cr>', 'Search file contents'},
+    ['"'] = {'<cmd>lua telescope_grep_qflist_or_open_files()<cr>', 'Search file contents'},
+    ['3'] = {'<cmd>lua require"telescope.builtin".grep_string()<cr>', 'Search word under cursor'},
+    ['4'] = {'<cmd>lua require"telescope.builtin".git_status()<cr>', 'Search git status files'},
+    ['<leader>'] = {'<cmd>nohlsearch <bar> pclose <bar> lclose <bar> cclose <bar> helpclose <bar> cexpr []<cr>', 'Close stuff'},
+    r = {'<cmd>lua require"telescope.builtin".resume()<cr>', 'Resume telescope search'},
+    t = {
+      name = 'Telescope/Treesitter',
+
+      B = { '<cmd>lua require"telescope.builtin".builtin()<cr>', 'Builtin pickers' },
+      b = { '<cmd>lua require"telescope.builtin".buffers()<cr>', 'Buffers' },
+      j = { '<cmd>lua require"telescope.builtin".jumplist()<cr>', 'Jumplist' },
+      q = { '<cmd>lua require"telescope.builtin".quickfix()<cr>', 'Quickfix' },
+      s = { '<cmd>lua require"telescope.builtin".spell_suggest()<cr>', 'Spell suggest' },
+
+      t = { '<cmd>lua vim.treesitter.inspect_tree()<cr>', 'Syntax tree' }
+    },
+    n = { '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Go to next diagnostic' },
+    p = { '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Go to previous diagnostic' },
+    c = { '<cmd>lua require"treesitter-context".go_to_context()<cr>', 'Go to context' },
     l = {
-      name = 'LSP mappings',
-      d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition' },
-      f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format file' },
-      h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover' },
-      r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename' },
-      R = { '<cmd>lua vim.lsp.buf.references()<cr>', 'References' },
-      s = { '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', 'Show diagnostic' },
-      n = { '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', 'Go to next diagnostic' },
-      l = { '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', 'Loclist' },
+      name = 'LSP',
+      D = { '<cmd>lua require"telescope.builtin".diagnostics()<cr>', 'Diagnostics' },
+      I = { '<cmd>lua require"telescope.builtin".lsp_incoming_calls()<cr>', 'Incoming calls' },
+      O = { '<cmd>lua require"telescope.builtin".lsp_outgoing_calls()<cr>', 'Outgoing calls' },
+      R = { '<cmd>lua require"telescope.builtin".lsp_references()<cr>', 'References' },
       a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code action' },
+      d = { '<cmd>lua require"telescope.builtin".lsp_definitions()<cr>', 'Definitions' },
+      f = { '<cmd>lua vim.lsp.buf.format { async = true }<cr>', 'Format file' },
+      h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover' },
+      i = { '<cmd>lua require"telescope.builtin".lsp_implementations()<cr>', 'Implementations' },
+      r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename' },
+      s = { '<cmd>lua vim.diagnostic.open_float()<cr>', 'Show diagnostic' },
+      t = { '<cmd>lua require"telescope.builtin".lsp_type_definitions()<cr>', 'Type definitions' },
     },
     g = {
-      name = 'Git mappings',
-      b = { '<cmd>split <bar> terminal git --no-pager blame "%"<cr>', 'Git blame current file' },
-      l = { '<cmd>split <bar> terminal git --no-pager log -- "%"<cr>', 'Git log current file' },
-      d = { '<cmd>call DiffRef("HEAD", expand("%"))<cr>', 'Git diff current file' },
-      D = { '<cmd>ShowDiffsCurrentFile<cr>', 'Git diff in diff mode' },
+      name = 'Git',
+      b = { '<cmd>lua git_blame_file()<cr>', 'Git blame current file' },
+      d = { '<cmd>lua git_diff_file()<cr>', 'Git diff current file' },
+      c = { '<cmd>Telescope git_bcommits<cr>', 'Git diff commit' },
     },
     f = {
       name = 'Formatting',
       p = { '<cmd>silent ! prettier --write "%"<cr>', 'Prettier' },
       t = { '<cmd>silent ! terraform fmt -write=true "%"<cr>', 'Terraform' },
     },
+    u = { '<cmd>lua telescope_undotree()<cr>', 'Undotree' },
   },
   ['<c-w>'] = {
     t = { '<cmd>tabnew<cr>', 'New tab' },
@@ -133,7 +244,8 @@ local mappings = {
     L = { '<cmd>tabnext<cr>', 'Next tab' },
   },
 }
-local opts = {
+
+local opts_n = {
   mode = "n",
   prefix = "",
   buffer = nil,
@@ -142,68 +254,24 @@ local opts = {
   nowait = false,
 }
 
-which_key.register(mappings, opts)
+which_key.register(mappings_n, opts_n)
 
--- Functions and stuff
+local mappings_v = {
+  ['<leader>'] = {
+    l = {
+      name = 'LSP',
+      a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code action' },
+    },
+  },
+}
 
-vim.api.nvim_exec(
-[[
-function DiffRef(ref, file)
-  setlocal noreadonly
-  let fileref = a:ref . ':' . a:file
-  exec 'diffsplit ' . fileref
-  exec '%! git show ' . fileref
-  lua into_scratch()
+local opts_v = {
+  mode = "v",
+  prefix = "",
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
 
-  let b:is_git_buffer = 1
-
-  nmap <buffer> <c-n> <cmd>call DiffNewerCommit()<cr>
-  nmap <buffer> <c-p> <cmd>call DiffOlderCommit()<cr>
-endfunction
-
-function DiffRefFromLog(logref)
-  let ref = split(a:logref)[0]
-  if exists("b:is_git_buffer")
-    bwipeout %
-  endif
-  let file = expand('%')
-  call DiffRef(ref, file)
-endfunction
-
-function DiffNewerCommit()
-  let bufferName = split(expand('%'), ':')
-  let ref = bufferName[0]
-  bwipeout %
-  let file = expand('%')
-  let newer = system('echo -n "$(git log --format=%h ' . ref . '..HEAD | tail -n 1)"')
-  call DiffRef(newer, file)
-endfunction
-
-function DiffOlderCommit()
-  let bufferName = split(expand('%'), ':')
-  let ref = bufferName[0]
-  bwipeout %
-  let file = expand('%')
-  let older = system('echo -n "$(git log -n 1 --format=%h ' . ref . '^1)"')
-  call DiffRef(older, file)
-endfunction
-
-function FzfChooseCommit(sink)
-  call fzf#run(fzf#wrap({'source': 'git log --abbrev-commit --format=oneline --decorate', 'sink': a:sink}))
-endfunction
-
-command! -nargs=1 DiffRefFromLog :call DiffRefFromLog(<q-args>)
-command! ShowDiffsCurrentFile :call FzfChooseCommit('DiffRefFromLog')
-]],
-false)
-
-function into_scratch()
-  vim.api.nvim_exec(
-  [[
-    setlocal buftype=nofile
-    setlocal bufhidden=delete
-    setlocal readonly
-    " setlocal nomodifiable
-  ]],
-  false)
-end
+which_key.register(mappings_v, opts_v)

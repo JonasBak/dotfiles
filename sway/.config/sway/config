@@ -33,7 +33,7 @@ set $bright-white #ffffff
 
 set $tr-blue #517eacaa
 
-set $menu 'wofi --show drun -nIi'
+set $menu 'ulauncher-toggle'
 
 set $term alacritty
 
@@ -62,6 +62,7 @@ for_window [app_id="firefox-wayland"] inhibit_idle fullscreen
 #
 input * xkb_layout "no"
 input * xkb_options "caps:escape"
+input * natural_scroll enabled
 
 #
 # Key bindings
@@ -104,8 +105,8 @@ bindsym $mod+Shift+Right move right
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
-bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+bindsym XF86MonBrightnessUp exec light -A 1 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+bindsym XF86MonBrightnessDown exec light -U 1 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
@@ -203,7 +204,7 @@ font InconsolataLGC Nerd Font Mono Medium 11
 
 default_border none
 
-gaps inner 20
+gaps inner 10
 
 #
 # Other
@@ -239,7 +240,9 @@ exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
 exec lxpolkit
 
-exec wlsunset
+# exec wlsunset
+
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 include ~/.config/sway/config.d/*
 
