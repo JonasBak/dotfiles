@@ -1,5 +1,9 @@
 local telescope_builtin = require "telescope.builtin"
 
+function dbg(v)
+  print(vim.inspect(v))
+end
+
 function buf_to_scratch()
   vim.opt_local.buftype = "nofile"
   vim.opt_local.bufhidden = "delete"

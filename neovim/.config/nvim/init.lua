@@ -38,11 +38,11 @@ require "undo"
 -- LSP
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = {
-    severity_limit = "Error",
-  },
-}
+ vim.lsp.diagnostic.on_publish_diagnostics, {
+   virtual_text = {
+     severity_limit = "Error",
+   },
+ }
 )
 
 local on_attach = function(client, bufnr)
@@ -172,6 +172,8 @@ telescope.setup{
   extensions = {
     fzf = {
       fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
     },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {},
@@ -179,7 +181,7 @@ telescope.setup{
   },
 }
 
--- telescope.load_extension('fzf') -- conflicts with undo.lua
+telescope.load_extension('fzf')
 telescope.load_extension("ui-select")
 
 -- which-key
@@ -228,8 +230,10 @@ local mappings_n = {
     g = {
       name = 'Git',
       b = { '<cmd>lua git_blame_file()<cr>', 'Git blame current file' },
-      d = { '<cmd>lua git_diff_file()<cr>', 'Git diff current file' },
-      c = { '<cmd>Telescope git_bcommits<cr>', 'Git diff commit' },
+      d = { '<cmd>lua git_diff_file()<cr>', 'Diff current file with HEAD' },
+      c = { '<cmd>Telescope git_bcommits<cr>', 'Commits for current file' },
+      r = { '<cmd>lua telescope_git_diff_ref()<cr>', 'Diff current file with ref' },
+      R = { '<cmd>lua telescope_git_diff_reflog()<cr>', 'Diff current file with reflog' },
     },
     f = {
       name = 'Formatting',
