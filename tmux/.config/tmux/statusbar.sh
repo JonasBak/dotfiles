@@ -1,2 +1,9 @@
 #!/bin/bash
-echo "$(~/.config/tmux/pass.sh)$(~/.config/tmux/docker.sh)"
+
+STATUS=""
+
+if [[ -f ~/.needs_backup ]]; then
+  STATUS="backup needed"
+fi
+
+echo "$STATUS"

@@ -1,0 +1,10 @@
+
+# <type>[(optional scope)]: <description>
+# types:
+# - fix
+# - feat
+# - chore
+# - docs
+# - ci
+# - refactor
+# - BREAKING CHANGE

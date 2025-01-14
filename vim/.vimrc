@@ -43,3 +43,5 @@ nnoremap <c-n> :Lexplore<cr>
 inoremap (<cr> (<cr>)<c-o>O
 inoremap [<cr> [<cr>]<c-o>O
 inoremap {<cr> {<cr>}<c-o>O
+
+au BufReadPost *.tofu set ft=terraform

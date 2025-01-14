@@ -31,9 +31,8 @@ vim: utils
 
 nvim: vim
 	$(INSTALL_COMMAND) neovim
-	if [[ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]]; then git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim; fi
 	stow neovim
-	DOTFILES=$(PWD) nvim +PlugInstall +qall
+	DOTFILES=$(PWD) nvim --headless "+Lazy! sync" +qa
 
 zsh: utils local
 	$(INSTALL_COMMAND) zsh
