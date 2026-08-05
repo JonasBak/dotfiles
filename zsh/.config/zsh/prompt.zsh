@@ -13,8 +13,9 @@ PROMPT_COLORS_GIT_STATUS_STAGED=green
 PROMPT_COLORS_GIT_STATUS_UNSTAGED=yellow
 PROMPT_COLORS_BG_JOBS=yellow
 PROMPT_COLORS_PYTHON_ENV=green
+PROMPT_COLORS_WARN_NOTE=red
 
-PROMPT='$(prompt_current_dir)$(prompt_bg_jobs)$(prompt_return_status)%{$reset_color%}'
+PROMPT='$(prompt_current_dir)$(prompt_bg_jobs)$(prompt_warn_note)$(prompt_return_status)%{$reset_color%}'
 
 RPROMPT_TEMPLATE='$(prompt_git_status)%{$reset_color%}'
 # RPROMPT_TEMPLATE=''
@@ -55,6 +56,13 @@ prompt_git_status() {
 prompt_bg_jobs() {
   bg_status="%{$fg_no_bold[$PROMPT_COLORS_BG_JOBS]%}%(1j.↓%j .)"
   echo -n $bg_status
+}
+
+prompt_warn_note() {
+  if [[ -n "$PROMPT_WARN_NOTE" ]]; then
+    bg_status="%{$fg_no_bold[$PROMPT_COLORS_WARN_NOTE]%}($PROMPT_WARN_NOTE)"
+    echo -n $bg_status
+  fi
 }
 
 function zle-line-init zle-keymap-select {

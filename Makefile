@@ -46,8 +46,8 @@ zsh: utils local
 		kubectl completion zsh > ./local/zsh_completions/_kubectl; fi
 	if type docker > /dev/null 2>&1 && [[ ! -f ./local/zsh_completions/_docker ]]; then \
 		curl -fLo ./local/zsh_completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker; fi
-	if [[ "$(expr "$(SHELL)" : '.*/\(.*\)')" != "zsh" ]]; then $(INSTALL_COMMAND) util-linux-user; \
-		chsh -s /bin/zsh; fi
+	# if [[ "$(expr "$(SHELL)" : '.*/\(.*\)')" != "zsh" ]]; then $(INSTALL_COMMAND) util-linux-user; \
+	# 	chsh -s /bin/zsh; fi
 
 alacritty: utils
 	$(INSTALL_COMMAND) alacritty

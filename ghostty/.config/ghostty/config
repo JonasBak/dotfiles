@@ -1,0 +1,11 @@
+background = 262626
+
+font-family = Inconsolata Nerd Font Mono
+
+font-size = 16
+
+title = " "
+
+theme = apprentice
+
+font-feature = -calt, -liga, -dlig

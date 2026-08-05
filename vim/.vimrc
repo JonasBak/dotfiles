@@ -45,3 +45,6 @@ inoremap [<cr> [<cr>]<c-o>O
 inoremap {<cr> {<cr>}<c-o>O
 
 au BufReadPost *.tofu set ft=terraform
+au BufReadPost *.yaml.gotmpl set ft=yaml
+
+set nomodeline

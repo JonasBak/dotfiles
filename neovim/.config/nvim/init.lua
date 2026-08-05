@@ -58,13 +58,15 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
-local lspconfig = require'lspconfig'
-
-lspconfig.gopls.setup{ on_attach = on_attach }
-lspconfig.rust_analyzer.setup{ on_attach = on_attach }
-lspconfig.pyright.setup{ on_attach = on_attach }
--- lspconfig.tsserver.setup{ on_attach = on_attach }
-lspconfig.terraformls.setup{ on_attach = on_attach }
+vim.lsp.config('gopls', { on_attach = on_attach })
+vim.lsp.enable('gopls')
+vim.lsp.config('rust_analyzer', { on_attach = on_attach })
+vim.lsp.enable('rust_analyzer')
+vim.lsp.config('pyright', { on_attach = on_attach })
+vim.lsp.enable('pyright')
+vim.lsp.config('terraformls', { on_attach = on_attach })
+vim.lsp.enable('terraformls')
+-- vim.lsp.config('tsserver', { on_attach = on_attach })
 
 vim.cmd 'silent! colorscheme apprentice'
 
@@ -167,6 +169,7 @@ telescope.setup{
         ["<c-t>"] = telescope_actions.select_tab,
       },
     },
+    file_ignore_patterns = { "vendor" },
   },
   pickers = {
     find_files = {
@@ -252,3 +255,4 @@ local mappings_v = {
 }
 
 which_key.add(mappings_v)
+

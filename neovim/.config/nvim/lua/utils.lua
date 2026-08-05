@@ -28,8 +28,8 @@ function telescope_otps_cwd_git_root()
 		return vim.v.shell_error == 0
 	end
 	local function get_git_root()
-		local dot_git_path = vim.fn.finddir(".git", ".;")
-		return vim.fn.fnamemodify(dot_git_path, ":h")
+		local git_root = vim.fn.system("git rev-parse --show-toplevel")
+		return vim.trim(git_root)
 	end
 
 	local opts = {}
